@@ -1,0 +1,14 @@
+{
+  "@context": {
+    "security": "https://w3id.org/security#"
+  },
+  "hello": "world",
+  "security:proof": {
+    "security:type": "https://models.consensas.com/security#ConsensasRSA2021",
+    "security:proofPurpose": "assertionMethod",
+    "security:created": "2021-01-12T14:35:10.723Z",
+    "security:nonce": "2986892428906096",
+    "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..NBK2Blgr6Qd8DGrBoaoscf1-Lq_aY6TH_UVtmIy2Y7jGeZB_VBwQde7nnlT1CelwPRpOtknXilAGl_3E_g8CoDMYeCxiPvkDAwSbJUdWIFFCyIWhJdeAlMQH6gH8JI-700CWsZeoDQPkEbFuLJTOC7-gnVkjmXAH-sCXSGWqyfpqpFXElXZ9la1tFKoyqHHzEr0lEA2BvYUPFT4ZsExoYhlahSuHejemdDN0OxgqyV2uSMxj7hsxn2f-IEqRrJwU8jGzdlpsEBPFOf1pOilf4HDzQpiuMnnxSLH9Rs6w8LU8R-qQLA_JQjw4mfQggs2ktDnZWczK8vDh5-plKCO7pw",
+    "security:verificationMethod": "https://example.com/i/pat/keys/5"
+  }
+}

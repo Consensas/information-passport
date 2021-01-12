@@ -1,5 +1,5 @@
 /**
- *  lib/sign_test.js
+ *  samples/sign.js
  *
  *  David Janes
  *  Consensas
@@ -8,15 +8,13 @@
 
 "use strict"
 
+const ip = require("..")
 
-/* ---------------- */
 const fs = require("fs")
 const jose = require("node-jose")
 const path = require("path")
 
 const FOLDER = path.join(__dirname, "..", "test", "data")
-
-const sign = require("./sign").sign
 
 const run = async (files) => {
     const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
@@ -27,7 +25,7 @@ const run = async (files) => {
     }
     const verifier = "https://example.com/i/pat/keys/5"
 
-    const signed = await sign(message, private_key, verifier)
+    const signed = await ip.jws.sign(message, private_key, verifier)
     console.log(JSON.stringify(signed, null, 2))
 }
 
