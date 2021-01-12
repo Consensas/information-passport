@@ -3,7 +3,7 @@
  *
  *  David Janes
  *  Consenas.com
- *  2017-08-03
+ *  2021-01-12
  *
  *  Copyright (2013-2021) Consensas
  *
@@ -21,3 +21,7 @@
  */
 
 "use strict"
+
+module.exports = {
+    jws: require("./jws"),
+}
