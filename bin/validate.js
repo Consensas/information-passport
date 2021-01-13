@@ -39,7 +39,10 @@ _.promise()
     .then(fetch.json.get("https://consensas.world/did/did:cns:ABHEZDOYLE?action_type=sign&action_id=signed"))
     .make(async sd => {
         const v = await ip.jws.verify(sd.json, async proof => {
-            const public_pem = await fs.promises.readFile(path.join(__dirname, "..", "test", "data", "public.cer.pem"))
+            const result = await _.promise({})
+                .then(fetch.document.get(proof.verificationMethod))
+
+            const public_pem = result.document
             const public_key = await jose.JWK.asKey(public_pem, 'pem');
 
             return public_key
