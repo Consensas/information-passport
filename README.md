@@ -1,5 +1,5 @@
-# passport-validator
-Information / COVID Passport Validator
+# information-passport 
+Information Passport Open Source Code
 
 ## QR Code Scanner
 

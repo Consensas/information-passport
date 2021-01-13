@@ -12,7 +12,7 @@
 const assert = require("assert")
 const jose = require("node-jose")
 const _util = require("./_util")
-const errors = require("./errors")
+const errors = require("../errors")
 
 /**
  *  To be done:

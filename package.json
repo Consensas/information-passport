@@ -1,24 +1,29 @@
 {
-    "author": "David P. Janes <david@consensas.com>", 
+    "author": "David P. Janes <david@consensas.com>",
     "bugs": {
         "url": "https://github.com/dpjanes/information-passport/issues"
-    }, 
+    },
     "dependencies": {
         "node-jose": "~2.0.0"
-    }, 
-    "description": "Information Passport Open Source Code", 
-    "homepage": "https://github.com/dpjanes/node-iotdb", 
-    "license": "Apache-2.0", 
-    "main": "index.js", 
-    "name": "information-passport", 
-    "private": false, 
+    },
+    "description": "Information Passport Open Source Code",
+    "homepage": "https://github.com/dpjanes/node-iotdb",
+    "license": "Apache-2.0",
+    "main": "index.js",
+    "name": "information-passport",
+    "private": false,
     "repository": {
-        "type": "git", 
+        "type": "git",
         "url": "https://github.com/dpjanes/information-passport"
-    }, 
+    },
     "scripts": {
-        "cover": "nyc --reporter=html mocha --recursive", 
+        "build": "webpack --mode=development",
+        "cover": "nyc --reporter=html mocha --recursive",
         "test": "mocha --recursive --bail"
-    }, 
-    "version": "1.0.1"
+    },
+    "version": "1.0.1",
+    "devDependencies": {
+        "webpack": "^5.13.0",
+        "webpack-cli": "^4.3.1"
+    }
 }

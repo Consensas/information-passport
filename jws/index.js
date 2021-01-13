@@ -24,7 +24,6 @@
 
 module.exports = Object.assign(
     {},
-    require("./errors"),
     require("./sign"),
     require("./verify"),
     {},
