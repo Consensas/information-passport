@@ -9,14 +9,14 @@
 
 "use strict"
 
-const assert = require("assert")
+// const assert = require("assert")
 const jose = require("node-jose")
 const _util = require("./_util")
 
 /**
  */
 const sign = async (d, keys, verification) => {
-    assert.ok(_util.isDictionary(d))
+    // assert.ok(_util.isDictionary(d))
 
     const message = Object.assign({ "@context": null }, d)
     const context = message["@context"]

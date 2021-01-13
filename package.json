@@ -4,10 +4,11 @@
         "url": "https://github.com/dpjanes/information-passport/issues"
     },
     "dependencies": {
-        "node-jose": "~2.0.0"
+        "node-jose": "~2.0.0",
+        "process": "~0.11.10"
     },
     "description": "Information Passport Open Source Code",
-    "homepage": "https://github.com/dpjanes/node-iotdb",
+    "homepage": "https://consenas.com",
     "license": "Apache-2.0",
     "main": "index.js",
     "name": "information-passport",
@@ -17,13 +18,8 @@
         "url": "https://github.com/dpjanes/information-passport"
     },
     "scripts": {
-        "build": "webpack --mode=development",
         "cover": "nyc --reporter=html mocha --recursive",
         "test": "mocha --recursive --bail"
     },
-    "version": "1.0.1",
-    "devDependencies": {
-        "webpack": "^5.13.0",
-        "webpack-cli": "^4.3.1"
-    }
+    "version": "1.0.1"
 }

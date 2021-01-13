@@ -9,7 +9,7 @@
 
 "use strict"
 
-const assert = require("assert")
+// const assert = require("assert")
 const jose = require("node-jose")
 const _util = require("./_util")
 const errors = require("../errors")
@@ -18,7 +18,7 @@ const errors = require("../errors")
  *  To be done:
  */
 const verify = async (d, key_fetcher) => {
-    assert.ok(_util.isDictionary(d))
+    // assert.ok(_util.isDictionary(d))
 
     const message = _util.clone(d)
     const proof = message["security:proof"]
@@ -88,10 +88,10 @@ const verify = async (d, key_fetcher) => {
                 payload: message,
             }
         } else {
-            throw errors.InvalidSignature()
+            throw new errors.InvalidSignature()
         }
     } catch (error) {
-        throw errors.InvalidSignature()
+        throw new errors.InvalidSignature(error)
     }
 
 }

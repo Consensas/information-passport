@@ -8,28 +8,30 @@
 
 "use strict"
 
-const util = require('util');
+/**
+ */
+class InvalidField extends Error {
+    constructor(field) {
+        super(`Invalid field: ${field}`)
+
+        this.field = field
+        this.statusCode = 400
+    }
+}
 
 /**
  */
-exports.InvalidField = function(field) {
-    Error.call(this);
+class InvalidSignature extends Error {
+    constructor(error) {
+        super(`Invalid Signature: ${error?.message || ""}`)
 
-    this.message = `Invalid field: ${field}`
-    this.field = field
-    this.statusCode = 400
+        this.error = error || null
+        this.statusCode = 400
+    }
 }
-
-util.inherits(exports.InvalidField, Error);
 
 /**
+ *  API
  */
-exports.InvalidSignature = function(field) {
-    Error.call(this);
-
-    this.message = `Invalid field: ${field}`
-    this.field = field
-    this.statusCode = 400
-}
-
-util.inherits(exports.InvalidSignature, Error);
+exports.InvalidField = InvalidField
+exports.InvalidSignature = InvalidSignature

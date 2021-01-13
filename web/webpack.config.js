@@ -1,8 +1,8 @@
 module.exports = {
     resolve: {
         fallback: {
-            assert: false,
-            util: false,
+            // assert: false,
+            // util: false,
         }
     },
 }
