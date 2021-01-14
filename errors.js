@@ -31,7 +31,19 @@ class InvalidSignature extends Error {
 }
 
 /**
+ */
+class InvalidChain extends Error {
+    constructor(error) {
+        super(`Invalid Chain: ${error?.message || ""}`)
+
+        this.error = error || null
+        this.statusCode = 400
+    }
+}
+
+/**
  *  API
  */
 exports.InvalidField = InvalidField
 exports.InvalidSignature = InvalidSignature
+exports.InvalidChain = InvalidChain

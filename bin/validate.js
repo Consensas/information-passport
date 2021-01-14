@@ -80,10 +80,7 @@ _.promise()
             const result = await _.promise({})
                 .then(fetch.document.get(proof.verificationMethod))
 
-            const public_pem = result.document
-            const public_key = await jose.JWK.asKey(public_pem, 'pem');
-
-            return public_key
+            return result.document
         })
         console.log(JSON.stringify(v, null, 2))
     })

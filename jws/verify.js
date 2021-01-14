@@ -8,7 +8,7 @@
 
 "use strict"
 
-// const assert = require("assert")
+const forge = require("node-forge")
 const jose = require("node-jose")
 const _util = require("./_util")
 const errors = require("../errors")
@@ -17,6 +17,7 @@ const errors = require("../errors")
  *  To be done:
  */
 const verify = async (d, key_fetcher) => {
+    const ip = require("..")
     // assert.ok(_util.isDictionary(d))
 
     const message = _util.clone(d)
@@ -74,17 +75,35 @@ const verify = async (d, key_fetcher) => {
 
     jws = jws.replace("..", `.${payload}.`)
 
-    // get the key
-    const public_key = await key_fetcher(proof)
+    // get the cert chain - the top is the leaf, the bottom the CA
+    const chain_pem = await key_fetcher(proof)
 
-    // validate
+    const pems = chain_pem
+        .split(/(-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----\n)/s)
+        .filter(part => part.startsWith("---"))
+
+    const keys = []
+    const certs = []
+    for (let pem of pems) {
+        certs.push(await forge.pki.certificateFromPem(pem, "pem"))
+        keys.push(await jose.JWK.asKey(pem, "pem"))
+    }
+
+    // validate the chain
     try {
-        const result = await jose.JWS.createVerify(public_key)
-            .verify(jws)
+        const store = forge.pki.createCaStore([ chain_pem ]);
+    } catch (error) {
+        throw new errors.InvalidChain(error)
+    }
+
+    // validate JWS against public key
+    try {
+        const result = await jose.JWS.createVerify(keys[0]).verify(jws)
         if (!!result) {
             return {
                 proof: proof,
                 payload: message,
+                chain: certs.map(cert => ip.jws.fingerprint(cert)),
             }
         } else {
             throw new errors.InvalidSignature()
@@ -92,7 +111,6 @@ const verify = async (d, key_fetcher) => {
     } catch (error) {
         throw new errors.InvalidSignature(error)
     }
-
 }
 
 /**
