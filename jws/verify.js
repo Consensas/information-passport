@@ -1,10 +1,9 @@
 /**
- *  lib/verify.js
+ *  jws/verify.js
  *
  *  David Janes
  *  Consensas
  *  2021-01-11
- *
  */
 
 "use strict"

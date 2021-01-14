@@ -1,5 +1,5 @@
 /**
- *  lib/_util.js
+ *  jws/_util.js
  *
  *  David Janes
  *  Consensas

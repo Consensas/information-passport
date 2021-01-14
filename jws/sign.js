@@ -1,10 +1,9 @@
 /**
- *  lib/sign.js
+ *  jws/sign.js
  *
  *  David Janes
  *  Consensas
  *  2021-01-11
- *
  */
 
 "use strict"
