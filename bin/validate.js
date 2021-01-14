@@ -36,7 +36,8 @@ _.logger.levels({
 })
 
 _.promise()
-    .then(fetch.json.get("https://consensas.world/did/did:cns:ABHEZDOYLE?action_type=sign&action_id=signed"))
+    // .then(fetch.json.get("https://consensas.world/did/did:cns:ABHEZDOYLE?action_type=sign&action_id=signed"))
+    .then(fetch.json.get(`http://localhost:3003/did/did:cns:ZZMMYDAOBQ?action_type=sign&action_id=signed`))
     .make(async sd => {
         const v = await ip.jws.verify(sd.json, async proof => {
             const result = await _.promise({})
