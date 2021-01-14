@@ -74,8 +74,15 @@ _.logger.levels({
 })
 
 _.promise()
-    .then(fetch.json.get(ad.url))
+    .then(fetch.document.get({
+        url: ad.url,
+        headers: {
+            "accept": "application/vc+ld+json",
+        },
+    }))
     .make(async sd => {
+        sd.json = JSON.parse(sd.document)
+
         const v = await ip.jws.verify(sd.json, async proof => {
             const result = await _.promise({})
                 .then(fetch.document.get(proof.verificationMethod))

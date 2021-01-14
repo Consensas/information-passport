@@ -1,6 +1,10 @@
 # information-passport 
 Information Passport Open Source Code
 
+## Test 
+
+    node bin/validate.js 'https://consensas.world/did/did:cns:ABHEZDOYLE?action_type=sign&action_id=signed'
+
 ## QR Code Scanner
 
 https://blog.minhazav.dev/research/html5-qrcode.html
