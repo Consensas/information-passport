@@ -30,14 +30,51 @@ const ip = require("..")
 const path = require("path")
 const jose = require("node-jose")
 
+const minimist = require("minimist")
+const ad = minimist(process.argv.slice(2), {
+    boolean: [
+        "verbose", "trace", "debug",
+    ],
+    string: [
+        "url",
+        "_",
+    ],
+    alias: {
+    },
+    default: {
+    },
+});
+
+const help = message => {
+    const name = "validate"
+
+    if (message) {
+        console.log(`${name}: ${message}`)
+        console.log()
+    }
+
+    console.log(`\
+usage: ${name} [options] <url>
+`)
+
+    process.exit(message ? 1 : 0)
+}
+
+if (!ad.url && ad._.length) {
+    ad.url = ad._.shift()
+}
+
+if (!ad.url) {
+    help("url argument is required")
+}
+
 _.logger.levels({
-    debug: false,
-    trace: false,
+    debug: ad.debug || ad.verbose,
+    trace: ad.trace || ad.verbose,
 })
 
 _.promise()
-    // .then(fetch.json.get("https://consensas.world/did/did:cns:ABHEZDOYLE?action_type=sign&action_id=signed"))
-    .then(fetch.json.get(`http://localhost:3003/did/did:cns:ZZMMYDAOBQ?action_type=sign&action_id=signed`))
+    .then(fetch.json.get(ad.url))
     .make(async sd => {
         const v = await ip.jws.verify(sd.json, async proof => {
             const result = await _.promise({})
