@@ -69,6 +69,14 @@ const validate = async url => {
             }
         })
 
+        if (verified.chain.length) {
+            const root = verified.chain[verified.chain.length - 1]
+            if (root.O) {
+                dl.append($("<dt class='col-sm-3'>").text("Approved By"))
+                dl.append($("<dd class='col-sm-9'>").text(root.O))
+            }
+        }
+
         $("#verified").show()
     }
     catch (error) {
