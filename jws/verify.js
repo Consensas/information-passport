@@ -103,7 +103,17 @@ const verify = async (d, key_fetcher) => {
             return {
                 proof: proof,
                 payload: message,
-                chain: certs.map(cert => ip.jws.fingerprint(cert)),
+                chain: certs.map(cert => {
+                    const d = {}
+
+                    cert.subject.attributes.forEach(attribute => {
+                        d[attribute.shortName] = attribute.value
+                    })
+
+                    d.fingerprint = ip.jws.fingerprint(cert)
+
+                    return d
+                }),
             }
         } else {
             throw new errors.InvalidSignature()

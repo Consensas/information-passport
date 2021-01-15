@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import ip from "../..";
 import fetch from "node-fetch";
+import $ from "jquery";
 
 // import Html5QrcodeScanner from "../qr/html5-qrcode-scanner.js";
 
