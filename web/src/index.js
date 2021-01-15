@@ -81,7 +81,7 @@ const validate = async url => {
     }
     catch (error) {
         console.log(error)
-        alert("sorry, can't verify: " + url)
+        alert("sorry, can't verify: " + url + ": " + error)
     }
 }
 
