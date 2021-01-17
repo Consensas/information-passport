@@ -30,6 +30,7 @@ const ip = require("../..")
 const tools = require("..")
 
 const path = require("path")
+const process = require("process")
 
 const colors = require("colors")
 const jose = require("node-jose")
@@ -38,7 +39,8 @@ const minimist = require("minimist")
 const ad = minimist(process.argv.slice(2), {
     boolean: [
         "verbose", "trace", "debug",
-        "pretty"
+        "pretty",
+		"clear",
     ],
     string: [
         "url",
@@ -60,6 +62,9 @@ const help = message => {
 
     console.log(`\
 usage: ${name} [options] <url>
+
+--pretty        format the output
+--clear         clear screen when result found
 `)
 
     process.exit(message ? 1 : 0)
@@ -90,6 +95,10 @@ const _pretty = _.promise((self, done) => {
         .then(tools.projects.required)
 
         .make(sd => {
+			if (ad.clear) {
+				console.clear()
+			}
+
             _.d.list(sd.project, "groups", []).forEach(group => {
                 console.log(colors.green(group.name))
                 _.d.list(group, "nodes", []).forEach(node => {
@@ -128,6 +137,11 @@ _.promise()
         },
     }))
     .make(async sd => {
+		if (ad.clear) {
+			console.clear()
+			console.log("checking…")
+		}
+
         sd.json = JSON.parse(sd.document)
 
         sd.verified = await ip.jws.verify(sd.json, async proof => {

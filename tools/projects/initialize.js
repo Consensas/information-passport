@@ -34,12 +34,14 @@ const initialize = _.promise((self, done) => {
         .validate(initialize)
 
         .add({
-            path: path.join("../../data/projects"),
+            path: path.join(__dirname, "../../data/projects"),
             fs$filter_name: name => name.endsWith(".yaml"),
         })
         .then(fs.list)
         .then(fs.all(fs.read.yaml))
-        .add("jsons:projects")
+		.make(sd => {
+			sd.projects = sd.jsons.filter(json => json)
+		})
 
         .end(done, self, initialize)
 })
