@@ -1,0 +1,27 @@
+{
+    "author": "David P. Janes <david@consensas.com>",
+    "bugs": {
+        "url": "https://github.com/dpjanes/tools/issues"
+    }, 
+    "dependencies": {
+        "information-passport": "..",
+        "iotdb-errors": "^3.1.9", 
+        "iotdb-fs": "^2.1.4", 
+        "iotdb-helpers": "^3.5.6"
+    }, 
+    "description": "Tools to work with Information Passports", 
+    "homepage": "https://github.com/Consensas/information-passport", 
+    "license": "Apache-2.0", 
+    "main": "index.js", 
+    "name": "tools", 
+    "private": false, 
+    "repository": {
+        "type": "git", 
+        "url": "https://github.com/Consensas/information-passport"
+    }, 
+    "scripts": {
+        "cover": "nyc --reporter=html mocha --recursive", 
+        "test": "mocha --recursive --bail"
+    }, 
+    "version": "2.1.4"
+}
