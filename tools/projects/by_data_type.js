@@ -1,5 +1,5 @@
 /*
- *  tools/tools/initialize.js
+ *  tools/tools/by_data_type.js
  *
  *  David Janes
  *  Consenas.com
@@ -26,21 +26,25 @@ const _ = require("iotdb-helpers")
 
 /**
  */
-const by_data_type = _.promise((self, done) => {
-    _.promise(self)
-        .validate(by_data_type)
-        .end(done, self, by_data_type)
+const by_data_type = _.promise(self => {
+    _.promise.validate(self, by_data_type)
+
+    self.project = self.projects.find(project => project.data_type === self.data_type) || null
 })
 
 by_data_type.method = "projects.by_data_type"
 by_data_type.description = ``
 by_data_type.requires = {
+    projects: _.is.Array,
+    data_type: _.is.String,
 }
 by_data_type.accepts = {
 }
 by_data_type.produces = {
+    project: _.is.Dictionary,
 }
 by_data_type.params = {
+    data_type: _.p.normal,
 }
 by_data_type.p = _.p(by_data_type)
 

@@ -30,6 +30,8 @@ const ip = require("../..")
 const tools = require("..")
 
 const path = require("path")
+
+const colors = require("colors")
 const jose = require("node-jose")
 
 const minimist = require("minimist")
@@ -85,6 +87,16 @@ const _pretty = _.promise((self, done) => {
         .then(tools.projects.initialize)
         .add("verified/payload/@type:data_type")
         .then(tools.projects.by_data_type)
+        .then(tools.projects.required)
+
+        .make(sd => {
+            _.d.list(sd.project, "groups", []).forEach(group => {
+                console.log(colors.green(group.name))
+                _.d.list(group, "nodes", []).forEach(node => {
+                    console.log(`  ${node.name}: ` + colors.cyan(_.d.first(sd.verified.payload, node.id, "")))
+                })
+            })
+        })
 
         .end(done, self, _pretty)
 })

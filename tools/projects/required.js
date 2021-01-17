@@ -1,5 +1,5 @@
 /*
- *  tools/tools/initialize.js
+ *  tools/tools/required.js
  *
  *  David Janes
  *  Consenas.com
@@ -23,38 +23,26 @@
 "use strict"
 
 const _ = require("iotdb-helpers")
-const fs = require("iotdb-fs")
-
-const path = require("path")
+const errors = require("iotdb-errors")
 
 /**
  */
-const initialize = _.promise((self, done) => {
-    _.promise(self)
-        .validate(initialize)
-
-        .add({
-            path: path.join("../../data/projects"),
-            fs$filter_name: name => name.endsWith(".yaml"),
-        })
-        .then(fs.list)
-        .then(fs.all(fs.read.yaml))
-        .add("jsons:projects")
-
-        .end(done, self, initialize)
+const required = _.promise(self => {
+    if (!self.project) {
+        throw new errors.NotFound("project not found")
+    }
 })
 
-initialize.method = "projects.initialize"
-initialize.description = ``
-initialize.requires = {
+required.method = "projects.required"
+required.description = ``
+required.requires = {
 }
-initialize.accepts = {
+required.accepts = {
 }
-initialize.produces = {
-    projects: _.is.Array,
+required.produces = {
 }
 
 /**
  *  API
  */
-exports.initialize = initialize
+exports.required = required
