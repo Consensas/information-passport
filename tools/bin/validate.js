@@ -96,6 +96,11 @@ const _pretty = _.promise((self, done) => {
                     console.log(`  ${node.name}: ` + colors.cyan(_.d.first(sd.verified.payload, node.id, "")))
                 })
             })
+
+            if (sd.verified.chain.length) {
+                // console.log(colors.green("Verified by"))
+                console.log(`  Issuer: ` + colors.cyan(sd.verified.chain[sd.verified.chain.length - 1].O))
+            }
         })
 
         .end(done, self, _pretty)
