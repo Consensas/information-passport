@@ -1,0 +1,11 @@
+tient/givenName': "First Name",
+    'patient/additionalName': "Middle Name",
+        'patient/familyName': "Last Name",
+            'patient/birthDate': "DOB",
+                'permit-healthCard/identifier-healthCard': "Health Card",
+                    'permit-healthCard/issuedBy': "Issuer",
+                        'permit-healthCard/validUntil': "Expiry",
+                            'primaryPrevention/name': "Treatment",
+                                treatmentDate: "Treatment Date",
+                                }
+

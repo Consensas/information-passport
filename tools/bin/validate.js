@@ -25,7 +25,9 @@
 const _ = require("iotdb-helpers")
 const fs = require("iotdb-fs")
 const fetch = require("iotdb-fetch")
-const ip = require("..")
+
+const ip = require("../..")
+const tools = require("..")
 
 const path = require("path")
 const jose = require("node-jose")
@@ -34,6 +36,7 @@ const minimist = require("minimist")
 const ad = minimist(process.argv.slice(2), {
     boolean: [
         "verbose", "trace", "debug",
+        "pretty"
     ],
     string: [
         "url",
@@ -73,6 +76,33 @@ _.logger.levels({
     trace: ad.trace || ad.verbose,
 })
 
+/**
+ */
+const _pretty = _.promise((self, done) => {
+    _.promise(self)
+        .validate(_pretty)
+
+        .then(tools.projects.initialize)
+        .add("verified/payload/@type:data_type")
+        .then(tools.projects.by_data_type)
+
+        .end(done, self, _pretty)
+})
+
+_pretty.method = "_pretty"
+_pretty.description = ``
+_pretty.requires = {
+    verified: {
+        payload: _.is.Dictionary,
+    },
+}
+_pretty.accepts = {
+}
+_pretty.produces = {
+}
+
+/**
+ */
 _.promise()
     .then(fetch.document.get({
         url: ad.url,
@@ -83,14 +113,18 @@ _.promise()
     .make(async sd => {
         sd.json = JSON.parse(sd.document)
 
-        const v = await ip.jws.verify(sd.json, async proof => {
+        sd.verified = await ip.jws.verify(sd.json, async proof => {
             const result = await _.promise({})
                 .then(fetch.document.get(proof.verificationMethod))
 
             return result.document
         })
-        console.log(JSON.stringify(v, null, 2))
+
+        if (!ad.pretty) {
+            console.log(JSON.stringify(sd.verified, null, 2))
+        }
     })
+    .conditional(ad.pretty, _pretty)
     .except(error => {
         delete error.self
         console.log(error)

@@ -1,0 +1,35 @@
+name: Vaccination Record
+data_type: schema:MedicalRecord-Vaccination
+
+groups:
+- name: Patient
+  nodes:
+  - id: 'schema:patient/givenName'
+    name: "First Name"
+  - id: 'schema:patient/additionalName'
+    name: "Middle Name"
+  - id: 'schema:patient/familyName'
+    name: "Last Name"
+  - id: 'schema:patient/birthDate'
+    name: "DOB"
+
+- name: Health Card
+  nodes:
+  - id: 'schema:permit-healthCard/identifier-healthCard'
+    name: "Health Card"
+  - id: 'schema:permit-healthCard/issuedBy'
+    name: "Issuer"
+  - id: 'schema:permit-healthCard/validUntil'
+    name: "Expiry"
+
+- name: Treatment
+  nodes:
+  - id: 'schema:primaryPrevention/name'
+    name: "Treatment"
+  - id: "schema:treatmentDate"
+    name: "Treatment Date"
+
+- name: Other
+  nodes:
+  - id: 'w3did:id'
+    name: "ID"

@@ -3,7 +3,7 @@ Information Passport Open Source Code
 
 ## Test 
 
-    node bin/validate.js 'https://consensas.world/did/did:cns:ABHEZDOYLE?action_type=sign&action_id=signed'
+    node validate.js 'https://consensas.world/did:cns:ABHEZDOYLE'
 
 ## QR Code Scanner
 
