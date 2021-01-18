@@ -42,8 +42,8 @@ const sign = async (d, keys, verification) => {
         }
     }
 
-    const timestamp = new Date().toISOString()
-    const nonce = `${Math.random()}`.substring(2)
+    const timestamp = _util.make_timestamp()
+    const nonce = _util.make_nonce()
     const canonical = _util.canonicalize(message)
     const plaintext = canonical + "\n" + timestamp + "\n" + nonce
     const signed = await jose.JWS.createSign({

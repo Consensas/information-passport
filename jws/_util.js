@@ -25,6 +25,12 @@ exports.SECURITY_TYPE = "https://models.consensas.com/security#ConsensasRSA2021"
 exports.SECURITY_PROOF_PURPOSE = "assertionMethod"
 
 /**
+ *  Can be shimmed for testing
+ */
+exports.make_timestamp = () => new Date().toISOString()
+exports.make_nonce = () => `${Math.random()}`.substring(2)
+
+/**
  *  Deep Clone
  */
 exports.clone = oo => {
