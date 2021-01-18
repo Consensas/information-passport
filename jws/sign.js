@@ -74,14 +74,10 @@ const sign = async (d, key, verification) => {
         "security:proofPurpose": _util.SECURITY_PROOF_PURPOSE,
         "security:created": timestamp,
         "security:nonce": nonce,
-        "security:jws": signed.replace(/[.].*[.]/, "..")
-        // "security:jws": signed,
+        "security:jws": signed.replace(/[.].*[.]/, ".."),
+        "security:verificationMethod": verification,
     }
     // console.log("PLAINTEXT", plaintext)
-
-    if (verification) {
-        message["security:proof"]["security:verificationMethod"] = verification
-    }
 
     return message
 }
