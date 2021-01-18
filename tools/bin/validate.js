@@ -63,7 +63,8 @@ const help = message => {
     console.log(`\
 usage: ${name} [options] <url>
 
---pretty        format the output
+--raw           don't validate, just show the contents
+--pretty        format the output the best you can
 --clear         clear screen when result found
 `)
 
@@ -143,6 +144,11 @@ _.promise()
 		}
 
         sd.json = JSON.parse(sd.document)
+
+        if (ad.raw) {
+            console.log(JSON.stringify(sd.json, null, 2))
+            return
+        }
 
         sd.verified = await ip.jws.verify(sd.json, async proof => {
             const result = await _.promise({})
