@@ -64,7 +64,7 @@ describe("sign", function() {
             await _util.write_json(signed, "signed/01.in.json")
         }
 
-        const got = _util.read_json("signed/01.in.json")
+        const got = await _util.read_json("signed/01.in.json")
         const want = signed
         assert.deepEqual(got, want)
     })

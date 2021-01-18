@@ -56,8 +56,8 @@ const write_json = async (json, filename) => {
 
 /**
  */
-const read_json = async (json, filename) => {
-    await JSON.parse(fs.promises.writeFile(
+const read_json = async (filename) => {
+    return JSON.parse(await fs.promises.readFile(
         path.join(__dirname, "data", filename), 
         "utf8"
     ))
