@@ -1,15 +1,28 @@
 # information-passport 
 Information Passport Open Source Code
 
-## Test 
+## Contact
 
-    node validate.js 'https://consensas.world/did:cns:ABHEZDOYLE'
+Need this for your organization?
+Contact [Consensas](mailto:ryan@consensas.com).
 
-## QR Code Scanner
+Technical support: 
+[open an issue](https://github.com/Consensas/information-passport/issues).
+Patches more appreciated than "you should do this"
 
-https://blog.minhazav.dev/research/html5-qrcode.html
-https://blog.minhazav.dev/HTML5-QR-Code-scanning-launched-v1.0.1/
+## Components
 
-## You Don't Need JQuery
+* docs: documentation, including standards we are defining
 
-https://blog.garstasio.com/you-dont-need-jquery/ajax/
+* jws: the core signing and verification algorithms.
+
+* web: a sample web interface that will scan and verify
+  Information Passport QR codes or take QR code entry
+
+* tools: tools for working with IPs. Includes command line
+  verification and pretty printing code, interface for 
+  barcode scanner on Raspberry Pi (or likely anywhere).
+
+* test: test code
+
+
