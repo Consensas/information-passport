@@ -1,10 +1,10 @@
 # A schema.org description of a Drug like Moderna
 
-This is a straight instantiation of `[schema:Drug](https://schema.org/Drug)`, 
+This is a straight instantiation of [`schema:Drug`](https://schema.org/Drug), 
 using CDC terminology.
 
 ## Notes
-CVX and MVX describe using [CDC terminology](https://www.cdc.gov/vaccines/programs/iis/downloads/business-rules.pdf)
+CVX and MVX described using [CDC terminology](https://www.cdc.gov/vaccines/programs/iis/downloads/business-rules.pdf)
 
 * CVX (Vaccine Administered) - a numeric string, which identifies the type of vaccine product used.
 * MVX (Manufactured) - an alphabetic string that identifies the manufacturer of that vaccine.  CVX + MVX: Taken together, the immunization can be resolved to a trade name (the proprietary name of the product)
