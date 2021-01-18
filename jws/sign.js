@@ -26,12 +26,18 @@ const jose = require("node-jose")
 const _util = require("./_util")
 
 /**
+ *  Digitally sign a message using the "ConsensasRSA2021" method.
+ *
+ *  d: JSON-like, the message to sign
+ *  key: a node-jose key or a PEM string or buffer
+ *  verification: a string, but really a URL to find the public key
  */
 const sign = async (d, key, verification) => {
     if (_util.isString(key) || _util.isBuffer(key)) {
         key = await jose.JWK.asKey(key, "pem")
     }
 
+    // build @context
     const message = Object.assign({ "@context": null }, d)
     const context = message["@context"]
     if (_util.isString(context)) {
@@ -57,10 +63,22 @@ const sign = async (d, key, verification) => {
         }
     }
 
+    // build the pre-signature proof
     const timestamp = _util.make_timestamp()
     const nonce = _util.make_nonce()
-    const canonical = _util.canonicalize(message)
-    const plaintext = canonical + "\n" + timestamp + "\n" + nonce
+    const canonical_message = _util.canonicalize(message)
+
+    const proof = {
+        "security:type": _util.SECURITY_TYPE,
+        "security:proofPurpose": _util.SECURITY_PROOF_PURPOSE,
+        "security:created": timestamp,
+        "security:nonce": nonce,
+        "security:verificationMethod": verification,
+    }
+    const canonical_proof = _util.canonicalize(proof)
+
+    // build the signature
+    const plaintext = canonical_message + "\n" + canonical_proof
     const signed = await jose.JWS.createSign({
         format: "compact",
         alg: 'RS256',
@@ -68,16 +86,9 @@ const sign = async (d, key, verification) => {
         .update(plaintext, "utf8")
         .final()
 
-    // https://tools.ietf.org/html/rfc7797
-    message["security:proof"] = {
-        "security:type": _util.SECURITY_TYPE,
-        "security:proofPurpose": _util.SECURITY_PROOF_PURPOSE,
-        "security:created": timestamp,
-        "security:nonce": nonce,
-        "security:jws": signed.replace(/[.].*[.]/, ".."),
-        "security:verificationMethod": verification,
-    }
-    // console.log("PLAINTEXT", plaintext)
+    // attach the signature and proof
+    proof["security:jws"] = signed.replace(/[.].*[.]/, "..")
+    message["security:proof"] = proof
 
     return message
 }

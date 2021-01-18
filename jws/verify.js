@@ -4,6 +4,20 @@
  *  David Janes
  *  Consensas
  *  2021-01-11
+ *
+ *  Copyright (2013-2021) Consensas
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 "use strict"
@@ -14,7 +28,20 @@ const _util = require("./_util")
 const errors = require("../errors")
 
 /**
- *  To be done:
+ *  This always assumes that the proof is 
+ *  under "security:proof" - this probably is not 
+ *  a requirement if you're writing a JSON-LD verifier.
+ *
+ *  Within the proof we allow e.g. "security:type"
+ *  or "type", noting that the signature is based what
+ *  what originally used and not some "deeper meaning"
+ *
+ *  The return value has:
+ *  {
+ *      payload - the original message (with @context)
+ *      chain - the X.509 chain, leaf to root
+ *      proof - the simplified (no security: proof)
+ *  }
  */
 const verify = async (d, key_fetcher) => {
     const ip = require("..")
@@ -22,11 +49,14 @@ const verify = async (d, key_fetcher) => {
 
     const message = _util.clone(d)
     const proof = message["security:proof"]
+    console.log(message)
     if (!_util.isDictionary(proof)) {
         throw new errors.InvalidField("security:proof")
     }
     delete message["security:proof"]
 
+    // we simplify proof for JS programming
+    const proof_original = Object.assign({}, proof)
     Object.keys(proof).forEach(key => {
         if (!key.startsWith("security:")) {
             return
@@ -69,8 +99,13 @@ const verify = async (d, key_fetcher) => {
     }
 
     // recreate the detatched payload
-    const canonical = _util.canonicalize(message)
-    const plaintext = canonical + "\n" + proof.created + "\n" + proof.nonce
+    const canonical_message = _util.canonicalize(message)
+
+    delete proof_original["security:jws"]
+    delete proof_original["jws"]
+    const canonical_proof = _util.canonicalize(proof_original)
+
+    const plaintext = canonical_message + "\n" + canonical_proof
     const payload = jose.util.base64url.encode(plaintext, "utf8");
 
     jws = jws.replace("..", `.${payload}.`)
