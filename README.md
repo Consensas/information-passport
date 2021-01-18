@@ -14,7 +14,8 @@ Patches more appreciated than "you should do this"
 
 * docs: documentation, including standards we are defining
 
-* jws: the core signing and verification algorithms.
+* jws: the core signing and verification algorithms -
+  this is what NPMing this package gets you
 
 * web: a sample web interface that will scan and verify
   Information Passport QR codes or take QR code entry
@@ -23,6 +24,7 @@ Patches more appreciated than "you should do this"
   verification and pretty printing code, interface for 
   barcode scanner on Raspberry Pi (or likely anywhere).
 
-* test: test code
+  if you just want to try it, this is the place to go
 
+* test: test code
 
