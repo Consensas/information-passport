@@ -1,5 +1,5 @@
 /*
- *  test/sign.js
+ *  test/roundtrip.js
  *
  *  David Janes
  *  Consenas.com
@@ -37,7 +37,7 @@ const FOLDER = path.join(__dirname, "..", "test", "data")
 const WRITE = process.env.WRITE === "1"
 const DUMP = process.env.DUMP === "1"
 
-describe("sign", function() {
+describe("roundtrip", function() {
     before(function() {
         _util.shims_on()
     })
@@ -46,11 +46,12 @@ describe("sign", function() {
         _util.shims_off()
     })
 
-    it("works - pass JWK key", async function() {
-        const NAME = "signed/01.in.json"
+    it("works", async function() {
+        const NAME = "roundtrip/01.in.json"
         const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
         const private_key = await jose.JWK.asKey(private_pem, 'pem');
 
+        // sign
         const message = {
             "hello": "world",
             name: NAME,
@@ -59,41 +60,16 @@ describe("sign", function() {
 
         const signed = await ip.jws.sign(message, private_key, verifier)
 
-        if (DUMP) {
-            console.log(JSON.stringify(signed, null, 2))
-        }
-        if (WRITE) {
-            await _util.write_json(signed, NAME)
-        }
+        // verify
+        const v = await ip.jws.verify(signed, async proof => {
+            return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
+        })
 
-        const got = await _util.read_json(NAME)
-        const want = signed
-        assert.deepEqual(got, want)
+        assert.ok(_.isArray(v.chain))
+        assert.ok(_.isPlainObject(v.payload))
+        assert.ok(_.isPlainObject(v.proof))
+
+        delete v.payload["@context"]
+        assert.deepEqual(v.payload, message)
     })
-
-    it("works - pass pem", async function() {
-        const NAME = "signed/02.in.json"
-        const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
-
-        const message = {
-            "hello": "world",
-            name: NAME,
-        }
-        const verifier = "https://example.com/i/pat/keys/5"
-
-        const signed = await ip.jws.sign(message, private_pem, verifier)
-
-        if (DUMP) {
-            console.log(JSON.stringify(signed, null, 2))
-        }
-        if (WRITE) {
-            await _util.write_json(signed, NAME)
-        }
-
-        const got = await _util.read_json(NAME)
-        const want = signed
-        assert.deepEqual(got, want)
-    })
-
-    // add test cases for the @context manipulation
 })
