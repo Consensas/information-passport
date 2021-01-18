@@ -1,5 +1,5 @@
 /*
- *  test/sign_verify.js
+ *  test/sign.js
  *
  *  David Janes
  *  Consenas.com
@@ -47,11 +47,13 @@ describe("sign", function() {
     })
 
     it("works - pass JWK key", async function() {
+        const NAME = "signed/01.in.json"
         const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
         const private_key = await jose.JWK.asKey(private_pem, 'pem');
 
         const message = {
             "hello": "world",
+            name: NAME,
         }
         const verifier = "https://example.com/i/pat/keys/5"
 
@@ -61,10 +63,34 @@ describe("sign", function() {
             console.log(JSON.stringify(signed, null, 2))
         }
         if (WRITE) {
-            await _util.write_json(signed, "signed/01.in.json")
+            await _util.write_json(signed, NAME)
         }
 
-        const got = await _util.read_json("signed/01.in.json")
+        const got = await _util.read_json(NAME)
+        const want = signed
+        assert.deepEqual(got, want)
+    })
+
+    it("works - pass pem", async function() {
+        const NAME = "signed/02.in.json"
+        const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
+
+        const message = {
+            "hello": "world",
+            name: NAME,
+        }
+        const verifier = "https://example.com/i/pat/keys/5"
+
+        const signed = await ip.jws.sign(message, private_pem, verifier)
+
+        if (DUMP) {
+            console.log(JSON.stringify(signed, null, 2))
+        }
+        if (WRITE) {
+            await _util.write_json(signed, NAME)
+        }
+
+        const got = await _util.read_json(NAME)
         const want = signed
         assert.deepEqual(got, want)
     })

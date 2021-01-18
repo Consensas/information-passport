@@ -1,12 +1,12 @@
 {
     "author": "David P. Janes <david@consensas.com>",
     "bugs": {
-        "url": "https://github.com/dpjanes/information-passport/issues"
+        "url": "https://github.com/Consensas/information-passport/issues"
     },
     "dependencies": {
-        "node-forge": "~0.10.0",
-        "node-jose": "~2.0.0",
-        "process": "~0.11.10"
+        "lodash": "^4.17.20",
+        "node-forge": "^0.10.0",
+        "node-jose": "^2.0.0"
     },
     "description": "Information Passport Open Source Code",
     "homepage": "https://consenas.com",
@@ -16,7 +16,7 @@
     "private": false,
     "repository": {
         "type": "git",
-        "url": "https://github.com/dpjanes/information-passport"
+        "url": "https://github.com/Consensas/information-passport"
     },
     "scripts": {
         "cover": "nyc --reporter=html mocha --recursive",

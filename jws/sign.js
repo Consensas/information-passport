@@ -4,18 +4,33 @@
  *  David Janes
  *  Consensas
  *  2021-01-11
+ *
+ *  Copyright (2013-2021) Consensas
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 
 "use strict"
 
-// const assert = require("assert")
 const jose = require("node-jose")
 const _util = require("./_util")
 
 /**
  */
-const sign = async (d, keys, verification) => {
-    // assert.ok(_util.isDictionary(d))
+const sign = async (d, key, verification) => {
+    if (_util.isString(key) || _util.isBuffer(key)) {
+        key = await jose.JWK.asKey(key, "pem")
+    }
 
     const message = Object.assign({ "@context": null }, d)
     const context = message["@context"]
@@ -49,7 +64,7 @@ const sign = async (d, keys, verification) => {
     const signed = await jose.JWS.createSign({
         format: "compact",
         alg: 'RS256',
-    }, keys)
+    }, key)
         .update(plaintext, "utf8")
         .final()
 

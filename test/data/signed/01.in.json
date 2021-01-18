@@ -3,12 +3,13 @@
     "security": "https://w3id.org/security#"
   },
   "hello": "world",
+  "name": "signed/01.in.json",
   "security:proof": {
     "security:type": "https://models.consensas.com/security#ConsensasRSA2021",
     "security:proofPurpose": "assertionMethod",
     "security:created": "2021-01-18T10:10:26.179Z",
     "security:nonce": "123456789",
-    "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..1nihdVonFZ2t_8S6Oq2nRsCB5U1Zx8W1OSVDkdKp4sdK7ZP38ZAFPDYyc5Kxu-CgqIwjDvMPkEaBY_dWtLREdjv8oDu6SmZmNkAgiVqRXfdrt2zKJFH2ozEe7vcunBXpfQNw7httZMN70DFTF-MfyuIlTfN09atTXSJl6126-oZPaKRt0Bqbsa4hCp8S44vdrFCOQB0T4Odqi94BsT-amzNwAU6QvWxD8ow065GqtJcJK4qIzcwzBORdvY-wnq_wArJFIeyVaoa3z6BUtXU9ideau02bmV4pJQxMShV3OitINj7VwdPNNOzFNbnlXEBr-lG603XUr5UV_W_lxeOpnQ",
+    "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..Lq46YZVV-eAqZyxAMhLMR_3tZM5wBPQYAtuN_LmPsPShU_PLDXgZUcdd1xKm3KmYCurKP9Qnnl-RjcaFwTWeqxXgLkcityOgIqzD9of32GwOah1nGGXrasuKnXlGdDFbedLHMz3T1V_VNQhMd9O_oRPEf3dK1m7jlc9hsxA_jNFglmqGBl49kDAE016OhOLWw4_17kvw3GnVOTyeB30flkUqZ-dcIutq3MV_oUcU8XdZsrYeG9XU9Tst_1B3zeJlWQtnlyoHsWEE-jMbitCoBhrZU8JiV8fO4gdZrkFrqe44rAYN4Rin0BG9lEoZVf4GOlcFfV3IbpWMaGNdAfzZzA",
     "security:verificationMethod": "https://example.com/i/pat/keys/5"
   }
 }

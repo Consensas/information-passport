@@ -14,6 +14,7 @@ exports.isDictionary = d => {
            false : (typeof d == 'object')
 }
 
+exports.isBuffer = v => v instanceof Buffer
 exports.isString = v => typeof v === 'string';
 exports.isTimestamp = v => typeof v === 'string' && v.match(/^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d([.]\d\d\d)?Z$/)
 exports.isArray = v => Array.isArray(v)
