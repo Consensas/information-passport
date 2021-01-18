@@ -49,7 +49,6 @@ const verify = async (d, key_fetcher) => {
 
     const message = _util.clone(d)
     const proof = message["security:proof"]
-    console.log(message)
     if (!_util.isDictionary(proof)) {
         throw new errors.InvalidField("security:proof")
     }

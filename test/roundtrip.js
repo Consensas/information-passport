@@ -65,6 +65,10 @@ describe("roundtrip", function() {
             return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
         })
 
+        if (DUMP) {
+            console.log(JSON.stringify(v, null, 2))
+        }
+
         assert.ok(_.isArray(v.chain))
         assert.ok(_.isPlainObject(v.payload))
         assert.ok(_.isPlainObject(v.proof))

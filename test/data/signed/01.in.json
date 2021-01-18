@@ -9,7 +9,7 @@
     "security:proofPurpose": "assertionMethod",
     "security:created": "2021-01-18T10:10:26.179Z",
     "security:nonce": "123456789",
-    "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..Lq46YZVV-eAqZyxAMhLMR_3tZM5wBPQYAtuN_LmPsPShU_PLDXgZUcdd1xKm3KmYCurKP9Qnnl-RjcaFwTWeqxXgLkcityOgIqzD9of32GwOah1nGGXrasuKnXlGdDFbedLHMz3T1V_VNQhMd9O_oRPEf3dK1m7jlc9hsxA_jNFglmqGBl49kDAE016OhOLWw4_17kvw3GnVOTyeB30flkUqZ-dcIutq3MV_oUcU8XdZsrYeG9XU9Tst_1B3zeJlWQtnlyoHsWEE-jMbitCoBhrZU8JiV8fO4gdZrkFrqe44rAYN4Rin0BG9lEoZVf4GOlcFfV3IbpWMaGNdAfzZzA",
-    "security:verificationMethod": "https://example.com/i/pat/keys/5"
+    "security:verificationMethod": "https://example.com/i/pat/keys/5",
+    "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..8E7EJZ4e1yWbWPJtKDee0Oyy6C_9JX13C1UPueDHEPZR2vABD4_r6Fe7tjXaIbJK-boDPt049xas8wzdT3TeaHjDXrhj77jDF-Ob5UhzHrdYN9IukEAq5W0T0Uks20zchfAxlVNYvVoQWzXxzYb4FVBuWZD3x6d8Aq20XoCGFxUbtnDKwN7u3LgLwqJ5DtUu9JwM43HsOoKGstXFW-ejXJIDRQEHgKhAVHpT6SxGoVCi_rSnzQnTIubk30Anbrr0BxvlThj0Zk48u69SpX9wY-e7lXj6CzDKyTFLJ_5eko0A-t7Ax0Zg624jmT-GPfq23pTUTYB7TLpnQjyN2QeT7w"
   }
 }
