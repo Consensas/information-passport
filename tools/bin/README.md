@@ -24,3 +24,8 @@ Sign a document (note key has to be decrypted)
 
     node sign.js --in ../data/example-vaccination.json --key ../data/private.key.pem
 
+Also works from stdin
+
+    cat ../data/example-vaccination.json | node sign.js --key ../data/private.key.pem
+
+
