@@ -16,13 +16,35 @@ a signed document, it's validator and tell the result
     node validate.js 'https://consensas.world/did:cns:ABHEZDOYLE' --pretty
 
 ### Sign and Verify
-Sign a document (note key has to be decrypted)
 
-    node sign.js --in ../data/example-vaccination.json --key ../data/private.key.pem
+Sign a document. Note key has to be decrypted, and that the public key chain
+has to be found at the URL
 
-Also works from stdin
+    node sign.js \
+		--file ../data/example-vaccination.json \
+		--key ../data/private.key.pem \
+		--verifier "https://example.org/public.cer.pem"
 
-    cat ../data/example-vaccination.json | node sign.js --key ../data/private.key.pem
+If you just want to play with tool and don't have the public keychain
+upload somewhere, leave out the `--verifier` option. 
+However, you'll have to specify it in the verify tool
+
+`sign` also works on stdin
+
+    cat ../data/example-vaccination.json | 
+	node sign.js --key ../data/private.key.pem 
+
+To verify a document
+
+    node verify.js --file signed.json 
+
+Or if you need to manually specify the verifier
+
+    node verify.js --file signed.json --verifier ../data/public.cer.pem
+
+Or if you want to use stdin
+
+    cat signed.json | node verify.js --verifier ../data/public.cer.pem
 
 Here's an example of a round-trip 
 
