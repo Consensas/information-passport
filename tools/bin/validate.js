@@ -63,6 +63,8 @@ const help = message => {
     console.log(`\
 usage: ${name} [options] <url>
 
+one of these is 
+
 --raw           don't validate, just show the contents
 --pretty        format the output the best you can
 --clear         clear screen when result found
@@ -130,38 +132,61 @@ _pretty.produces = {
 
 /**
  */
-_.promise()
-    .then(fetch.document.get({
-        url: ad.url,
-        headers: {
-            "accept": "application/vc+ld+json",
-        },
-    }))
-    .make(async sd => {
-		if (ad.clear) {
-			console.clear()
-			console.log("checking…")
-		}
+const _one_url = _.promise((self, done) => {
+    _.promise(self)
+        .validate(_one_url)
 
-        sd.json = JSON.parse(sd.document)
+        .then(fetch.document.get({
+            url: ad.url,
+            headers: {
+                "accept": "application/vc+ld+json",
+            },
+        }))
+        .make(async sd => {
+            if (ad.clear) {
+                console.clear()
+                console.log("checking…")
+            }
 
-        if (ad.raw) {
-            console.log(JSON.stringify(sd.json, null, 2))
-            return
-        }
+            sd.json = JSON.parse(sd.document)
 
-        sd.verified = await ip.jws.verify(sd.json, async proof => {
-            const result = await _.promise({})
-                .then(fetch.document.get(proof.verificationMethod))
+            if (ad.raw) {
+                console.log(JSON.stringify(sd.json, null, 2))
+                return
+            }
 
-            return result.document
+            sd.verified = await ip.jws.verify(sd.json, async proof => {
+                const result = await _.promise({})
+                    .then(fetch.document.get(proof.verificationMethod))
+
+                return result.document
+            })
+
+            if (!ad.pretty) {
+                console.log(JSON.stringify(sd.verified, null, 2))
+            }
         })
+        .conditional(ad.pretty, _pretty)
 
-        if (!ad.pretty) {
-            console.log(JSON.stringify(sd.verified, null, 2))
-        }
-    })
-    .conditional(ad.pretty, _pretty)
+        .end(done, self, _one_url)
+})
+
+_one_url.method = "_one_url"
+_one_url.description = ``
+_one_url.requires = {
+    url: _.is.AbsoluteURL,
+}
+_one_url.accepts = {
+}
+_one_url.produces = {
+}
+
+/**
+ */
+_.promise({
+    url: ad.url,
+})
+    .then(_one_url)
     .except(error => {
         delete error.self
         console.log(error)
