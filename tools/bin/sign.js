@@ -15,6 +15,8 @@ const fs = require("fs")
 const jose = require("node-jose")
 const path = require("path")
 
+const _util = require("./_util")
+
 const minimist = require("minimist")
 const ad = minimist(process.argv.slice(2), {
     boolean: [
@@ -70,21 +72,9 @@ _.logger.levels({
     trace: ad.trace || ad.verbose,
 })
 
-const _read_stdin = () => {
-    return new Promise((resolve, reject) => {
-        process.stdin.resume()
-        process.stdin.setEncoding("utf8")
-
-        let buffer = ""
-
-        process.stdin.on("data", chunk => buffer += chunk)
-        process.stdin.on("end", () => resolve(buffer))
-    })
-}
-
 const run = async (files) => {
     const private_pem = await fs.promises.readFile(ad.key)
-    const message = JSON.parse(ad.file ? await fs.promises.readFile(ad.file) : await _read_stdin())
+    const message = JSON.parse(ad.file ? await fs.promises.readFile(ad.file) : await _util.read_stdin())
 
     const signed = await ip.jws.sign(message, private_pem, ad.verifier)
     console.log(JSON.stringify(signed, null, 2))
