@@ -1,28 +1,29 @@
-# Signing and Verification: ConsensasRSA2021
+# Signing and Verifying JSON documents with RSA Cryptography: ConsensasRSA2021
 
 The ConsensasRSA2021 is based on W3C's [Linked Data Proofs](https://w3c-ccg.github.io/ld-proofs/).
 The core difference is that ConsensasRSA2021 **does not** depend on Linked Data or 
 JSON-LD, though fully compatible with it.
 
-## Details
+## Technologies
 ### Canonical JSON
 
 Canonical JSON is defined by [RFC8785](https://tools.ietf.org/html/rfc8785).
 It ensures that given any JSON message, we can create exactly the same
 representation.
 
-## QName Compacted JSON-LD
+### QName Compacted JSON-LD
 
 See [QCompacted](QCompacted.md). 
 The proof SHOULD (maybe MUST?) be encoded using QName Compacted JSON-LD.
 
-## JOSE
+### JOSE
 
 [Javascript Object Signing and Encryption](https://datatracker.ietf.org/wg/jose/documents/) 
 is used for [JSON Web Signatures RFC 7515](https://datatracker.ietf.org/doc/rfc7515/).
 
 Also see Node.JS [implementation](https://www.npmjs.com/package/node-jose).
 
+## Algorithms
 ### Signing Algorithm
 
 * ensure "@context" contains `"security": "https://w3id.org/security#"`
