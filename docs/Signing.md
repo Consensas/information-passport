@@ -1,8 +1,8 @@
-# ConsensasRSA2021 signing standard
+# Signing and Verification: ConsensasRSA2021
 
 The ConsensasRSA2021 is based on W3C's [Linked Data Proofs](https://w3c-ccg.github.io/ld-proofs/).
-The core difference is that ConsensasRSA2021 does not depend on *Linked Data* or 
-JSON-LD, though it should be fully compatible with it
+The core difference is that ConsensasRSA2021 **does not** depend on Linked Data or 
+JSON-LD, though fully compatible with it.
 
 ## Details
 ### Canonical JSON
@@ -55,19 +55,65 @@ Also see Node.JS [implementation](https://www.npmjs.com/package/node-jose).
 
 ## Example
 
+Here is an example of a signed message
+
     {
-      "@context": {
-        "security": "https://w3id.org/security#"
-      },
-      "hello": "world",
-      "name": "signed/02.in.json",
-      "security:proof": {
-        "security:type": "https://models.consensas.com/security#ConsensasRSA2021",
-        "security:proofPurpose": "assertionMethod",
-        "security:created": "2021-01-18T10:10:26.179Z",
-        "security:nonce": "123456789",
-        "security:verificationMethod": "https://example.com/i/pat/keys/5",
-        "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..YwUnk6zLO6IT131fxotlNsiSSOmq9OFEOSS1T7rCv4W5DwxD77PiQirUKGIl9DLPMahtXfbie3tehScMD6sZJR62Oqf1LkskeovjzhLQTpVDD2AjugCljnZpNcSXtCGx6EqesDO47xkrgeexHPpXcw1WG3RUoqQEb6CeGfj5kiPYzWmfo7sYjaW0wpLiFgGGVK5UOGo1nsHgXgiqjOsjxXlTjLnHpLZUVpx0AMvkrPprltN0i_biLN3B3XF52ng9wyQBuOUQe7p334oju0y9WfhQWFAy0iR-SJpmYFmbCBfuuDjBkW3w9rpLgT-DR4WtW_lZnpuk7OZ8TXGY_KmzsQ"
-      }
+        "@context": {
+            "security": "https://w3id.org/security#"
+        },
+        "hello": "world",
+        "security:proof": {
+            "security:type": "https://models.consensas.com/security#ConsensasRSA2021",
+            "security:proofPurpose": "assertionMethod",
+            "security:created": "2021-01-20T13:03:45.450Z",
+            "security:nonce": "14182305723832145",
+            "security:verificationMethod": "https://example.org/public.cer.pem",
+            "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..Np4accZ6rX8N5MFXCYZEaVral45DhGwp2WEsMbsxrIacirruNml8auArmImYo8M57m3cyl8tf8d5wXCwx-1KwijT_uvkAl-v8CBcQU_2CmpJ-WrKvMlcHMm21-LAnxn2bqWnsgWDHX2W2buwDZTIZTfXrAQBl-5Ofa43GccU3TXin5i6feLXc8VVRC89D5kP45kjltSnXdS6cD3ZCjCDJLFLaWb-khaxENK_LrADRm2Zt3r7x-dXsKaKLxtyjYzNg005g5Ws528V6xWfZs5OKOys1VdYLH-1iVApCUGoC6ijlSN2F9CpNrStbGRxrqg-3gTy6zwxp9DOkSp8H7SUtQ"
+        }
     }
+
+You can recreate this yourself:
+    
+	cd information-passport/tools/bin
+    node sign.js \
+    	--file ../data/hello.json \
+    	--key ../data/private.key.pem \
+    	--verifier "https://example.org/public.cer.pem"
+    	
+
+Here is that message validated (normative format)
+
+    {
+        "proof": {
+            "type": "https://models.consensas.com/security#ConsensasRSA2021",
+            "proofPurpose": "assertionMethod",
+            "created": "2021-01-20T13:03:45.450Z",
+            "nonce": "14182305723832145",
+            "verificationMethod": "https://example.org/public.cer.pem",
+            "jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..Np4accZ6rX8N5MFXCYZEaVral45DhGwp2WEsMbsxrIacirruNml8auArmImYo8M57m3cyl8tf8d5wXCwx-1KwijT_uvkAl-v8CBcQU_2CmpJ-WrKvMlcHMm21-LAnxn2bqWnsgWDHX2W2buwDZTIZTfXrAQBl-5Ofa43GccU3TXin5i6feLXc8VVRC89D5kP45kjltSnXdS6cD3ZCjCDJLFLaWb-khaxENK_LrADRm2Zt3r7x-dXsKaKLxtyjYzNg005g5Ws528V6xWfZs5OKOys1VdYLH-1iVApCUGoC6ijlSN2F9CpNrStbGRxrqg-3gTy6zwxp9DOkSp8H7SUtQ"
+        },
+        "payload": {
+            "@context": {
+             	"security": "https://w3id.org/security#"
+            },
+            "hello": "world"
+        },
+        "chain": [
+            {
+                "C": "CA",
+                "CN": "davidjanes.com",
+                "fingerprint": "78:EA:E2:A5:19:FD:A8:35:56:2D:59:B7:B7:20:32:6C:F6:EC:53:E0"
+            }
+        ]
+    }
+    
+You can recreate this yourself:
+
+	cd information-passport/tools/bin
+	node verify.js --file signed.json --verifier ../data/public.cer.pem
+
+
+
+
+
 
