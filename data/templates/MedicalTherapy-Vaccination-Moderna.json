@@ -1,0 +1,38 @@
+{
+  "@context": {
+    "schema:": "https://schema.org"
+  }, 
+  "@type": "schema:MedicalTherapy-Vaccination", 
+  "schema:drug": {
+    "@type": "schema:Drug", 
+    "schema:code": {
+      "@type": "schema:MedicalCode", 
+      "schema:codeValue": "MVX-MOD.CVX-207", 
+      "schema:codingSystem": "CDC-MVX.CVX"
+    }, 
+    "schema:description": "COVID-19, mRNA, LNP-S, PF, 100 mcg/0.5 mL dose", 
+    "schema:identifier": "MVX-MOD.CVX-207", 
+    "schema:identifier-cvx": "CVX-207", 
+    "schema:manufacturer": {
+      "@type": "schema:Organization-CDC-MVX", 
+      "schema:identifier": "MVX-MOD", 
+      "schema:identifier-mvx": "MVX-MOD", 
+      "schema:name": "Moderna US, Inc."
+    }, 
+    "schema:name": "Moderna COVID-19 Vaccine"
+  }, 
+  "schema:healthCondition": {
+    "@type": "schema:MedicalCondition", 
+    "schema:code": {
+      "@type": "schema:MedicalCode", 
+      "schema:codeValue": "U07", 
+      "schema:codingSystem": "ICD-10"
+    }, 
+    "schema:identifier": "U07", 
+    "schema:name": "COVID-19"
+  }, 
+  "schema:identifier": "MVX-MOD.CVX-207", 
+  "schema:identifier-cvx": "CVX-207", 
+  "schema:identifier-mvx": "MVX-MOD", 
+  "schema:name": "Moderna COVID-19 Vaccine"
+}

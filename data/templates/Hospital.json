@@ -1,0 +1,14 @@
+{
+  "@context": {
+    "schema:": "https://schema.org"
+  }, 
+  "@type": "schema:Hospital", 
+  "schema:address": {
+    "@type": "schema:PostalAddress", 
+    "schema:addressCountry": null, 
+    "schema:addressRegion": null, 
+    "schema:postalCode": null, 
+    "schema:streetAddress": null
+  }, 
+  "schema:name": null
+}
