@@ -70,6 +70,8 @@ _.logger.levels({
     trace: ad.trace || ad.verbose,
 })
 
+const DOT = "•"
+
 /**
  */
 const _one = _.promise((self, done) => {
@@ -79,6 +81,25 @@ const _one = _.promise((self, done) => {
         .make(sd => {
             sd.did = `did:example:${sd.record.code}`
             sd.treatmentDate = "2021-01-01"
+        })
+
+        // Redaction
+        .make(sd => {
+            let value
+
+            value = _.d.first(sd.record, "birthDate")
+            if (value) {
+                value = value.substring(0, value.length - 2).replace(/\d/g, DOT) +
+                    value.substring(value.length - 2)
+                sd.record["birthDate"] = value
+            }
+
+            value = _.d.first(sd.record, "card/identifier")
+            if (value) {
+                value = value.substring(0, value.length - 4).replace(/\d/g, DOT) +
+                    value.substring(value.length - 4)
+                _.d.set(sd.record, "card/identifier", value)
+            }
         })
 
         // Hospital
@@ -143,8 +164,8 @@ const _one = _.promise((self, done) => {
         .add("result:MedicalRecord")
 
         .make(sd => {
-            console.log(sd.MedicalCondition)
-            console.log(sd.MedicalRecord)
+            // console.log(sd.MedicalCondition)
+            console.log(JSON.stringify(sd.MedicalRecord, null, 2))
         })
 
 
