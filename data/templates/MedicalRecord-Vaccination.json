@@ -1,6 +1,7 @@
 {
   "@context": {
-    "schema:": "https://schema.org"
+    "schema:": "https://schema.org",
+    "w3did": "https://www.w3.org/ns/did/v1"
   },
   "@type": "schema:MedicalRecord-Vaccination",
   "schema:identifier": null,

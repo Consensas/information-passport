@@ -8,6 +8,12 @@ Validation takes a verified document and ensures it has required
 promises _and_ it checks that the public key belongs to a trusted source.
 Validation in the Open Source code is a work in progress, stand by.
 
+## Build Sample Website
+
+    node fake-http.js \
+        --verifier https://example.com/public.pem \
+        --key ../data/private.key.pem
+
 ## Tools
 ### Validation
 Test the validation tool - this will go out the internet, fetch 
@@ -61,4 +67,3 @@ Play with Barcode Scanner on a raspberry pi
 Put the two of them together to scan and verify
 
     nohup sh scanner.sh
-

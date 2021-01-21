@@ -37,6 +37,8 @@ const ad = minimist(process.argv.slice(2), {
     ],
     string: [
         "_",
+        "key",
+        "verifier",
     ],
     alias: {
     },
@@ -59,10 +61,20 @@ Generate a complete folder of Vaccination
 Records which can be served by HTTP like
 Apache or NGINX
 
-options:
+Required:
+
+--key <private-key.pem> private key PEM
+--verifier <url>        url to public key chain PEM 
 `)
 
     process.exit(message ? 1 : 0)
+}
+
+if (!ad.key) {
+    help("--key argument is required")
+}
+if (!ad.verifier) {
+    help("--verifier argument is required")
 }
 
 _.logger.levels({
@@ -163,10 +175,23 @@ const _one = _.promise((self, done) => {
         }))
         .add("result:MedicalRecord")
 
-        .make(sd => {
+        // sign
+        // write signed JSON
+        .make(async sd => {
+            sd.json = await ip.jws.sign(sd.MedicalRecord, sd.private_pem, ad.verifier)
+            sd.json$expanded = true // sigh, this should be called fs$pretty
+
+            // console.log(JSON.stringify(signed, null, 2))
             // console.log(sd.MedicalCondition)
-            console.log(JSON.stringify(sd.MedicalRecord, null, 2))
+            // console.log(JSON.stringify(sd.MedicalRecord, null, 2))
+
+            sd.path = `website/${sd.record.code}.json`
         })
+
+
+        .then(fs.make.directory.parent)
+        .then(fs.write.json)
+        .log("path", "path")
 
 
         .end(done, self, _one)
@@ -175,7 +200,11 @@ const _one = _.promise((self, done) => {
 _one.method = "_one"
 _one.description = ``
 _one.requires = {
-    record: _.is.Dictionary,
+    record: {
+        code: _.is.String,
+    },
+    verifier: _.is.String,
+    private_pem: _.is.String,
 }
 _one.accepts = {
 }
@@ -185,6 +214,11 @@ _one.produces = {
 /**
  */
 _.promise()
+    .make(async sd => {
+        sd.private_pem = await fs.promises.readFile(ad.key, "utf8")
+        sd.verifier = ad.verifier
+    })
+
     .then(tools.templates.initialize)
 
     .add("path", path.join(__dirname, "../data/fake-records.yaml"))
