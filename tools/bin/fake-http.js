@@ -75,7 +75,18 @@ _.logger.levels({
 const _one = _.promise((self, done) => {
     _.promise(self)
         .validate(_one)
-        .log("record", "templated")
+
+        .then(tools.templates.by_name.p("Patient"))
+        .then(tools.templates.fill.p({
+            'schema:additionalName': null, 
+            'schema:birthDate': "record/birthDate",
+            'schema:familyName': "record/lastName",
+            'schema:givenName': "record/givenName",
+        }, "Patient"))
+        .make(sd => {
+            console.log("patient", sd.template)
+        })
+
         .end(done, self, _one)
 })
 
@@ -93,9 +104,6 @@ _one.produces = {
  */
 _.promise()
     .then(tools.templates.initialize)
-    .make(sd => {
-        console.log(sd.templated)
-    })
 
     .add("path", path.join(__dirname, "../data/fake-records.yaml"))
     .then(fs.read.json.magic)

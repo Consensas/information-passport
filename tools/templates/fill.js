@@ -1,5 +1,5 @@
 /*
- *  tools/templates/by_name.js
+ *  tools/templates/fill.js
  *
  *  David Janes
  *  Consenas.com
@@ -27,33 +27,38 @@ const errors = require("iotdb-errors")
 
 /**
  */
-const by_name = _.promise(self => {
-    _.promise.validate(self, by_name)
+const fill = _.promise(self => {
+    _.promise.validate(self, fill)
 
-    self.template = self.templated[self.name]
+    const result = _.d.clone.deep(self.template)
 
-    if (!self.template) {
-        throw new errors.NotFound("template not found")
-    }
+    _.mapObject(self.filld, (from_key, to_key) => {
+        const value = _.d.first(self, from_key)
+        if (_.is.JSON(value)) {
+            _.d.set(result, to_key, value)
+        }
+    })
+
+    console.log(result)
 })
 
-by_name.method = "templates.by_name"
-by_name.description = ``
-by_name.requires = {
-    templated: _.is.Dictionary,
-    name: _.is.String,
-}
-by_name.accepts = {
-}
-by_name.produces = {
+fill.method = "templates.fill"
+fill.description = ``
+fill.requires = {
     template: _.is.Dictionary,
+    filld: _.is.Dictionary,
 }
-by_name.params = {
-    name: _.p.normal,
+fill.accepts = {
+    variable: _.is.String,
 }
-by_name.p = _.p(by_name)
+// fill.produces = {} // changes depending on variable
+fill.params = {
+    filld: _.p.normal,
+    variable: _.p.normal,
+}
+fill.p = _.p(fill)
 
 /**
  *  API
  */
-exports.by_name = by_name
+exports.fill = fill

@@ -1,9 +1,9 @@
 /*
- *  tools/tools/index.js
+ *  tools/templates/index.js
  *
  *  David Janes
  *  Consenas.com
- *  2021-01-19
+ *  2021-01-21
  *
  *  Copyright (2013-2021) Consensas
  *
@@ -26,4 +26,5 @@ module.exports = Object.assign(
     {},
     require("./initialize"),
     require("./by_name"),
+    require("./fill"),
 )

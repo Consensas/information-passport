@@ -1,9 +1,9 @@
 /*
- *  tools/tools/initialize.js
+ *  tools/templates/initialize.js
  *
  *  David Janes
  *  Consenas.com
- *  2021-01-19
+ *  2021-01-21
  *
  *  Copyright (2013-2021) Consensas
  *
