@@ -1,0 +1,17 @@
+{
+  "@type": "schema:Drug", 
+  "schema:code": {
+    "@type": "schema:MedicalCode", 
+    "schema:codeValue": "MVX-MOD.CVX-207", 
+    "schema:codingSystem": "CDC-MVX.CVX"
+  }, 
+  "schema:identifier": "MVX-MOD.CVX-207", 
+  "schema:identifier-cvx": "CVX-207", 
+  "schema:manufacturer": {
+    "@type": "schema:Organization-CDC-MVX", 
+    "schema:identifier": "MVX-MOD", 
+    "schema:identifier-mvx": "MVX-MOD", 
+    "schema:name": "Moderna US, Inc."
+  }, 
+  "schema:name": "Moderna COVID-19 Vaccine"
+}
