@@ -50,8 +50,6 @@ const initialize = _.promise((self, done) => {
 
                 sd.templated[name] = template
             })
-
-			sd.templates = sd.jsons.filter(json => json)
 		})
 
         .end(done, self, initialize)
@@ -64,7 +62,7 @@ initialize.requires = {
 initialize.accepts = {
 }
 initialize.produces = {
-    templates: _.is.Array,
+    templated: _.is.Dictionary,
 }
 
 /**
