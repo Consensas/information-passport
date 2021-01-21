@@ -25,4 +25,5 @@
 module.exports = {
     lib: require("./lib"),
     projects: require("./projects"),
+    templates: require("./templates"),
 }

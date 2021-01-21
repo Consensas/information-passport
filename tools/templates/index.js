@@ -1,5 +1,5 @@
 /*
- *  tools/lib/index.js
+ *  tools/tools/index.js
  *
  *  David Janes
  *  Consenas.com
@@ -23,5 +23,7 @@
 "use strict"
 
 module.exports = Object.assign(
-    {}
+    {},
+    require("./initialize"),
+    require("./by_name"),
 )

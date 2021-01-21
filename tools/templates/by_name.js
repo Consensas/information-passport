@@ -1,5 +1,5 @@
 /*
- *  tools/lib/index.js
+ *  tools/tools/by_name.js
  *
  *  David Janes
  *  Consenas.com
@@ -22,6 +22,38 @@
 
 "use strict"
 
-module.exports = Object.assign(
-    {}
-)
+const _ = require("iotdb-helpers")
+const errors = require("iotdb-errors")
+
+/**
+ */
+const by_name = _.promise(self => {
+    _.promise.validate(self, by_name)
+
+    self.template = self.templated[self.name]
+
+    if (!self.template) {
+        throw new errors.NotFound("template not found")
+    }
+})
+
+by_name.method = "templates.by_name"
+by_name.description = ``
+by_name.requires = {
+    templated: _.is.Array,
+    name: _.is.String,
+}
+by_name.accepts = {
+}
+by_name.produces = {
+    template: _.is.Dictionary,
+}
+by_name.params = {
+    name: _.p.normal,
+}
+by_name.p = _.p(by_name)
+
+/**
+ *  API
+ */
+exports.by_name = by_name
