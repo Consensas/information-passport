@@ -4,20 +4,9 @@
   },
   "@type": "schema:MedicalRecord-Vaccination",
   "schema:identifier": null,
-  "schema:name": null,
-  "schema:patient": {
-    "@type": "schema:Patient",
-    "schema:additionalName": null,
-    "schema:birthDate": null,
-    "schema:familyName": null,
-    "schema:givenName": null
-  },
-  "schema:permit-healthCard": {
-    "@type": "schema:Permit-HealthCard",
-    "schema:identifier-healthCard": null,
-    "schema:issuedBy": null,
-    "schema:validUntil": null
-  },
+  "schema:name": "{{ schema:patient/schema:name }} - {{ schema:primaryPrevention/schema:name }}",
+  "schema:patient": null,
+  "schema:permit-healthCard": null,
   "schema:primaryPrevention": null,
   "schema:location": null,
   "schema:treatmentDate": null,

@@ -33,7 +33,7 @@ const by_name = _.promise(self => {
     self.template = self.templated[self.name]
 
     if (!self.template) {
-        throw new errors.NotFound("template not found")
+        throw new errors.NotFound(`template "${self.name}" not found`)
     }
 })
 

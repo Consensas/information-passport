@@ -76,16 +76,77 @@ const _one = _.promise((self, done) => {
     _.promise(self)
         .validate(_one)
 
+        .make(sd => {
+            sd.did = `did:example:${sd.record.code}`
+            sd.treatmentDate = "2021-01-01"
+        })
+
+        // Hospital
+        .then(tools.templates.by_name.p("Hospital"))
+        .then(tools.templates.fill.p({
+            "schema:address/schema:addressCountry": "record/hospital/country",
+            "schema:address/schema:addressRegion": "record/hospital/region",
+            "schema:address/schema:addressLocality": "record/hospital/locality",
+            'schema:name': "record/hospital/name",
+        }))
+        .add("result:Hospital")
+
+        // Patient
         .then(tools.templates.by_name.p("Patient"))
         .then(tools.templates.fill.p({
             'schema:additionalName': null, 
             'schema:birthDate': "record/birthDate",
-            'schema:familyName': "record/lastName",
+            'schema:familyName': "record/familyName",
             'schema:givenName': "record/givenName",
-        }, "Patient"))
+        }))
+        .add("result:Patient")
+
+        // Health Card
+        .then(tools.templates.by_name.p("Permit-HealthCard"))
+        .then(tools.templates.fill.p({
+            "schema:identifier-healthCard": "record/card/identifier",
+            "schema:issuedBy": "record/card/issuer",
+            "schema:validUntil": "record/card/expires",
+        }))
+        .add("result:HealthCard")
+
+        // Drug
+        .then(tools.templates.by_name.p("Drug-Moderna"))
+        .then(tools.templates.fill.p({}))
+        .add("result:Drug")
+
+        // COVID
+        .then(tools.templates.by_name.p("MedicalCondition-COVID19"))
+        .then(tools.templates.fill.p({}))
+        .add("result:MedicalCondition")
+
+        // Vaccination
+        .then(tools.templates.by_name.p("MedicalTherapy-Vaccination"))
+        .then(tools.templates.fill.p({
+            "schema:drug": "Drug",
+            "schema:healthCondition": "MedicalCondition",
+        }))
+        .add("result:MedicalCondition")
+
+        // Vaccination Record
+        .then(tools.templates.by_name.p("MedicalRecord-Vaccination"))
+        .then(tools.templates.fill.p({
+            "schema:identifier": null,
+            "schema:name": null,
+            "schema:patient": "Patient",
+            "schema:permit-healthCard": "HealthCard",
+            "schema:primaryPrevention": "MedicalCondition",
+            "schema:location": "Hospital",
+            "schema:treatmentDate": "treatmentDate",
+            "w3did:id": "did",
+        }))
+        .add("result:MedicalRecord")
+
         .make(sd => {
-            console.log("patient", sd.template)
+            console.log(sd.MedicalCondition)
+            console.log(sd.MedicalRecord)
         })
+
 
         .end(done, self, _one)
 })

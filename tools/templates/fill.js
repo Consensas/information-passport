@@ -24,37 +24,40 @@
 
 const _ = require("iotdb-helpers")
 const errors = require("iotdb-errors")
+const format = require("iotdb-format")
 
 /**
  */
 const fill = _.promise(self => {
     _.promise.validate(self, fill)
 
-    const result = _.d.clone.deep(self.template)
+    self.result = _.d.clone.deep(self.template)
 
-    _.mapObject(self.filld, (from_key, to_key) => {
+    _.mapObject(self.fill, (from_key, to_key) => {
         const value = _.d.first(self, from_key)
         if (_.is.JSON(value)) {
-            _.d.set(result, to_key, value)
+            _.d.set(self.result, to_key, value)
         }
     })
 
-    console.log(result)
+    self.result = format.format(self.result, self.result, {}, {
+        clean: true,
+    })
 })
 
 fill.method = "templates.fill"
 fill.description = ``
 fill.requires = {
     template: _.is.Dictionary,
-    filld: _.is.Dictionary,
+    fill: _.is.Dictionary,
 }
 fill.accepts = {
-    variable: _.is.String,
 }
-// fill.produces = {} // changes depending on variable
+fill.produces = {
+    result: _.is.Dictionary,
+}
 fill.params = {
-    filld: _.p.normal,
-    variable: _.p.normal,
+    fill: _.p.normal,
 }
 fill.p = _.p(fill)
 

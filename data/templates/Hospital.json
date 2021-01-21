@@ -7,6 +7,7 @@
     "@type": "schema:PostalAddress", 
     "schema:addressCountry": null, 
     "schema:addressRegion": null, 
+    "schema:addressLocality": null, 
     "schema:postalCode": null, 
     "schema:streetAddress": null
   }, 
