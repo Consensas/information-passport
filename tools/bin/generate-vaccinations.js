@@ -1,5 +1,5 @@
 /**
- *  tools/bin/fake.js
+ *  tools/bin/generate-vaccinations.js
  *
  *  David Janes
  *  Consensas
@@ -47,7 +47,7 @@ const ad = minimist(process.argv.slice(2), {
 });
 
 const help = message => {
-    const name = "fake-http"
+    const name = "generate-vaccinations"
 
     if (message) {
         console.log(`${name}: ${message}`)
@@ -60,6 +60,9 @@ usage: ${name} [options]
 Generate a complete folder of Vaccination 
 Records which can be served by HTTP like
 Apache or NGINX
+
+The methods used in here can be adapted to 
+your own organization's needs.
 
 Required:
 
