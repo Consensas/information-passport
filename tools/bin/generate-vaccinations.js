@@ -39,10 +39,12 @@ const ad = minimist(process.argv.slice(2), {
         "_",
         "key",
         "verifier",
+        "host",
     ],
     alias: {
     },
     default: {
+        "host": "passport.consensas.com",
     },
 });
 
@@ -68,6 +70,10 @@ Required:
 
 --key <private-key.pem> private key PEM
 --verifier <url>        url to public key chain PEM 
+
+Options:
+
+--host <host>           host these are served from (default: passport.consensas.com)
 `)
 
     process.exit(message ? 1 : 0)
@@ -108,6 +114,9 @@ const _html = _.promise((self, done) => {
         .make(sd => {
             const lines = []
             lines.push("<h1>Vaccination Passport</h2>")
+            lines.push("<p>")
+            lines.push(`<img src="https://chart.googleapis.com/chart?cht=qr&chs=400x400&chld=H&chl=http://${ad.host}/did:example:${sd.record.code}" />`)
+            lines.push("</p>")
 
             _.d.list(sd.project, "groups", []).forEach(group => {
                 lines.push("<h2>")
