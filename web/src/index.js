@@ -1,7 +1,37 @@
+/*
+ *  web/src/index.js
+ *
+ *  David Janes
+ *  Consenas.com
+ *  2021-01-13
+ *
+ *  Copyright (2013-2021) Consensas
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+"use strict"
+
 import _ from 'lodash';
 import ip from "../..";
 import fetch from "node-fetch";
 import $ from "jquery";
+
+const DID_EXAMPLE = "http://passport.consensas.com/"
+const didd = {
+    "did:cns:": "https://consensas.world/",
+    "did:example:": DID_EXAMPLE,
+}
 
 // import Html5QrcodeScanner from "../qr/html5-qrcode-scanner.js";
 
@@ -51,7 +81,7 @@ const validate = async url => {
         })
         const json = await response.json();
         const verified = await ip.jws.verify(json, async proof => {
-            const vresponse = await fetch(proof.verificationMethod)
+            const vresponse = await fetch("https://gist.githubusercontent.com/dpjanes/d2e3b972f56e73c8a85b7cc983c9114e/raw/6fe7f11e19478241e61fce8e36b2f2ba626a9fd0/public.cer.pem") // proof.verificationMethod)
             const vtext = await vresponse.text()
 
             return vtext
@@ -87,12 +117,14 @@ const validate = async url => {
 
 const _build_scanner = function() {
     const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
-    scanner.render(async function(code) {
+    scanner.render(async function(url) {
+        /*
         const did = code.replace(/^.*:/, "").trim()
         $("#did").val(did)
+        */
 
         try {
-            await validate("https://consensas.world/did/did:cns:" + did)
+            await validate(url)
         } catch (error) {
             console.log("#", error)
         }
@@ -112,11 +144,18 @@ $(document).ready(function() {
      */
     $("#verifier").on("submit", async function(e) {
         e.preventDefault()
+        const did_prefix = $("#prefix").val().trim()
         const did = $("#did").val().replace(/^.*:/, "").trim()
         $("#did").val(did)
 
+        const did_url = didd[did_prefix]
+        if (!did_url) {
+            alert("weird: can't figure out: " + did_prefix)
+            return
+        }
+
         try {
-            await validate("https://consensas.world/did/did:cns:" + did)
+            await validate(did_url + did_prefix + did)
         } catch (error) {
             console.log("#", error)
         }

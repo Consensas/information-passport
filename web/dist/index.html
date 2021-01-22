@@ -46,11 +46,14 @@ section.sh2 {
         <section class="sh2">
             <h2>Verify by ID</h2>
             <form id="verifier">
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-8">
                     <label for="did">Vaccination ID:</label>
                     <div class="input-group mb-2 vaccination-id">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">did:cns:</div>
+                            <select class="input-group-text" id="prefix">
+                                <option value="did:cns:">did:cns:</option>
+                                <option value="did:example:">did:example:</option>
+                            </select>
                         </div>
                         <input type="text" class="form-control" id="did" placeholder="ABHEZDOYLE" value="ABHEZDOYLE" />
                     </div>
