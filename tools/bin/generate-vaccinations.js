@@ -89,6 +89,64 @@ const DOT = "•"
 
 /**
  */
+const _html = _.promise((self, done) => {
+    const colors = require("colors")
+
+    const _encode = s => s;
+
+    _.promise(self)
+        .validate(_html)
+
+        .then(fs.read.utf8.p(path.join(__dirname, "../data/vaccination-template.html")))
+        .add("document:template")
+
+        .then(tools.projects.initialize)
+        .add("json/@type:data_type")
+        .then(tools.projects.by_data_type)
+        .then(tools.projects.required)
+
+        .make(sd => {
+            const lines = []
+            lines.push("<h1>Vaccination Passport</h2>")
+
+            _.d.list(sd.project, "groups", []).forEach(group => {
+                lines.push("<h2>")
+                lines.push(_encode(group.name))
+                lines.push("</h2><ul>")
+                _.d.list(group, "nodes", []).forEach(node => {
+                    lines.push("<li>")
+                    lines.push(`${node.name}: `)
+                    lines.push(_.d.first(sd.json, node.id, ""))
+                    lines.push("</li>")
+                })
+                lines.push("</ul>")
+            })
+
+            sd.document = sd.template.replace("CONTENT", lines.join("\n"))
+            sd.path = `website/${sd.record.code}.html`
+        })
+        .then(fs.make.directory.parent)
+        .then(fs.write.utf8)
+        .log("path", "path")
+
+        .end(done, self, _html)
+})
+
+_html.method = "_html"
+_html.description = ``
+_html.requires = {
+    json: _.is.JSON,
+    record: {
+        code: _.is.String,
+    },
+}
+_html.accepts = {
+}
+_html.produces = {
+}
+
+/**
+ */
 const _one = _.promise((self, done) => {
     _.promise(self)
         .validate(_one)
@@ -104,6 +162,7 @@ const _one = _.promise((self, done) => {
 
             value = _.d.first(sd.record, "birthDate")
             if (value) {
+                value = `${value}`
                 value = value.substring(0, value.length - 2).replace(/\d/g, DOT) +
                     value.substring(value.length - 2)
                 sd.record["birthDate"] = value
@@ -111,6 +170,7 @@ const _one = _.promise((self, done) => {
 
             value = _.d.first(sd.record, "card/identifier")
             if (value) {
+                value = `${value}`
                 value = value.substring(0, value.length - 4).replace(/\d/g, DOT) +
                     value.substring(value.length - 4)
                 _.d.set(sd.record, "card/identifier", value)
@@ -182,18 +242,17 @@ const _one = _.promise((self, done) => {
         // write signed JSON
         .make(async sd => {
             sd.json = await ip.jws.sign(sd.MedicalRecord, sd.private_pem, ad.verifier)
-
-            // console.log(JSON.stringify(signed, null, 2))
-            // console.log(sd.MedicalCondition)
-            // console.log(JSON.stringify(sd.MedicalRecord, null, 2))
-
             sd.path = `website/${sd.record.code}.json`
         })
 
 
+        // write the JSON
         .then(fs.make.directory.parent)
         .then(fs.write.json.pretty)
         .log("path", "path")
+
+        // write the HTML
+        .then(_html)
 
 
         .end(done, self, _one)
@@ -222,11 +281,12 @@ _.promise()
     })
 
     .then(tools.templates.initialize)
+    .then(tools.projects.initialize)
 
     .add("path", path.join(__dirname, "../data/fake-records.yaml"))
     .then(fs.read.json.magic)
     .make(sd => {
-        sd.records = sd.json.slice(0, 1)
+        sd.records = sd.json // .slice(0, 1)
     })
     .each({
         method: _one,
