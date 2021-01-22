@@ -179,7 +179,6 @@ const _one = _.promise((self, done) => {
         // write signed JSON
         .make(async sd => {
             sd.json = await ip.jws.sign(sd.MedicalRecord, sd.private_pem, ad.verifier)
-            sd.json$expanded = true // sigh, this should be called fs$pretty
 
             // console.log(JSON.stringify(signed, null, 2))
             // console.log(sd.MedicalCondition)
@@ -190,7 +189,7 @@ const _one = _.promise((self, done) => {
 
 
         .then(fs.make.directory.parent)
-        .then(fs.write.json)
+        .then(fs.write.json.pretty)
         .log("path", "path")
 
 
