@@ -41,7 +41,7 @@ to use the JSON-LD libraries to work with Information Passports, just JSON.
 * It is easy for humans to read and write. 
 * It is easy for machines to parse and generate. These two points should be familiar, 
   they are the design ideals of [JSON](https://www.json.org/json-en.html): 
-* Open Source Implmenetation - our inspiration is the early web, where any reasonably
+* Open Source Implementation - our inspiration is the early web, where any reasonably
   skilled technologist could pick up it up and do something useful.
   Our open source reference implementation is on GitHub
   at [information-passport](https://github.com/Consensas/information-passport)
@@ -50,11 +50,20 @@ to use the JSON-LD libraries to work with Information Passports, just JSON.
 * Non-creepy - minimize the potential for personal information leakage and 
   the need for data centralization
 * Secure - obviously
+* Revokable - e.g. in the case of security breaches or fraudulently issued credentials
+* Localized / Internationalized - passports need to work across multiple
+  cultures and languages
 * Minimalistic - define the least to do the job, and no more: for example,
   we do not define whether the mobile phone number of a Passport holder needs
   to be recorded
 * Open Ended - if you need a Passport system that requires e.g. a mobile phone number,
   it should be straight-forward to build on this standard
-* Paper Friendly - 
-* Non-app - it should not require an app to be installed on  
-* Data Entry
+* Paper Friendly - an Information Passport should work as well by presenting
+  a piece of paper as by doing something "digital"
+* Non-app - it should not _require_ an app to be installed on a smart phone. 
+  As per above, it should not even require a smart phone! 
+  However, if there are app-based passport solutions / "wallets"
+  (there are several underway) this standard will likely provide an excellent
+  data source.
+* Data Entry - ideally, it would be simple to enter some sort of Passport identifier 
+  into a website, like you do with e.g. a Credit Card.
