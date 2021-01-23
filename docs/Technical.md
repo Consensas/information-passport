@@ -12,9 +12,16 @@ If the **Claim** made in the document checks against a set of (use-defined) rule
 _and_ the "fingerprint" of the public key is known, we say the document is
 **Validated**.
 
+A **Vaccination Passport** is an Information Passport that 
+provides digital proof of a Vaccination.
+A **Test Passport** is an Information Passport that provides
+digital proof a some test having been performed.
+
 ### Technology Stack
 
-Information Passports are built on the following technology stack:
+Information Passports are built on the following technology stack.
+It's helpful to be familiar with these technologies, but deep 
+knowledge is not required:
 
 * [JSON](https://www.json.org/json-en.html) -
   The People's Data Serialization
@@ -26,7 +33,11 @@ Information Passports are built on the following technology stack:
 * [JSON Web Signing](https://tools.ietf.org/html/rfc7515) - 
   an IETF standard for creating digital signatures and encoding them
   in a way that is compatible with JSON
-* [X.509 Cryptography]() -
+* [X.509 Cryptography](https://en.wikipedia.org/wiki/X.509) - 
+  a venerable standard for public key cryptography, the backbone
+  of e.g. TLS / HTTPS / the secure web.
+* [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+  - for all dates and times
 * [Decentralized Identifier](https://www.w3.org/TR/did-core/) _friendly_ - 
   not really a core technology, but useful in concept
 
@@ -40,7 +51,7 @@ to use the JSON-LD libraries to work with Information Passports, just JSON.
 
 * It is easy for humans to read and write. 
 * It is easy for machines to parse and generate. These two points should be familiar, 
-  they are the design ideals of [JSON](https://www.json.org/json-en.html): 
+  they are the design ideals of [JSON](https://www.json.org/json-en.html).
 * Open Source Implementation - our inspiration is the early web, where any reasonably
   skilled technologist could pick up it up and do something useful.
   Our open source reference implementation is on GitHub
@@ -53,6 +64,10 @@ to use the JSON-LD libraries to work with Information Passports, just JSON.
 * Revokable - e.g. in the case of security breaches or fraudulently issued credentials
 * Localized / Internationalized - passports need to work across multiple
   cultures and languages
+* Semantic - data should [Linked Data](https://en.wikipedia.org/wiki/Linked_data) 
+  friendly. In particular, [Schema](https://schema.org) should
+  be the jumping off point for data definitions
+* Standards Based - standing on the shoulders of giants, etc. etc. 
 * Minimalistic - define the least to do the job, and no more: for example,
   we do not define whether the mobile phone number of a Passport holder needs
   to be recorded
@@ -60,10 +75,10 @@ to use the JSON-LD libraries to work with Information Passports, just JSON.
   it should be straight-forward to build on this standard
 * Paper Friendly - an Information Passport should work as well by presenting
   a piece of paper as by doing something "digital"
-* Non-app - it should not _require_ an app to be installed on a smart phone. 
+* Non-app - it should not require an app to be installed on a smart phone. 
   As per above, it should not even require a smart phone! 
   However, if there are app-based passport solutions / "wallets"
   (there are several underway) this standard will likely provide an excellent
   data source.
-* Data Entry - ideally, it would be simple to enter some sort of Passport identifier 
+* ID Entry friendly - ideally, it would be simple to enter some sort of Passport identifier 
   into a website, like you do with e.g. a Credit Card.
