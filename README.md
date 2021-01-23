@@ -21,9 +21,9 @@ provides digital proof of a Vaccination.
 A **Test Passport** is an Information Passport that provides
 digital proof a some test having been performed.
 
-## Where do I start
+## Where do I start?
 
-[Start here](docs) in the documentation?
+**[Start here](docs) in the documentation.**
 
 ## Folders
 
