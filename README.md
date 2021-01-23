@@ -1,7 +1,12 @@
-# information-passport 
-Information Passport Open Source Code
+# Information Passport Open Source Code
 
 ## Introduction
+### What is this Project
+
+This is Open Source code for creating and verifying
+Information Passports (described in the next section).
+
+
 ### What is an Information Passport
 
 An **Information Passport** is a _signed digital document_ that makes some claim,
