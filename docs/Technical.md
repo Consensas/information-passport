@@ -30,6 +30,8 @@ knowledge is not required:
 * JSON-LD - encodes semantic data, e.g. Schema data, in JSON
 * [Verifiable Credentials](https://www.w3.org/TR/vc-data-model/) - 
   a W3C working group for digitally encoding e.g. a Driver's Licence
+* [Canonical JSON](https://tools.ietf.org/html/rfc8785) - for creating
+  the payload for signing
 * [JSON Web Signing](https://tools.ietf.org/html/rfc7515) - 
   an IETF standard for creating digital signatures and encoding them
   in a way that is compatible with JSON
@@ -128,6 +130,34 @@ This will be used in the Validation process, described below.
 When using a Certificate Chain, the number of Fingerprints that have to be published
 is greatly reduced, as only the "root" Fingerprints need be published.
 
-### Signing
-### Verifying
+### Signing and Verifying
+
+The Signing and Verification Algorithm is defined in full 
+[here](https://github.com/Consensas/information-passport/blob/main/docs/Signing.md).
+
+To summarize, Signing involves:
+
+* start with some claim, e.g. "David Janes been given the COVID19 Vaccine"
+* encode as a 
+  [QName Compacted JSON-LD](https://github.com/Consensas/information-passport/blob/main/docs/QCompacted.md) 
+  record [based on Schema](https://github.com/Consensas/information-passport/blob/main/docs/Vaccination-Record.md).
+* sign using the [ConsensasRSA2021](https://github.com/Consensas/information-passport/blob/main/docs/Signing.md) 
+  standard, which encodes the signature in the JSON and - although being JSON-LD friendly - 
+  does not require JSON-LD, just JSON Web Signatures.
+
+The Signed document is a JSON-LD compatible document that includes:
+
+* the original claim
+* the proof, which includes
+  * the signature
+  * when the claim was signed
+  * where the Public Key Chain can be found on the web
+
+Verification involves basically the same process as Signing, and then using
+the rules of JSON Web Signing with the Public Key to see if the
+signature is valid.
+Mathematically, only the entity with access
+to the private key can generate a document that validates 
+against the Public Key.
+
 ### Validating
