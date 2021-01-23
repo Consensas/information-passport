@@ -23,7 +23,7 @@ digital proof a some test having been performed.
 
 ## Components
 
-* [docs]: documentation, including standards we are defining. 
+* [docs](docs): documentation, including standards we are defining. 
   You want to go here to read more about this project
 
 * jws: the core signing and verification algorithms -
