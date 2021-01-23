@@ -108,6 +108,26 @@ This follows the [Verifiable Credentials](https://www.w3.org/TR/vc-data-model/#e
   accepted by the Verifier; in this example, it's "Western Health"
 
 ## The Standard
+
+### X.509
+
+Issuers will have a X.509 Private / Public Keypair.
+
+The Private Key obviously belongs to the Issuer and must be 
+a closely held secret. 
+
+The Public Key must either:
+
+* must be issued by the Verifiable Data Registry, as part of a Certificate Chain
+* or be registered with the Veriable Data Registry (less preferable)
+
+In either case, the Veriable Data Registry will provide a list of 
+Public Key **Fingerprints** that it recognizes as valid. 
+This will be used in the Validation process, described below.
+
+When using a Certificate Chain, the number of Fingerprints that have to be published
+is greatly reduced, as only the "root" Fingerprints need be published.
+
 ### Signing
 ### Verifying
 ### Validating
