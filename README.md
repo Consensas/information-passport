@@ -1,13 +1,12 @@
-# Information Passport Open Source Code
+# Information Passport
 
-## Introduction
-### What is this Project
+## What is this Project?
 
 This is Open Source code for creating and verifying
-Information Passports (described in the next section).
+Information Passports, such as Vaccination Passports, 
+Test Passports and so forth.
 
-
-### What is an Information Passport
+### What is an Information Passport?
 
 An **Information Passport** is a _signed digital document_ that makes some claim,
 for example "So and so was Vaccinated against COVID-19 on a certain date".
@@ -22,18 +21,10 @@ provides digital proof of a Vaccination.
 A **Test Passport** is an Information Passport that provides
 digital proof a some test having been performed.
 
-## Contact
-
-Need this for your organization?
-Contact [Consensas](mailto:ryan@consensas.com).
-
-Technical support: 
-[open an issue](https://github.com/Consensas/information-passport/issues).
-Patches more appreciated than "you should do this"
-
 ## Components
 
-* docs: documentation, including standards we are defining
+* [docs]: documentation, including standards we are defining. 
+  You want to go here to read more about this project
 
 * jws: the core signing and verification algorithms -
   this is what NPMing this package gets you
@@ -49,3 +40,11 @@ Patches more appreciated than "you should do this"
 
 * test: test code
 
+## Contact
+
+Need this for your organization?
+Contact [Consensas](mailto:ryan@consensas.com).
+
+Technical support: 
+[open an issue](https://github.com/Consensas/information-passport/issues).
+Patches more appreciated than "you should do this"
