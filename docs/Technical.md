@@ -121,14 +121,20 @@ a closely held secret.
 The Public Key must either:
 
 * must be issued by the Verifiable Data Registry, as part of a Certificate Chain
-* or be registered with the Veriable Data Registry (less preferable)
+* or be registered with the Verifiable Data Registry (less preferable)
 
-In either case, the Veriable Data Registry will provide a list of 
+In either case, the Verifiable Data Registry will provide a list of 
 Public Key **Fingerprints** that it recognizes as valid. 
 This will be used in the Validation process, described below.
 
 When using a Certificate Chain, the number of Fingerprints that have to be published
 is greatly reduced, as only the "root" Fingerprints need be published.
+
+The Certificate Chain MUST be in the Leaf to Root order,
+There is no requirement for the Root and Intermediate(s)
+Certificates to be there, but the order most be correct. 
+
+The Certificate Chain should be published on the web as a URI.
 
 ### Signing and Verifying
 
@@ -151,7 +157,7 @@ The Signed document is a JSON-LD compatible document that includes:
 * the proof, which includes
   * the signature
   * when the claim was signed
-  * where the Public Key Chain can be found on the web
+  * where the Public Key Certificate Chain can be found on the web
 
 Verification involves basically the same process as Signing, and then using
 the rules of JSON Web Signing with the Public Key to see if the
@@ -160,4 +166,16 @@ Mathematically, only the entity with access
 to the private key can generate a document that validates 
 against the Public Key.
 
-### Validating
+### Validation
+
+Validation consists of two parts:
+
+* ensuring the Public Key is recognized
+* ensuring the Claim itself is a recognized and valid
+
+The second part - is the Claim recognized and valid - is basically business logic,
+and it is outside of scope of this document.
+
+The first part is a list of Public Keys. The exact payload for delivering
+this is open, but likely will be a simple JSON document with some framing
+(and potentially digitally signed also)

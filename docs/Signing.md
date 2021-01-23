@@ -24,6 +24,15 @@ is used for [JSON Web Signatures RFC 7515](https://datatracker.ietf.org/doc/rfc7
 Also see Node.JS [implementation](https://www.npmjs.com/package/node-jose).
 
 ## Algorithms
+### Certificate Chain
+
+* Have a Private Key, which is closely held
+* Have a Public Key, which is published on the web as a URI,
+  along with it's Certificate Chain.
+  The Certificate Chain MUST be in the Leaf to Root order,
+  There is no requirement for the Root and Intermediate(s)
+  Certificates to be there, but the order most be correct. 
+
 ### Signing Algorithm
 
 * ensure "@context" contains `"security": "https://w3id.org/security#"`
@@ -41,8 +50,10 @@ Also see Node.JS [implementation](https://www.npmjs.com/package/node-jose).
 * detach proof from message
 * detail JWS from proof
 * using the signing algorithm, rebuild the canonical message and canonical proof
-* using the `verificationMethod`, retrieve the complete Public Key PEM
+* using the `verificationMethod`, retrieve the Public Key PEM
 * rebuild the JWS and compare to the one that came in the proof
+* ensure that Certificate Chain is valid, eg. the Public Key is signed by the Intermediate,
+  and the Intermediate by the Root
 
 ### Components of `security:proof`
 
@@ -50,8 +61,10 @@ Also see Node.JS [implementation](https://www.npmjs.com/package/node-jose).
 * `security:proofPurpose` - always `assertionMessage`
 * `security:created` - a UTC ISO Time
 * `security:nonce` - a randomly generated string, to prevent replays 
-* `security:verificationMethod` - the place to get the Public Key - the complete chain - to verify the JWS, in PEM format
-  (consider allowing JSON serialization). The leaf key should be first, the CA/Root key last.
+* `security:verificationMethod` - the URI to get the Public Key  
+  Certificate chain, in PEM format
+  (_consider allowing JSON serialization_). 
+  The leaf key should be first, the CA/Root key last.
 * `security:jws` - the detached JWS signature, as computed by the algorthm
 
 ## Example
@@ -112,9 +125,4 @@ You can recreate this yourself:
 
 	cd information-passport/tools/bin
 	node verify.js --file signed.json --verifier ../data/public.cer.pem
-
-
-
-
-
 
