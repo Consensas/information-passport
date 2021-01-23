@@ -26,8 +26,8 @@ knowledge is not required:
 * [JSON](https://www.json.org/json-en.html) -
   The People's Data Serialization
 * [Schema](https://schema.org/) - 
-  a shard vocabulary for describing things on the Internet and in the real world.
-* JSON-LD - encodes semantic data, e.g. Schema data, in JSON
+  a shared vocabulary for describing things on the Internet and in the real world.
+* [JSON-LD](https://json-ld.org/) - encodes semantic data, e.g. Schema data, in JSON
 * [Verifiable Credentials](https://www.w3.org/TR/vc-data-model/) - 
   a W3C working group for digitally encoding e.g. a Driver's Licence
 * [Canonical JSON](https://tools.ietf.org/html/rfc8785) - for creating
@@ -38,8 +38,8 @@ knowledge is not required:
 * [X.509 Cryptography](https://en.wikipedia.org/wiki/X.509) - 
   a venerable standard for public key cryptography, the backbone
   of e.g. TLS / HTTPS / the secure web.
-* [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-  - for all dates and times
+* [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) -
+  for all dates and times
 * [Decentralized Identifier](https://www.w3.org/TR/did-core/) _friendly_ - 
   not really a core technology, but useful in concept
 * Standard Webstack - HTTP and TCP/IP. No core dependency on 
@@ -111,7 +111,7 @@ This follows the [Verifiable Credentials](https://www.w3.org/TR/vc-data-model/#e
 
 ## The Standard
 
-### X.509
+### The Keys and Certificate Chain
 
 Issuers will have a X.509 Private / Public Keypair.
 
@@ -146,7 +146,8 @@ To summarize, Signing involves:
 * start with some claim, e.g. "David Janes been given the COVID19 Vaccine"
 * encode as a 
   [QName Compacted JSON-LD](https://github.com/Consensas/information-passport/blob/main/docs/QCompacted.md) 
-  record [based on Schema](https://github.com/Consensas/information-passport/blob/main/docs/Vaccination-Record.md).
+  record with data encoded in 
+  [Schema format](https://github.com/Consensas/information-passport/blob/main/docs/Vaccination-Record.md).
 * sign using the [ConsensasRSA2021](https://github.com/Consensas/information-passport/blob/main/docs/Signing.md) 
   standard, which encodes the signature in the JSON and - although being JSON-LD friendly - 
   does not require JSON-LD, just JSON Web Signatures.
