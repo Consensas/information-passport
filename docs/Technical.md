@@ -40,6 +40,8 @@ knowledge is not required:
   - for all dates and times
 * [Decentralized Identifier](https://www.w3.org/TR/did-core/) _friendly_ - 
   not really a core technology, but useful in concept
+* Standard Webstack - HTTP and TCP/IP. No core dependency on 
+  blockchains or distributed ledgers.
 
 As our goals include being simple to implement and simple to understand, 
 we _constrain_ how these standards are used to get the functionality 
@@ -62,6 +64,8 @@ to use the JSON-LD libraries to work with Information Passports, just JSON.
   the need for data centralization
 * Secure - obviously
 * Revokable - e.g. in the case of security breaches or fraudulently issued credentials
+* Renouncable - e.g. having a URL to a passport won't guarentee it will
+  verify or validate in the future
 * Localized / Internationalized - passports need to work across multiple
   cultures and languages
 * Semantic - data should [Linked Data](https://en.wikipedia.org/wiki/Linked_data) 
@@ -82,3 +86,28 @@ to use the JSON-LD libraries to work with Information Passports, just JSON.
   data source.
 * ID Entry friendly - ideally, it would be simple to enter some sort of Passport identifier 
   into a website, like you do with e.g. a Credit Card.
+
+### Definitions
+
+Our reference example is 
+_David Janes received a COVID-19 Vaccination at the General Hospital. 
+Sunrise Long Term Care cannot let him enter the building 
+unless he follows the rules set by Western Health_.
+
+This follows the [Verifiable Credentials](https://www.w3.org/TR/vc-data-model/#ecosystem-overview) ecosystem model.
+
+* **Subject** - 
+  the entity a Claim is being made about; in the example, "David Janes"
+* **Issuer** - 
+  the entity making the Claim; in the example, this would most likely be "General Hospital"
+  but it could be e.g. the government agency that controls General Hospital.
+* **Verifier** - 
+  is the entity checking the Claim; in the example, "Sunrise Long Term Care"
+* **Verifiable Data Registery** -
+  is the entity that holds the rules and the X.509 public keys that will be
+  accepted by the Verifier; in this example, it's "Western Health"
+
+## The Standard
+### Signing
+### Verifying
+### Validating
