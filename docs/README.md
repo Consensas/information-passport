@@ -1,4 +1,4 @@
-# Information Passport Documentation
+# Information Passport
 
 ## Introduction
 ### What is an Information Passport?
