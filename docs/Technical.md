@@ -2,7 +2,7 @@
 
 ## Introduction
 
-### What is an Information Passport
+### What is an Information Passport?
 
 An **Information Passport** is a _signed digital document_ that makes some claim,
 for example "So and so was Vaccinated against COVID-19 on a certain date".

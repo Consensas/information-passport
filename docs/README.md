@@ -1,5 +1,7 @@
 # Information Passport Documentation
 
+## Introduction
+### What is an Information Passport?
 An **Information Passport** is a _signed digital document_ that makes some claim,
 for example "So and so was Vaccinated against COVID-19 on a certain date".
 If the _signature_ matches the _public key_ of the digital document, the
@@ -13,9 +15,14 @@ provides digital proof of a Vaccination.
 A **Test Passport** is an Information Passport that provides
 digital proof a some test having been performed.
 
-## Standards Proposed
+### Social Media
 
-Some of these can also be found on [Medium](https://dpjanes.medium.com/).
+* We try out a long of this on [Medium](https://dpjanes.medium.com/)
+  for higher social media visibilty
+* [@dpjanes](https://twitter.com/dpjanes)
+* [@consensas](https://twitter.com/consensas)
+
+## Standards Proposed
 
 ### Schema.org extensions
 
