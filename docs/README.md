@@ -17,7 +17,7 @@ digital proof a some test having been performed.
 
 ### Social Media
 
-* We try out a long of this on [Medium](https://dpjanes.medium.com/)
+* We write on [Medium](https://dpjanes.medium.com/)
   for higher social media visibilty
 * [@dpjanes](https://twitter.com/dpjanes)
 * [@consensas](https://twitter.com/consensas)
