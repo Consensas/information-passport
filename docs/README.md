@@ -45,7 +45,8 @@ in any way on these models.
 The primary model for verifying a Vaccination is the 
 [Vaccination-Record](Vaccination-Record.md); in the future 
 we will have Test-Record (name TDB). 
-Most of the other models referenced here 
+
+Here are all the models:
 
 * [A schema.org extension for describing a Vaccination Record](Vaccination-Record.md)
 * [A schema.org description of a Patient](Patient.md)
