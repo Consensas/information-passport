@@ -2,7 +2,8 @@
 
 ## Introduction
 ### What is an Information Passport?
-An **Information Passport** is a _signed digital document_ that makes some claim,
+An **[Information Passport](https://github.com/Consensas/information-passport/tree/main/docs)** 
+is a _signed digital document_ that makes some claim,
 for example "So and so was Vaccinated against COVID-19 on a certain date".
 If the _signature_ matches the _public key_ of the digital document, the
 document is **Verified**.
