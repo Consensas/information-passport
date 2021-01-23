@@ -22,15 +22,35 @@ digital proof a some test having been performed.
 * [@dpjanes](https://twitter.com/dpjanes)
 * [@consensas](https://twitter.com/consensas)
 
-## Standards Proposed
+## Specifications
 
-### Schema.org extensions
+### Information Passports
 
-* [A schema.org extension for semantically describing Vaccinations](Vaccination.md) 
-* [A schema.org description of a Drug like Moderna](Drug-Moderna.md) 
-* [A schema.org description of a Health Condition like COVID-19](HealthCondition-COVID.md) 
+[Information Passports - Technical Description](Technical.md) is the
+core specification. 
+It describes our design goals, as well as the technologies that
+fit together to create Information Passports.
 
-### W3C related
+The following support specifications are referenced:
 
 * [ConsensasRSA2021 signing standard](Signing.md)
 * [QName Compacted JSON-LD](QCompacted.md)
+
+### Schema for Health Passports
+
+These are the core semantic models for Vaccination and Test Passports.
+Note that the general concept of Information Passports do not depend
+in any way on these models.
+
+The primary model for verifying a Vaccination is the 
+[Vaccination-Record](Vaccination-Record.md); in the future 
+we will have Test-Record (name TDB). 
+Most of the other models referenced here 
+
+* [A schema.org extension for describing a Vaccination Record](Vaccination-Record.md)
+* [A schema.org description of a Patient](Patient.md)
+* [A schema.org description of a Hospital](Hospital.md)
+* [A schema.org extension for describing a Health Card](Permit-HealthCard.md)
+* [A schema.org extension for describing Vaccinations](Vaccination.md) 
+* [A schema.org description of a Drug like Moderna](Drug-Moderna.md) 
+* [A schema.org description of a Health Condition like COVID-19](HealthCondition-COVID.md) 
