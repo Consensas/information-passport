@@ -1,11 +1,5 @@
 # Information Passport
 
-## What is this Project?
-
-This is Open Source code for creating and verifying
-Information Passports, such as Vaccination Passports, 
-Test Passports and so forth.
-
 ## What is an Information Passport?
 
 An **[Information Passport#information-passport](https://github.com/Consensas/information-passport/tree/main/docs)** 
@@ -21,6 +15,13 @@ A **Vaccination Passport** is an Information Passport that
 provides digital proof of a Vaccination.
 A **Test Passport** is an Information Passport that provides
 digital proof a some test having been performed.
+
+## What is this Project?
+
+This is Open Source code for creating and verifying
+Information Passports, such as Vaccination Passports, 
+Test Passports and so forth.
+
 
 ## Where do I start / Tell me more?
 
