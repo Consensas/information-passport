@@ -23,6 +23,25 @@ digital proof a some test having been performed.
 * [@dpjanes](https://twitter.com/dpjanes)
 * [@consensas](https://twitter.com/consensas)
 
+## Code and Tools
+
+### Code Signing and Verification
+
+The Node.JS library for signing and verifying
+JSON documents is [here](../tools/jws)
+It can be used server-side or embedded into your web app 
+using webpack, etc.. It implemets 
+the [ConsensasRSA2021 signing standard](Signing.md),
+which should be able to drop into Linked Data Proofs
+and Veriable Credentials
+
+### Command Line Signing and Verification
+
+Command Line tools for signing and verification
+can be found in [tools/bin](../tools/bin). 
+Please see the documentation for examples
+
+
 ## Specifications
 
 ### Information Passports
