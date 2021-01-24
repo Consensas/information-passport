@@ -54,7 +54,8 @@ and Veriable Credentials
 
 ### Command Line Signing and Verification
 
-Command Line tools for signing and verification
+Command Line tools for signing and verification,
+including bulk generation of records,
 can be found in [tools/bin](../tools/bin). 
 Please see the documentation there for more.
 
