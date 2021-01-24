@@ -23,9 +23,11 @@ digital proof a some test having been performed.
 * [@dpjanes](https://twitter.com/dpjanes)
 * [@consensas](https://twitter.com/consensas)
 
+## Reference Website
+
 ## Code and Tools
 
-### Code Signing and Verification
+### Node.JS Signing and Verification
 
 The Node.JS library for signing and verifying
 JSON documents is [here](../tools/jws)
@@ -39,8 +41,20 @@ and Veriable Credentials
 
 Command Line tools for signing and verification
 can be found in [tools/bin](../tools/bin). 
-Please see the documentation for examples
+Please see the documentation there for more.
 
+### Web Based Verification
+
+A web-based verifier, including QR code scanners,
+can be found in [web](../web). 
+Please see the documentation there for more.
+
+### Hand-held Scanner Verfication
+
+A hand-held scanner verifier - for Raspberry Pi, 
+but likely easily adaptable to any platform - 
+can be found in [tools/bin](../tools/bin). 
+Please see the documentation there for more.
 
 ## Specifications
 
