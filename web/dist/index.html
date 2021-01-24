@@ -25,9 +25,10 @@ section.sh2 {
 </head>
 <body>
     <div class="container">
-        <h1>Passport Verification</h1>
+        <h1>Information Passport Verification</h1>
         <p>
         This web app will verify a <a href="https://vaccinated.in/">Vaccination Passport</a>.
+        Validation coming soon!
         </p>
 
         <section class="sh2" id="verified">
@@ -68,12 +69,20 @@ section.sh2 {
 
         <h2>About</h2>
         <p>
-        This demo is does verification using X.509 cryptography entirely in your browser :
-        it does not depend on a third party "verification" site.
+        An <a href="https://github.com/Consensas/information-passport"><b>Information Passport</b></a>
+        is a <i>signed digital document</i> that makes some claim,
+        for example "So and so was Vaccinated against COVID-19 on a certain date".
+        If the <i>signature</i> matches the <i>public key</i> of the digital document, the
+        document is <b>Verified</b>.
+        If the <b>Claim</b> made in the document checks against a set of (arbitrary) rules
+        <i>and</i> the "fingerprint" of the public key is known, we say the document is
+        <b>Validated</b>.
         </p>
         <p>
-        <a href="mailto:ryan@consensas.com?subject=Information Passports">Contact Consensas</a> for more 
-        information about Vaccination Passports.
+        A <b>Vaccination Passport</b> is an Information Passport that
+        provides digital proof of a Vaccination.
+        A <b>Test Record Passport</b> is an Information Passport that provides
+        digital proof a some test having been performed.
         </p>
     </div>
 </body>
