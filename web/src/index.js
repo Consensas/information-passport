@@ -27,7 +27,7 @@ import ip from "../..";
 import fetch from "node-fetch";
 import $ from "jquery";
 
-const DID_EXAMPLE = "http://passport.consensas.com/"
+const DID_EXAMPLE = "https://passport.consensas.com/"
 const didd = {
     "did:cns:": "https://consensas.world/",
     "did:example:": DID_EXAMPLE,
