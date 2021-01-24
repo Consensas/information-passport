@@ -4,7 +4,8 @@
 
 ### What is an Information Passport?
 
-An **Information Passport** is a _signed digital document_ that makes some claim,
+An **[Information Passport](https://github.com/Consensas/information-passport/tree/main/docs#information-passport)**
+is a _signed digital document_ that makes some claim, 
 for example "So and so was Vaccinated against COVID-19 on a certain date".
 If the _signature_ matches the _public key_ of the digital document, the
 document is **Verified**.
@@ -14,7 +15,7 @@ _and_ the "fingerprint" of the public key is known, we say the document is
 
 A **Vaccination Passport** is an Information Passport that 
 provides digital proof of a Vaccination.
-A **Test Passport** is an Information Passport that provides
+A **Test Result Passport** is an Information Passport that provides
 digital proof a some test having been performed.
 
 ### Technology Stack
@@ -66,7 +67,7 @@ to use the JSON-LD libraries to work with Information Passports, just JSON.
   the need for data centralization
 * Secure - obviously
 * Revokable - e.g. in the case of security breaches or fraudulently issued credentials
-* Renouncable - e.g. having a URL to a passport won't guarentee it will
+* Renounceable - e.g. having a URL to a passport won't guarantee it will
   verify or validate in the future
 * Localized / Internationalized - passports need to work across multiple
   cultures and languages
@@ -105,7 +106,7 @@ This follows the [Verifiable Credentials](https://www.w3.org/TR/vc-data-model/#e
   but it could be e.g. the government agency that controls General Hospital.
 * **Verifier** - 
   is the entity checking the Claim; in the example, "Sunrise Long Term Care"
-* **Verifiable Data Registery** -
+* **Verifiable Data Registry** -
   is the entity that holds the rules and the X.509 public keys that will be
   accepted by the Verifier; in this example, it's "Western Health"
 
