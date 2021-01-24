@@ -25,6 +25,21 @@ digital proof a some test having been performed.
 
 ## Reference Website
 
+The reference website is live at
+[passport.consensas.com](https://passport.consensas.com)
+and the source is on [GitHub](https://github.com/Consensas/information-passport-website).
+
+It contains:
+
+* a web-based validator, which can scan QR codes
+* 2500 sample vaccination records
+* Apache 2.4 configuration
+* NGINX configuration
+
+You can install this website on your own computer to play with it
+_and_ all the code needed to create it (including sample data)
+available here - see the next section.
+
 ## Code and Tools
 
 ### Node.JS Signing and Verification
