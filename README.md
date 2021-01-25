@@ -2,9 +2,7 @@
 
 # Information Passport
 
-
 ## What is an Information Passport?
-
 
 An **[Information Passport](https://github.com/Consensas/information-passport/tree/main/docs#information-passport)** 
 is a _signed digital document_ that makes some claim,
