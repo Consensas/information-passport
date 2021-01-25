@@ -18,6 +18,44 @@ provides digital proof of a Vaccination.
 A **Test Passport** is an Information Passport that provides
 digital proof a some test having been performed.
 
+### Design Goals
+
+* It is easy for humans to read and write. 
+* It is easy for machines to parse and generate. These two points should be familiar, 
+  they are the design ideals of [JSON](https://www.json.org/json-en.html).
+* Open Source Implementation - our inspiration is the early web, where any reasonably
+  skilled technologist could pick up it up and do something useful.
+  Our open source reference implementation is on GitHub
+  at [information-passport](https://github.com/Consensas/information-passport)
+  and a reference sample website is at 
+  [information-passport-website](https://github.com/Consensas/information-passport-website).
+* Non-creepy - minimize the potential for personal information leakage and 
+  the need for data centralization
+* Secure - obviously
+* Revokable - e.g. in the case of security breaches or fraudulently issued credentials
+* Renounceable - e.g. having a URL to a passport won't guarantee it will
+  verify or validate in the future
+* Localized / Internationalized - passports need to work across multiple
+  cultures and languages
+* Semantic - data should [Linked Data](https://en.wikipedia.org/wiki/Linked_data) 
+  friendly. In particular, [Schema](https://schema.org) should
+  be the jumping off point for data definitions
+* Standards Based - standing on the shoulders of giants, etc. etc. 
+* Minimalistic - define the least to do the job, and no more: for example,
+  we do not define whether the mobile phone number of a Passport holder needs
+  to be recorded
+* Open Ended - if you need a Passport system that requires e.g. a mobile phone number,
+  it should be straight-forward to build on this standard
+* Paper Friendly - an Information Passport should work as well by presenting
+  a piece of paper as by doing something "digital"
+* Non-app - it should not require an app to be installed on a smart phone. 
+  As per above, it should not even require a smart phone! 
+  However, if there are app-based passport solutions / "wallets"
+  (there are several underway) this standard will likely provide an excellent
+  data source.
+* ID Entry friendly - ideally, it would be simple to enter some sort of Passport identifier 
+  into a website, like you do with e.g. a Credit Card.
+
 ### Social Media
 
 * We write on [Medium](https://dpjanes.medium.com/)
