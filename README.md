@@ -2,8 +2,8 @@
 
 ## What is an Information Passport?
 
-<span>
-<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-color-280.png" style="float: right" />
+<span style="float: right">
+<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-color-280.png" />
 </span>
 
 An **[Information Passport](https://github.com/Consensas/information-passport/tree/main/docs#information-passport)** 
