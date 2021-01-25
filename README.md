@@ -1,6 +1,6 @@
 # Information Passport
 
-<div style="float: right">
+<div style="float: right; display: inline-block;">
 <img src="https://consensas-aws.s3.amazonaws.com/icons/passports-color-280.png" />
 </div>
 
