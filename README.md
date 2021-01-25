@@ -1,6 +1,6 @@
-<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-color-280.png" align="right" />
 
 # Information Passport
+<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-color-280.png" align="right" />
 
 ## What is an Information Passport?
 
