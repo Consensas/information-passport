@@ -27,7 +27,8 @@
     "scripts": {
         "build": "webpack --mode=development",
         "cover": "nyc --reporter=html mocha --recursive",
-        "test": "mocha --recursive --bail"
+        "test": "mocha --recursive --bail",
+        "install": "cp dist/* ../../information-passport-website/validate"
     },
     "version": "1.0.1"
 }
