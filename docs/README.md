@@ -74,6 +74,11 @@ but likely easily adaptable to any platform -
 can be found in [tools/bin](../tools/bin). 
 Please see the documentation there for more.
 
+<div align="left">
+      <a href="https://www.youtube.com/watch?v=d3oz7kR6ZjU">
+         <img src="https://img.youtube.com/vi/d3oz7kR6ZjU/0.jpg" style="width: 240px">
+      </a>
+</div>
 [Video of this in operation](https://youtu.be/d3oz7kR6ZjU).
 
 ## Specifications
