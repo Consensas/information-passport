@@ -1,3 +1,5 @@
+<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" />
+
 # A schema.org description of a Drug like Moderna
 
 This is a straight instantiation of [`schema:Drug`](https://schema.org/Drug), 

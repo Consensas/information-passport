@@ -1,3 +1,5 @@
+<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" />
+
 # A schema.org extension for semantically describing Vaccinations
 
 This document describes a [schema.org](https://schema.org) compatible Type for semantically recording a Vaccination — that is a particular type of Vaccination treatment that is available, but not for example, that Vaccination being to given to someone (we will describe this in another document).

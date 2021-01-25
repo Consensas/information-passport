@@ -1,3 +1,5 @@
+<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" />
+
 # Signing and Verifying JSON documents with RSA Cryptography: ConsensasRSA2021
 
 The ConsensasRSA2021 is based on W3C's [Linked Data Proofs](https://w3c-ccg.github.io/ld-proofs/).

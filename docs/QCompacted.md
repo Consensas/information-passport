@@ -1,3 +1,5 @@
+<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" />
+
 # QName Compacted JSON-LD
 
 We propose that data be, wherever possible, encoded in 

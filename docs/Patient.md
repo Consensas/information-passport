@@ -1,3 +1,5 @@
+<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" />
+
 # A schema.org description of a Patient
 
 This is a straight instantiation of [`schema:Patient`](https://schema.org/Patient).

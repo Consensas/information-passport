@@ -1,3 +1,5 @@
+<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" />
+
 # A schema.org description of a Health Condition like COVID-19
 
 This is a straight instantiation of [`schema:MedicalCondition`](https://schema.org/MedicalCondition), 
