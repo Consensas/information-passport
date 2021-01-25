@@ -77,7 +77,7 @@ Please see the documentation there for more.
 Video:
 
 <div align="left">
-      <a href="https://www.youtube.com/watch?v=d3oz7kR6ZjU">
+      <a href="https://www.youtube.com/watch?v=d3oz7kR6ZjU" target="video">
          <img src="https://img.youtube.com/vi/d3oz7kR6ZjU/0.jpg" style="width: 200px">
       </a>
 </div>
