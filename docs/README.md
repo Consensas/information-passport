@@ -18,7 +18,14 @@ provides digital proof of a Vaccination.
 A **Test Passport** is an Information Passport that provides
 digital proof a some test having been performed.
 
-### Design Goals
+### Social Media
+
+* We write on [Medium](https://dpjanes.medium.com/)
+  for higher social media visibilty
+* [@dpjanes](https://twitter.com/dpjanes)
+* [@consensas](https://twitter.com/consensas)
+
+## Design Goals
 
 * It is easy for humans to read and write. 
 * It is easy for machines to parse and generate. These two points should be familiar, 
@@ -56,12 +63,6 @@ digital proof a some test having been performed.
 * ID Entry friendly - ideally, it would be simple to enter some sort of Passport identifier 
   into a website, like you do with e.g. a Credit Card.
 
-### Social Media
-
-* We write on [Medium](https://dpjanes.medium.com/)
-  for higher social media visibilty
-* [@dpjanes](https://twitter.com/dpjanes)
-* [@consensas](https://twitter.com/consensas)
 
 ## Reference Website
 
