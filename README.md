@@ -1,9 +1,9 @@
 # Information Passport
 
-<img style="float: right" src="https://consensas-aws.s3.amazonaws.com/icons/passports-color-280.png">
 
 ## What is an Information Passport?
 
+<img style="float: right" src="https://consensas-aws.s3.amazonaws.com/icons/passports-color-280.png">
 
 An **[Information Passport](https://github.com/Consensas/information-passport/tree/main/docs#information-passport)** 
 is a _signed digital document_ that makes some claim,
