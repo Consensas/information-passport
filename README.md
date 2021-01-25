@@ -1,4 +1,4 @@
-<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-color-280.png#1" align="right" />
+<img src="https://consensas-aws.s3.amazonaws.com/icons/passport-github.png" align="right" />
 
 # Information Passport
 
