@@ -74,6 +74,8 @@ but likely easily adaptable to any platform -
 can be found in [tools/bin](../tools/bin). 
 Please see the documentation there for more.
 
+[Video of this in operation](https://youtu.be/d3oz7kR6ZjU).
+
 ## Specifications
 
 ### Information Passports
