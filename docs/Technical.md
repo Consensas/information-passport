@@ -45,6 +45,8 @@ knowledge is not required:
   for all dates and times
 * [Decentralized Identifier](https://www.w3.org/TR/did-core/) _friendly_ - 
   not really a core technology, but useful in concept
+* [The Transport Layer Security](https://tools.ietf.org/html/rfc8446) -
+  non-snoopable web connections
 * Standard Webstack - HTTP and TCP/IP. No core dependency on 
   blockchains or distributed ledgers.
 
