@@ -176,12 +176,22 @@ against the Public Key.
 
 Validation consists of two parts:
 
+* fetching the signed document
 * ensuring the Public Key is recognized
 * ensuring the Claim itself is a recognized and valid
 
-The second part - is the Claim recognized and valid - is basically business logic,
-and it is outside of scope of this document.
+The first part - requires getting a URL.
+If you have started with a DID, this will have to be resolved - 
+out of scope for describing here.
+One you hae the URL, e.g. `https://consensas.world/did/did:cns:ABHEZDOYLE`,
+retrieve it with HTTP header `Accept: application/vc+ld+json`. 
+The server MUST return the Signed JSON-LD document with this request.
 
-The first part is a list of Public Keys. The exact payload for delivering
+The third part - is the Claim recognized and valid - is basically business logic,
+and it is outside of scope of this document.
+We will be delivery a proposed spec for this shortly (this will be replaced
+with a link when it is)
+
+The second part is a list of Public Keys. The exact payload for delivering
 this is open, but likely will be a simple JSON document with some framing
 (and potentially digitally signed also)
