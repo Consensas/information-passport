@@ -38,11 +38,15 @@ let make_nonce = _jws_util.make_nonce
 const shims_on = () => {
     _jws_util.make_timestamp = () => "2021-01-18T10:10:26.179Z"
     _jws_util.make_nonce = () => "123456789"
+
+    ip.validate.shims.date = new Date("2021-01-08T10:10:26.179Z")
 }
 
 const shims_off = () => {
     _jws_util.make_timestamp = make_timestamp
     _jws_util.make_nonce = make_nonce
+
+    ip.validate.shims.date = null
 }
 
 /**

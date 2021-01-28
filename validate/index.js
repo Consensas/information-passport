@@ -1,9 +1,9 @@
 /*
- *  index.js
+ *  validate/index.js
  *
  *  David Janes
  *  Consenas.com
- *  2021-01-12
+ *  2021-01-28
  *
  *  Copyright (2013-2021) Consensas
  *
@@ -22,8 +22,9 @@
 
 "use strict"
 
-module.exports = {
-    errors: require("./errors"),
-    jws: require("./jws"),
-    validate: require("./validate"),
-}
+module.exports = Object.assign(
+    {},
+    require("./operations"),
+    {},
+)
+

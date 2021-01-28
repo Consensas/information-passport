@@ -1,0 +1,9 @@
+{
+    "@type": "schema:MedicalRecord-Vaccination",
+    "schema:permit-healthCard.schema:issuedBy": "CA-ON",
+    "schema:treatmentDate": {
+        "$gte$days": 3
+    },
+    "schema:primaryPrevention.schema:drug.schema:code.schema:codeValue": "MVX-MOD.CVX-207",
+    "schema:primaryPrevention.schema:drug.schema:code.schema:codingSystem": "CDC-MVX.CVX"
+}
