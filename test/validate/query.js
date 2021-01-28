@@ -33,7 +33,7 @@ const assert = require("assert")
 
 const _util = require("../_util")
 
-const FOLDER = path.join(__dirname, "..", "..", "test", "bl")
+const FOLDER = path.join(__dirname, "..", "..", "test", "validate")
 const WRITE = process.env.WRITE === "1"
 const DUMP = process.env.DUMP === "1"
 
@@ -49,8 +49,8 @@ describe("validate/query", function() {
     })
 
     it("works", function() {
-        const ins = require("../data/bl/records-1.json")
-        const query = require("../data/bl/query-1.json")
+        const ins = require("../data/validate/records-1.json")
+        const query = require("../data/validate/query-1.json")
 
         const paramd = {
             operations: ip.validate.operations,
