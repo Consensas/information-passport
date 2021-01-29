@@ -18,7 +18,7 @@ _and_ the "fingerprint" of the public key is known, we say the document is
 A **Vaccination Passport** is an Information Passport that 
 provides digital proof of a Vaccination.
 A **Test Result Passport** is an Information Passport that provides
-digital proof a some test having been performed.
+digital proof of some test having been performed.
 
 ### Technology Stack
 
