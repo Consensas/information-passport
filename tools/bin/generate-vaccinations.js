@@ -40,6 +40,7 @@ const ad = minimist(process.argv.slice(2), {
         "key",
         "verifier",
         "host",
+        "issuer",
     ],
     alias: {
     },
@@ -70,9 +71,11 @@ Required:
 
 --key <private-key.pem> private key PEM
 --verifier <url>        url to public key chain PEM 
+--issuer <url>          url of issuer (any URL will do)
 
 Options:
 
+--n <n>                 number of records (default: all)
 --host <host>           host these are served from (default: passport.consensas.com)
 `)
 
@@ -84,6 +87,9 @@ if (!ad.key) {
 }
 if (!ad.verifier) {
     help("--verifier argument is required")
+}
+if (!ad.issuer) {
+    help("--issuer argument is required")
 }
 
 _.logger.levels({
@@ -247,10 +253,22 @@ const _one = _.promise((self, done) => {
         }))
         .add("result:MedicalRecord")
 
-        // sign
-        // write signed JSON
+        // Covid Credential
+        .then(tools.templates.by_name.p("HealthCredential"))
+        .add(sd => ({
+            "issuer": sd.issuer,
+            "issuanceDate": _.timestamp.make(),
+        }))
+        .then(tools.templates.fill.p({
+            "vc:issuer": "issuer",
+            "vc:issuanceDate": "issuanceDate",
+            "vc:credentialSubject": "MedicalRecord",
+        }))
+        .add("result:HealthCredential")
+
+        // sign 
         .make(async sd => {
-            sd.json = await ip.jws.sign(sd.MedicalRecord, sd.private_pem, ad.verifier)
+            sd.json = await ip.jws.sign(sd.HealthCredential, sd.private_pem, ad.verifier)
             sd.path = `website/${sd.record.code}.json`
         })
 
@@ -261,6 +279,7 @@ const _one = _.promise((self, done) => {
         .log("path", "path")
 
         // write the HTML
+        .add("MedicalRecord:json")
         .then(_html)
 
 
@@ -287,6 +306,7 @@ _.promise()
     .make(async sd => {
         sd.private_pem = await fs.promises.readFile(ad.key, "utf8")
         sd.verifier = ad.verifier
+        sd.issuer = ad.issuer
     })
 
     .then(tools.templates.initialize)
@@ -296,6 +316,9 @@ _.promise()
     .then(fs.read.json.magic)
     .make(sd => {
         sd.records = sd.json // .slice(0, 1)
+        if (ad.n) {
+            sd.records = sd.records.slice(0, parseInt(ad.n))
+        }
     })
     .each({
         method: _one,

@@ -13,6 +13,7 @@ Validation in the Open Source code is a work in progress, stand by.
     node generate-vaccinations.js \
         --verifier 'https://gist.githubusercontent.com/dpjanes/d2e3b972f56e73c8a85b7cc983c9114e/raw/6fe7f11e19478241e61fce8e36b2f2ba626a9fd0/public.cer.pem' \
         --key ../data/private.key.pem \
+		--issuer "https://passport.consensas.com" \
         --host 'passport.consensas.com'
 
 ## Tools

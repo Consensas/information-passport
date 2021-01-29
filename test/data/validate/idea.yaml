@@ -1,7 +1,8 @@
 version: 1.0
 rules:
 - name: "Moderna Vaccination in the last 3 days"
-  credential:
+  credential: vc:HealthCredential
+  subject:
     '@type': schema:MedicalRecord-Vaccination
     schema:permit-healthCard.schema:issuedBy: CA-ON
     schema:primaryPrevention.schema:drug.schema:code.schema:codeValue: MVX-MOD.CVX-207
