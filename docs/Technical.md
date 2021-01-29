@@ -1,4 +1,4 @@
-<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" />
+<a href="https://github.com/Consensas/information-passport/tree/main/docs"><img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" /></a>
 
 # Information Passports - Technical Description
 
@@ -152,7 +152,8 @@ To summarize, Signing involves:
 * encode as a 
   [QName Compacted JSON-LD](https://github.com/Consensas/information-passport/blob/main/docs/QCompacted.md) 
   record with data encoded in 
-  [Schema format](https://github.com/Consensas/information-passport/blob/main/docs/Vaccination-Record.md).
+  [Schema format](https://github.com/Consensas/information-passport/blob/main/docs/Vaccination-Record.md) 
+* wrap the claim in [Verifiable Credential for Health Records](VerifiableCredential.md)
 * sign using the [ConsensasRSA2021](https://github.com/Consensas/information-passport/blob/main/docs/Signing.md) 
   standard, which encodes the signature in the JSON and - although being JSON-LD friendly - 
   does not require JSON-LD, just JSON Web Signatures.

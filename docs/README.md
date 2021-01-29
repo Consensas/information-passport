@@ -1,4 +1,4 @@
-<img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" />
+<a href="https://github.com/Consensas/information-passport/tree/main/docs"><img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" /></a>
 
 # Information Passport
 
@@ -62,7 +62,6 @@ digital proof a some test having been performed.
   data source.
 * ID Entry friendly - ideally, it would be simple to enter some sort of Passport identifier 
   into a website, like you do with e.g. a Credit Card.
-
 
 ## Reference Website
 
@@ -132,6 +131,7 @@ fit together to create Information Passports.
 
 The following support specifications are referenced:
 
+* [Vaccination Passport encoded as a W3C Verifiable Credential](VerifiableCredential.md)
 * [ConsensasRSA2021 signing standard](Signing.md)
 * [QName Compacted JSON-LD](QCompacted.md)
 
