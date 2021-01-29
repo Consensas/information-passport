@@ -113,6 +113,6 @@ Note the use of
         "security:created": "2021-01-29T12:00:40.817Z",
         "security:nonce": "5161405714943441",
         "security:verificationMethod": "https://consensas.world/did/did:cns:ABHEZDOYLE.pem",
-        "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJrU1pMZmlGQ01aMkNyOGF0Z0RCOVJhQWlfcHRlY2NkSGczckxBUFVhNUkifQ..Rc9MDk6exumVQhYUWk_U4-PfUntWEZCwNLqH4h9Z_IGNCa5oXAN5fZRywtl9FLRFMKrVwRGjdPLDkmNMcF6FOfpzTH2Hl-51tWuFXoGRvPKh0RqrE72XOmb3g1YXPHOjm8ynv-E8NHUZGV4oewBFD_eG6mfRFqJ6AhQbgIEXA_VDKYN0zvl30aGDC-TChs3EL0HnVQd_FxF-JmQNoUpcNV1Ps1RV829BRr0E0R5JPIlq5aP0P9pjzTxf9MNHCoLLaOPk922YJelugWExHuJDriqE-k77fl2Ik9sgTMaMd4kd90HA8N3kyn4mRTPvHukqMeycsa773b1cRZc8yAWc0w"
+        "security:jws": "ey....0w"
       }
     }

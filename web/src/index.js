@@ -74,6 +74,7 @@ const validate = async url => {
     console.log("URL", url)
 
     try {
+        console.log("-", "fetch json", url)
         const response = await fetch(url, {
             headers: {
                 accept: "application/vc+ld+json",
@@ -81,13 +82,16 @@ const validate = async url => {
         })
         const json = await response.json();
         const verified = await ip.jws.verify(json, async proof => {
+            console.log("-", "fetch verification", proof.verificationMethod)
             const vresponse = await fetch(proof.verificationMethod)
             const vtext = await vresponse.text()
 
             return vtext
         })
 
-        const fd = flatten(verified.payload)
+        // hack - should be just "vc:credentialSubject"
+        console.log("-", "display verified")
+        const fd = flatten(verified.payload["vc:credentialSubject"] || verified.payload)
         const dl = $("dl")
         dl.empty()
 
