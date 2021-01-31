@@ -1,5 +1,5 @@
 /*
- *  test/roundtrip.js
+ *  test/crypto/roundtrip.js
  *
  *  David Janes
  *  Consenas.com
@@ -23,7 +23,7 @@
 "use strict"
 
 const _ = require("lodash")
-const ip = require("..")
+const ip = require("../..")
 
 const jose = require("node-jose")
 
@@ -31,9 +31,9 @@ const fs = require("fs")
 const path = require("path")
 const assert = require("assert")
 
-const _util = require("./_util")
+const _util = require("./../_util")
 
-const FOLDER = path.join(__dirname, "..", "test", "data")
+const FOLDER = path.join(__dirname, "..", "..", "test", "data")
 const WRITE = process.env.WRITE === "1"
 const DUMP = process.env.DUMP === "1"
 
