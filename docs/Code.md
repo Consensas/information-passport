@@ -129,7 +129,10 @@ Where:
   to Root. There is no requirement for more than a single Leaf certificate
   though!
 
+Remember that **Verification** only checks to see if signature is good.
+It does not tell you if the public key is one you should trust,
+or if the data is meaningful in any way.
 
-### Valdate a JSON document
+### Valdate a Verifiable Claim
 
 In progress
