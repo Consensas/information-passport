@@ -82,7 +82,7 @@ available here - see the next section.
 
 ## Code
 
-The Node.JS code and package documentation is [here](Code.md)
+The Node.JS code and package documentation is [here](Code.md).
 
 ## Tools
 

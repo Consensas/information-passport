@@ -19,17 +19,41 @@ A **Test Passport** is an Information Passport that provides
 digital proof a some test having been performed.
 
 
-## Code
+## Installation
 
-The Node.JS code documentation is [here](Code.md)
+The current published version
 
-### Node.JS Signing and Verification
+    npm install information-passport
 
-The Node.JS library for signing and verifying
-JSON documents is [here](../tools/jws)
-It can be used server-side or embedded into your web app 
-using webpack, etc.. It implemets 
-the [ConsensasRSA2021 signing standard](Signing.md),
-which should be able to drop into Linked Data Proofs
-and Veriable Credentials
+If you want the current development version 
+(things move quickly):
 
+    npm install https://github.com/Consensas/information-passport.git
+
+## API
+
+We assume you are doing first
+
+    const ip = require("information-passport")
+
+### Sign a JSON document
+
+Add `jws:proof` to a JSON record, as per the 
+the `ConsensasRSA2021` standard.
+Read more [here](QCompacted.md).
+
+    ip.crypto.sign(message, private_key, verifier)
+
+* `message` is a JSON record
+* `private_key` is a PEM encoded private key, a string
+* `verifier` is a URL, where the public key certificate chain can be found
+
+This returns a promise that resolves to a signed JSON record
+
+Usage:
+
+    const signed = await ip.crypto.sign(message, private_key, verifier)
+
+### Verify a JSON document
+
+### Valdate a JSON document
