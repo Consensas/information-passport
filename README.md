@@ -24,7 +24,6 @@ This is Open Source code for creating and verifying
 Information Passports, such as Vaccination Passports, 
 Test Passports and so forth.
 
-
 ## Where do I start / Tell me more?
 
 **[Start here](docs) in the documentation.**
@@ -33,8 +32,9 @@ Test Passports and so forth.
 
 * [docs](docs): documentation, including standards we are defining. 
 
-* jws: the core signing and verification algorithms -
-  this is what NPMing this package gets you
+* [crypto](crypto): the core signing and verification algorithms
+
+* [validate](validate): the validation algortithms.
 
 * web: a sample web interface that will scan and verify
   Information Passport QR codes or take QR code entry
