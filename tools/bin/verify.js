@@ -75,7 +75,7 @@ _.logger.levels({
 const run = async (files) => {
     const message = JSON.parse(ad.file ? await fs.promises.readFile(ad.file) : await _util.read_stdin())
 
-    const signed = await ip.jws.verify(message, async proof => {
+    const signed = await ip.crypto.verify(message, async proof => {
         return fs.promises.readFile(ad.verifier ? ad.verifier : proof, "utf8")
     })
 

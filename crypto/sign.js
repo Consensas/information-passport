@@ -1,5 +1,5 @@
 /**
- *  jws/sign.js
+ *  crypto/sign.js
  *
  *  David Janes
  *  Consensas

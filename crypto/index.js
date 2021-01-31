@@ -1,5 +1,5 @@
 /*
- *  jws/index.js
+ *  crypto/index.js
  *
  *  David Janes
  *  Consenas.com

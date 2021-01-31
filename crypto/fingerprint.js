@@ -1,5 +1,5 @@
 /**
- *  jws/fingerprint.js
+ *  crypto/fingerprint.js
  *
  *  David Janes
  *  Consensas

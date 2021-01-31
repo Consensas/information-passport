@@ -1,5 +1,5 @@
 /**
- *  jws/_util.js
+ *  crypto/_util.js
  *
  *  David Janes
  *  Consensas

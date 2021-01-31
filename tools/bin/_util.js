@@ -101,7 +101,7 @@ const verify_url = _.promise((self, done) => {
         .make(async sd => {
             sd.json = JSON.parse(sd.document)
 
-            sd.verified = await ip.jws.verify(sd.json, async proof => {
+            sd.verified = await ip.crypto.verify(sd.json, async proof => {
                 const result = await _.promise({})
                     .then(fetch.document.get(proof.verificationMethod))
 

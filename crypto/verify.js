@@ -1,5 +1,5 @@
 /**
- *  jws/verify.js
+ *  crypto/verify.js
  *
  *  David Janes
  *  Consensas
@@ -144,7 +144,7 @@ const verify = async (d, key_fetcher) => {
                         d[attribute.shortName] = attribute.value
                     })
 
-                    d.fingerprint = ip.jws.fingerprint(cert)
+                    d.fingerprint = ip.crypto.fingerprint(cert)
 
                     return d
                 }),

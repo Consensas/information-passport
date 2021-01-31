@@ -57,7 +57,7 @@ describe("sign", function() {
         }
         const verifier = "https://example.com/i/pat/keys/5"
 
-        const signed = await ip.jws.sign(message, private_key, verifier)
+        const signed = await ip.crypto.sign(message, private_key, verifier)
 
         if (DUMP) {
             console.log(JSON.stringify(signed, null, 2))
@@ -81,7 +81,7 @@ describe("sign", function() {
         }
         const verifier = "https://example.com/i/pat/keys/5"
 
-        const signed = await ip.jws.sign(message, private_pem, verifier)
+        const signed = await ip.crypto.sign(message, private_pem, verifier)
 
         if (DUMP) {
             console.log(JSON.stringify(signed, null, 2))

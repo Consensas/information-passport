@@ -24,6 +24,6 @@
 
 module.exports = {
     errors: require("./errors"),
-    jws: require("./jws"),
+    crypto: require("./crypto"),
     validate: require("./validate"),
 }

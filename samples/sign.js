@@ -25,7 +25,7 @@ const run = async (files) => {
     }
     const verifier = "https://example.com/i/pat/keys/5"
 
-    const signed = await ip.jws.sign(message, private_key, verifier)
+    const signed = await ip.crypto.sign(message, private_key, verifier)
     console.log(JSON.stringify(signed, null, 2))
 }
 

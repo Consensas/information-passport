@@ -58,10 +58,10 @@ describe("roundtrip", function() {
         }
         const verifier = "https://example.com/i/pat/keys/5"
 
-        const signed = await ip.jws.sign(message, private_key, verifier)
+        const signed = await ip.crypto.sign(message, private_key, verifier)
 
         // verify
-        const v = await ip.jws.verify(signed, async proof => {
+        const v = await ip.crypto.verify(signed, async proof => {
             return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
         })
 
