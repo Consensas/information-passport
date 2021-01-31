@@ -50,8 +50,11 @@ const pretty = _.promise((self, done) => {
     _.promise(self)
         .validate(pretty)
 
+        .make(sd => {
+            sd.claim = _.d.first(sd, "verified/payload/vc:credentialSubject", null)
+            sd.data_type = _.d.first(sd.claim, "@type", null)
+        })
         .then(tools.projects.initialize)
-        .add("verified/payload/@type:data_type")
         .then(tools.projects.by_data_type)
         .then(tools.projects.required)
 
@@ -59,7 +62,7 @@ const pretty = _.promise((self, done) => {
             _.d.list(sd.project, "groups", []).forEach(group => {
                 console.log(colors.green(group.name))
                 _.d.list(group, "nodes", []).forEach(node => {
-                    console.log(`  ${node.name}: ` + colors.cyan(_.d.first(sd.verified.payload, node.id, "")))
+                    console.log(`  ${node.name}: ` + colors.cyan(_.d.first(sd.claim, node.id, "")))
                 })
             })
 
