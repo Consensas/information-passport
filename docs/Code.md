@@ -2,8 +2,7 @@
 
 # Code
 
-## Introduction
-### What is an Information Passport?
+## What is an Information Passport?
 An **[Information Passport](https://github.com/Consensas/information-passport/tree/main/docs#information-passport)** 
 is a _signed digital document_ that makes some claim,
 for example "So and so was Vaccinated against COVID-19 on a certain date".
@@ -29,6 +28,16 @@ If you want the current development version
 (things move quickly):
 
     npm install https://github.com/Consensas/information-passport.git
+
+## Testing
+
+All core code will have a complete test suite. Use
+
+    npm test 
+
+or
+
+    npm run cover
 
 ## API
 
