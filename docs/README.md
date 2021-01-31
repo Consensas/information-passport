@@ -80,17 +80,11 @@ You can install this website on your own computer to play with it
 _and_ all the code needed to create it (including sample data)
 available here - see the next section.
 
-## Code and Tools
+## Code
 
-### Node.JS Signing and Verification
+The Node.JS code and package documentation is [here](Code.md)
 
-The Node.JS library for signing and verifying
-JSON documents is [here](../tools/jws)
-It can be used server-side or embedded into your web app 
-using webpack, etc.. It implemets 
-the [ConsensasRSA2021 signing standard](Signing.md),
-which should be able to drop into Linked Data Proofs
-and Veriable Credentials
+## Tools
 
 ### Command Line Signing and Verification
 
