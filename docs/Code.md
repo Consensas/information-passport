@@ -44,11 +44,11 @@ Add `jws:proof` to a JSON record, as per the
 the `ConsensasRSA2021` standard.
 Read more [here](QCompacted.md).
 
-    ip.crypto.sign(message, private_key, verifier)
+    Promise ip.crypto.sign(JSON message, String private_key, URI verifier)
 
 * `message` is a JSON record
-* `private_key` is a PEM encoded private key, a string
-* `verifier` is a URL, where the public key certificate chain can be found
+* `private_key` is a PEM encoded private key
+* `verifier` is a URI, where the public key certificate chain can be found
 
 This returns a promise that resolves to the signed JSON record, which
 looks like this:
@@ -75,9 +75,53 @@ but it can be used to sign one.
 
 Verify that a document with a signature is correctly signed.
 
-        const v = await ip.crypto.verify(signed, async proof => {
-            return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
-        })
+    Promise ip.crypto.verify(JSON signed, Promise prover(String verifier))
+
+* `signed` is the signed JSON record
+* `prover` is a function that returns a promise.
+  It takes a single argument, the `verifier` which is 
+  a URI to retrieve the public key certificate chain,
+  which should be returned as a String
+
+If something goes wrong - e.g. verification fails in any way - an Error is thrown.
+This returns a Promise which resolves to a record that looks like this:
+
+    {
+      "proof": {
+        "type": "https://models.consensas.com/security#ConsensasRSA2021",
+        "proofPurpose": "assertionMethod",
+        "created": "2021-01-18T10:10:26.179Z",
+        "nonce": "123456789",
+        "verificationMethod": "https://example.com/i/pat/keys/5",
+        "jws": "ey...w"
+      },
+      "payload": {
+        "@context": {
+          "security": "https://w3id.org/security#"
+        },
+        "hello": "world"
+      },
+      "chain": [
+        {
+          "C": "CA",
+          "CN": "davidjanes.com",
+          "fingerprint": "78:EA:E2:A5:19:FD:A8:35:56:2D:59:B7:B7:20:32:6C:F6:EC:53:E0"
+        }
+      ]
+    }
+
+Where:
+
+* `proof` is the proof that was in the JSON record, with the `security:` 
+  QNames stripped off (for easy of programming)
+* `payload` is the original message - note that `@context` may be 
+  added or modified
+* `chain` is an Array that contains the fingerprints and basic details
+  about the Certificate Chain, in strict bottom up order of Leaf
+  to Root. There is no requirement for more than a single Leaf certificate
+  though!
 
 
 ### Valdate a JSON document
+
+In progress
