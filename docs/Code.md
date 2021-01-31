@@ -36,6 +36,8 @@ We assume you are doing first
 
     const ip = require("information-passport")
 
+Sample code can be found in the `samples` and `test` folder.
+
 ### Sign a JSON document
 
 Add `jws:proof` to a JSON record, as per the 
@@ -48,12 +50,34 @@ Read more [here](QCompacted.md).
 * `private_key` is a PEM encoded private key, a string
 * `verifier` is a URL, where the public key certificate chain can be found
 
-This returns a promise that resolves to a signed JSON record
+This returns a promise that resolves to the signed JSON record, which
+looks like this:
 
-Usage:
+    {
+      "@context": {
+        "security": "https://w3id.org/security#"
+      },
+      "hello": "world",
+      "security:proof": {
+        "security:type": "https://models.consensas.com/security#ConsensasRSA2021",
+        "security:proofPurpose": "assertionMethod",
+        "security:created": "2021-01-18T10:10:26.179Z",
+        "security:nonce": "123456789",
+        "security:verificationMethod": "https://example.com/i/pat/keys/5",
+        "security:jws": "ey...7w"
+      }
+    }
 
-    const signed = await ip.crypto.sign(message, private_key, verifier)
+Note that this _isn't_ a [W3C Verifiable Credential](https://www.w3.org/TR/vc-data-model/)… 
+but it can be used to sign one.
 
 ### Verify a JSON document
+
+Verify that a document with a signature is correctly signed.
+
+        const v = await ip.crypto.verify(signed, async proof => {
+            return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
+        })
+
 
 ### Valdate a JSON document
