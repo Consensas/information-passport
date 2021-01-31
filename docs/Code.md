@@ -41,8 +41,7 @@ Sample code can be found in the `samples` and `test` folder.
 ### Sign a JSON document
 
 Add `jws:proof` to a JSON record, as per the 
-the `ConsensasRSA2021` standard.
-Read more [here](QCompacted.md).
+the [`ConsensasRSA2021` standard](QCompacted.md). 
 
     Promise ip.crypto.sign(JSON message, String private_key, URI verifier)
 
