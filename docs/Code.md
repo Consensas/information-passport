@@ -83,10 +83,10 @@ but it can be used to sign one.
 
 Verify that a document with a signature is correctly signed.
 
-    Promise ip.crypto.verify(JSON signed, Promise prover(String verifier))
+    Promise ip.crypto.verify(JSON signed, Promise getPKC(String verifier))
 
 * `signed` is the signed JSON record
-* `prover` is a function that returns a promise.
+* `getPKC` is a function that returns a promise.
   It takes a single argument, the `verifier` which is 
   a URI to retrieve the public key certificate chain,
   which should be returned as a String
