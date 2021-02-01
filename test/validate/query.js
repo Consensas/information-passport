@@ -48,15 +48,28 @@ describe("validate/query", function() {
         _util.shims_off()
     })
 
-    it("works", function() {
-        const ins = require("../data/validate/records-1.json")
-        const query = require("../data/validate/query-1.json")
+    it("works", async function() {
+        const NAME = "validate/outs-01.json"
+        const ins = await _util.read_json("validate/records-1.json")
+        const query = await _util.read_json("validate/query-1.json")
 
         const paramd = {
             operations: ip.validate.operations,
         }
 
         const outs = ins.filter(sift(query, paramd))
-        console.log(outs)
+        if (DUMP) {
+            console.log("query", query)
+            console.log("ins", ins)
+            console.log("outs", outs)
+        }
+        if (WRITE) {
+            await _util.write_json(outs, NAME)
+        }
+
+        const got = outs
+        const want = await _util.read_json(NAME)
+        
+        assert.deepEqual(got, want)
     })
 })
