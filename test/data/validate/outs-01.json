@@ -1,0 +1,85 @@
+[
+  {
+    "@context": {
+      "schema:": "https://schema.org",
+      "security": "https://w3id.org/security#"
+    },
+    "@type": "schema:MedicalRecord-Vaccination",
+    "schema:identifier": "MED-PVR-0200-210108-1002",
+    "schema:location": {
+      "@context": {
+        "schema:": "https://schema.org"
+      },
+      "@type": "schema:Hospital",
+      "schema:name": "General Hospital",
+      "schema:identifier": "MSC-PLC-0200-1001-2101",
+      "schema:address": {
+        "@type": "schema:PostalAddress",
+        "schema:addressCountry": "CA",
+        "schema:addressRegion": "BC"
+      }
+    },
+    "schema:name": "David P Janes - Moderna COVID-19 Vaccine",
+    "schema:patient": {
+      "@type": "schema:Patient",
+      "schema:additionalName": "P",
+      "schema:birthDate": "••••-••-01",
+      "schema:familyName": "Janes",
+      "schema:givenName": "David"
+    },
+    "schema:permit-healthCard": {
+      "@type": "schema:Permit-HealthCard",
+      "schema:identifier-healthCard": "•••••••••••••••1111",
+      "schema:issuedBy": "CA-ON",
+      "schema:validUntil": "2023-12-31"
+    },
+    "schema:primaryPrevention": {
+      "@context": {
+        "schema:": "https://schema.org"
+      },
+      "@type": "schema:MedicalTherapy-Vaccination",
+      "schema:name": "Moderna COVID-19 Vaccine",
+      "schema:identifier": "MVX-MOD.CVX-207",
+      "schema:drug": {
+        "@type": "schema:Drug",
+        "schema:name": "Moderna COVID-19 Vaccine",
+        "schema:identifier": "MVX-MOD.CVX-207",
+        "schema:code": {
+          "@type": "schema:MedicalCode",
+          "schema:codeValue": "MVX-MOD.CVX-207",
+          "schema:codingSystem": "CDC-MVX.CVX"
+        },
+        "schema:description": "COVID-19, mRNA, LNP-S, PF, 100 mcg/0.5 mL dose",
+        "schema:identifier-cvx": "CVX-207",
+        "schema:manufacturer": {
+          "@type": "schema:Organization-CDC-MVX",
+          "schema:name": "Moderna US, Inc.",
+          "schema:identifier": "MVX-MOD",
+          "schema:identifier-mvx": "MVX-MOD"
+        }
+      },
+      "schema:healthCondition": {
+        "@type": "schema:MedicalCondition",
+        "schema:name": "COVID-19",
+        "schema:identifier": "U07",
+        "schema:code": {
+          "@type": "schema:MedicalCode",
+          "schema:codeValue": "U07",
+          "schema:codingSystem": "ICD-10"
+        }
+      },
+      "schema:identifier-cvx": "CVX-207",
+      "schema:identifier-mvx": "MVX-MOD"
+    },
+    "schema:treatmentDate": "2021-01-06",
+    "w3did:id": "did:cns:ABHEZDOYLE",
+    "security:proof": {
+      "security:type": "https://models.consensas.com/security#ConsensasRSA2021",
+      "security:proofPurpose": "assertionMethod",
+      "security:created": "2021-01-28T14:29:41.660Z",
+      "security:nonce": "8024471531863395",
+      "security:verificationMethod": "https://consensas.world/did/did:cns:ABHEZDOYLE.pem",
+      "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJrU1pMZmlGQ01aMkNyOGF0Z0RCOVJhQWlfcHRlY2NkSGczckxBUFVhNUkifQ..F67By0ZBP_BgzHKB3qo6uXXy71YsadDPYpow9U43wGAjg_No_wkAHDPr6SXJzuvC2qavvLiWWXGgAoIzlZvUw_kOX6aJxvwU5LEhOvUJ5Pymp6xfhwjkIAWKrUb-3jsAwErInayMN9wQYVW12dAbrA9GEPJmGovFBjKVyfSKxPFvuoxEnwt0p_eyevNixDklR2M4dbZB50c_tyTFxlbssVZM_9jKnKR16aeU8aZef040JMzMtRri0PJskg20n88nC2_e0YwsHdxiAteC-cm-4pENtjA4knzxqj_Z5lPexVwGN415OoRDxX15WO0_WMgGzTqSTF8-nxGe8gMU5m1mTw"
+    }
+  }
+]
