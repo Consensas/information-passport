@@ -35,18 +35,21 @@ const _crypto_util = require("../crypto/_util")
 let make_timestamp = _crypto_util.make_timestamp
 let make_nonce = _crypto_util.make_nonce
 
+const _validate_util = require("../validate/_util")
+let make_now = _validate_util.make_now
+
 const shims_on = () => {
     _crypto_util.make_timestamp = () => "2021-01-18T10:10:26.179Z"
     _crypto_util.make_nonce = () => "123456789"
 
-    ip.validate.shims.date = new Date("2021-01-08T10:10:26.179Z")
+    _validate_util.make_now = () => new Date("2021-01-08T10:10:26.179Z")
 }
 
 const shims_off = () => {
     _crypto_util.make_timestamp = make_timestamp
     _crypto_util.make_nonce = make_nonce
 
-    ip.validate.shims.date = null
+    _validate_util.make_now = () => make_now
 }
 
 /**

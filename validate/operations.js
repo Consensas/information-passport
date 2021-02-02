@@ -26,10 +26,12 @@ const sift = require("sift")
 const fns = require("date-fns")
 const duration = require("iso8601-duration")
 
+const _util = require("./_util")
+
 /**
  */
 const _gte$days = (date, rule, value) => {
-    let when = fns.addDays(exports.shims.date || date, -rule)
+    let when = fns.addDays(_util.make_now(), -rule)
     when = fns.startOfDay(when)
     when = fns.formatISO(when)
     when = when.substring(0, 10)
@@ -47,17 +49,11 @@ const $gte$days = (rule, query, options) => {
     )
 }
 
+$gte$days.underlying = _gte$days
+
 /**
  *  API
  */
 exports.operations = {
     $gte$days: $gte$days,
-}
-
-/**
- *  Testing
- */
-exports.shims = {
-    date: null,
-    gte$days: _gte$days,
 }
