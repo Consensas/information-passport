@@ -190,6 +190,7 @@ const load_rules = _.promise((self, done) => {
     _.promise(self)
         .validate(load_rules)
 
+        .then(_load_json)
         .make(sd => {
             sd.rules = _.d.list(sd.json, "rules", [])
                 .filter(rule => _.is.Dictionary(rule))
