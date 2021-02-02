@@ -118,10 +118,12 @@ _.logger.levels({
 /**
  */
 _.promise({
-    url: ad.in,
-    path: ad.in,
+    rules: null,
+    certs: null,
 })
-    .conditional(_.is.AbsoluteURL(ad.in) ? _util.verify_url : _util.verify_path)
+    .conditional(ad.certs, _util.load_certs.p(ad.certs))
+    .conditional(ad.rules, _util.load_rules.p(ad.rules))
+    .then(_util.verify.p(ad.in))
     .make(sd => {
         if (!ad.pretty) {
             console.log(JSON.stringify(sd.verified, null, 2))
@@ -129,6 +131,8 @@ _.promise({
             console.clear()
         }
     })
+    .conditional(sd => sd.rules, ip.validate.validate_with_rules)
+    .conditional(sd => sd.certs, ip.validate.validate_with_certs)
     .conditional(ad.pretty, _util.pretty)
 
     .except(error => {

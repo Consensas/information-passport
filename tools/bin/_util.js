@@ -24,6 +24,7 @@
 
 const _ = require("iotdb-helpers")
 const fetch = require("iotdb-fetch")
+const fs = require("iotdb-fs")
 
 const ip = require("../..")
 const tools = require("..")
@@ -88,48 +89,41 @@ pretty.produces = {
 
 /**
  */
-const verify_url = _.promise((self, done) => {
-    _.promise(self)
-        .validate(verify_url)
+const _load_json = _.promise((self, done) => {
+    _.promise.validate(self, _load_json)
 
-        .then(fetch.document.get({
-            url: null,
+    _.promise(self)
+        .conditional(!_.is.AbsoluteURL(self.in), fs.read.yaml.p(self.in))
+        .conditional(!_.is.AbsoluteURL(self.in), _.promise.bail)
+
+        .then(fetch.json.get({
+            url: self.in,
             headers: {
                 "accept": "application/vc+ld+json",
             },
         }))
-        .make(async sd => {
-            sd.json = JSON.parse(sd.document)
 
-            sd.verified = await ip.crypto.verify(sd.json, async proof => {
-                const result = await _.promise({})
-                    .then(fetch.document.get(proof.verificationMethod))
-
-                return result.document
-            })
-        })
-
-        .end(done, self, verify_url)
+        .end(done, self, _load_json)
 })
 
-verify_url.method = "verify_url"
-verify_url.description = ``
-verify_url.requires = {
-    url: _.is.AbsoluteURL,
+_load_json.method = "_util._load_json"
+_load_json.description = `
+    Load JSON data, from the web or the FS, depending in "in"
+`
+_load_json.requires = {
+    in: [ _.is.String, _.is.AbsoluteURL ],
 }
-verify_url.accepts = {
-}
-verify_url.produces = {
-    verified: _.is.Dictionary,
+_load_json.produces = {
+    json: _.is.JSON,
 }
 
 /**
  */
-const verify_path = _.promise((self, done) => {
+const verify = _.promise((self, done) => {
     _.promise(self)
-        .validate(verify_path)
+        .validate(verify)
 
-        .then(fs.read.json)
+        .then(_load_json)
         .make(async sd => {
             sd.verified = await ip.crypto.verify(sd.json, async proof => {
                 const result = await _.promise({})
@@ -139,23 +133,90 @@ const verify_path = _.promise((self, done) => {
             })
         })
 
-        .end(done, self, verify_path)
+        .end(done, self, verify)
 })
 
-verify_path.method = "verify_path"
-verify_path.description = ``
-verify_path.requires = {
-    path: _.is.String,
+verify.method = "_util.verify"
+verify.description = ``
+verify.requires = {
+    in: [ _.is.String, _.is.AbsoluteURL ],
 }
-verify_path.accepts = {
+verify.accepts = {
 }
-verify_path.produces = {
+verify.produces = {
     verified: _.is.Dictionary,
 }
+verify.params = {
+    in: _.p.normal,
+}
+verify.p = _.p(verify)
+
+/**
+ */
+const load_certs = _.promise((self, done) => {
+    _.promise(self)
+        .validate(load_certs)
+
+        .then(_load_json)
+        .then(sd => {
+            sd.certs = _.d.list(sd.json, "certs", [])
+                .filter(cert => cert)
+                .map(d => cert.fingerprint ? cert.fingerprint : cert)
+                .filter(cert => _.is.String(cert))
+        })
+
+        .end(done, self, load_certs)
+})
+
+load_certs.method = "_util.load_certs"
+load_certs.description = ``
+load_certs.requires = {
+    in: [ _.is.String, _.is.AbsoluteURL ],
+}
+load_certs.accepts = {
+}
+load_certs.produces = {
+    certs: _.is.Array,
+}
+load_certs.params = {
+    in: _.p.normal,
+}
+load_certs.p = _.p(load_certs)
+
+
+/**
+ */
+const load_rules = _.promise((self, done) => {
+    _.promise(self)
+        .validate(load_rules)
+
+        .then(sd => {
+            sd.rules = _.d.list(sd.json, "rules", [])
+                .filter(rule => _.is.Dictionary(rule))
+        })
+
+        .end(done, self, load_rules)
+})
+
+load_rules.method = "_util.load_rules"
+load_rules.description = ``
+load_rules.requires = {
+    in: [ _.is.String, _.is.AbsoluteURL ],
+}
+load_rules.accepts = {
+}
+load_rules.produces = {
+    rules: _.is.Array,
+}
+load_rules.params = {
+    in: _.p.normal,
+}
+load_rules.p = _.p(load_rules)
 
 /**
  */
 exports.pretty = pretty
 exports.read_stdin = read_stdin
-exports.verify_url = verify_url
-exports.verify_path = verify_path
+exports.verify = verify
+exports.load_certs = load_certs
+exports.load_rules = load_rules
