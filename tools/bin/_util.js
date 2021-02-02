@@ -125,6 +125,37 @@ verify_url.produces = {
 
 /**
  */
+const verify_path = _.promise((self, done) => {
+    _.promise(self)
+        .validate(verify_path)
+
+        .then(fs.read.json)
+        .make(async sd => {
+            sd.verified = await ip.crypto.verify(sd.json, async proof => {
+                const result = await _.promise({})
+                    .then(fetch.document.get(proof.verificationMethod))
+
+                return result.document
+            })
+        })
+
+        .end(done, self, verify_path)
+})
+
+verify_path.method = "verify_path"
+verify_path.description = ``
+verify_path.requires = {
+    path: _.is.String,
+}
+verify_path.accepts = {
+}
+verify_path.produces = {
+    verified: _.is.Dictionary,
+}
+
+/**
+ */
 exports.pretty = pretty
 exports.read_stdin = read_stdin
 exports.verify_url = verify_url
+exports.verify_path = verify_path

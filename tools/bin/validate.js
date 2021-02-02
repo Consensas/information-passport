@@ -35,14 +35,23 @@ const ad = minimist(process.argv.slice(2), {
         "verbose", "trace", "debug",
         "pretty",
 		"clear",
+        "json",
+
     ],
     string: [
+        "in",
         "url",
+        "rules",
+        "certs",
         "_",
+        "certs",
     ],
     alias: {
+        "in": "url",
     },
     default: {
+        "rules": null,
+        "certs": null,
     },
 });
 
@@ -55,23 +64,50 @@ const help = message => {
     }
 
     console.log(`\
-usage: ${name} [options] <url>
+usage: ${name} [options] 
 
-one of these is 
+input options:
 
---pretty        format the output the best you can
---clear         clear screen when result found
+--in <url|file>    input document (URL or file)
+
+fomatting options:
+
+--json             format the output as JSON (the default)
+--pretty           format the output the best you can 
+--clear            clear screen when result found
+
+rule options (one of these are required):
+
+--no-rules          don't validate against rule set
+--rules <url|file>  where to get rules (URL or file)
+
+certificate options (one of these are required):
+
+--no-certs          don't validate against certs
+--certs <url|file>  where to get certs (URL or file)
+
+The the rules and certificates options are defined in a 
+JSON or YAML document.
+
+Please see: (URL to documentation here)
 `)
 
     process.exit(message ? 1 : 0)
 }
 
-if (!ad.url && ad._.length) {
-    ad.url = ad._.shift()
+if (!ad.in && ad._.length) {
+    ad.in = ad._.shift()
 }
 
-if (!ad.url) {
-    help("url argument is required")
+if (!ad.in) {
+    help("--in <url|file> is required")
+}
+
+if (_.is.Null(ad.rules)) {
+    help("--no-rules or --rules <url|file> is required")
+}
+if (_.is.Null(ad.certs)) {
+    help("--no-certs or --certs <url|file> is required")
 }
 
 _.logger.levels({
@@ -82,9 +118,10 @@ _.logger.levels({
 /**
  */
 _.promise({
-    url: ad.url,
+    url: ad.in,
+    path: ad.in,
 })
-    .then(_util.verify_url)
+    .conditional(_.is.AbsoluteURL(ad.in) ? _util.verify_url : _util.verify_path)
     .make(sd => {
         if (!ad.pretty) {
             console.log(JSON.stringify(sd.verified, null, 2))
