@@ -158,7 +158,7 @@ const load_certs = _.promise((self, done) => {
         .validate(load_certs)
 
         .then(_load_json)
-        .then(sd => {
+        .make(sd => {
             sd.certs = _.d.list(sd.json, "certs", [])
                 .filter(cert => cert)
                 .map(d => cert.fingerprint ? cert.fingerprint : cert)
@@ -190,7 +190,7 @@ const load_rules = _.promise((self, done) => {
     _.promise(self)
         .validate(load_rules)
 
-        .then(sd => {
+        .make(sd => {
             sd.rules = _.d.list(sd.json, "rules", [])
                 .filter(rule => _.is.Dictionary(rule))
         })

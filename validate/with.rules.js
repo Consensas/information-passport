@@ -1,9 +1,9 @@
 /*
- *  validate/index.js
+ *  validate/with.rules.js
  *
  *  David Janes
  *  Consenas.com
- *  2021-01-28
+ *  2021-02-02
  *
  *  Copyright (2013-2021) Consensas
  *
@@ -22,15 +22,13 @@
 
 "use strict"
 
-module.exports = Object.assign(
-    {},
-    require("./operations"),
-    {
-        with: {
-            rules: require("./with.rules").rules,
-            certs: require("./with.certs").certs,
-        },
-    },
-    {},
-)
+/**
+ */
+const with_rules = (verified, rules) => {
+    console.log("with rules called")
+}
 
+/**
+ *  API
+ */
+exports.rules = with_rules

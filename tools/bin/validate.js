@@ -36,7 +36,7 @@ const ad = minimist(process.argv.slice(2), {
         "pretty",
 		"clear",
         "json",
-
+        "silent",
     ],
     string: [
         "in",
@@ -72,6 +72,7 @@ input options:
 
 fomatting options:
 
+--silent           don't output anything
 --json             format the output as JSON (the default)
 --pretty           format the output the best you can 
 --clear            clear screen when result found
@@ -124,15 +125,22 @@ _.promise({
     .conditional(ad.certs, _util.load_certs.p(ad.certs))
     .conditional(ad.rules, _util.load_rules.p(ad.rules))
     .then(_util.verify.p(ad.in))
+    .make(async sd => {
+        if (sd.rules) {
+            ip.validate.with.rules(sd.validated, sd.rules)
+        }
+        if (sd.certs) {
+            ip.validate.with.certs(sd.validated, sd.certs)
+        }
+    })
     .make(sd => {
-        if (!ad.pretty) {
+        if (ad.silent) {
+        } else if (!ad.pretty) {
             console.log(JSON.stringify(sd.verified, null, 2))
         } else {
             console.clear()
         }
     })
-    .conditional(sd => sd.rules, ip.validate.validate_with_rules)
-    .conditional(sd => sd.certs, ip.validate.validate_with_certs)
     .conditional(ad.pretty, _util.pretty)
 
     .except(error => {
