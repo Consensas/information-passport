@@ -1,5 +1,5 @@
 /*
- *  validate/operations.js
+ *  validate/ops.gte.days.js
  *
  *  David Janes
  *  Consenas.com
@@ -54,6 +54,4 @@ $gte$days.underlying = _gte$days
 /**
  *  API
  */
-exports.operations = {
-    $gte$days: $gte$days,
-}
+exports.$gte$days = $gte$days

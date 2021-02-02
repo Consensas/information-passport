@@ -24,7 +24,11 @@
 
 module.exports = Object.assign(
     {},
-    require("./operations"),
+    {
+        operations: {
+            $gte$days: require("./ops.gte.days").$gte$days,
+        },
+    },
     {
         with: {
             rules: require("./with.rules").rules,
