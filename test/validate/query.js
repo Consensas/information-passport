@@ -49,9 +49,9 @@ describe("validate/query", function() {
     })
 
     it("works", async function() {
-        const NAME = "validate/outs-01.json"
-        const ins = await _util.read_json("validate/records-1.json")
-        const query = await _util.read_json("validate/query-1.json")
+        const NAME = "validate/01-outs.json"
+        const ins = await _util.read_json("validate/01-ins.json")
+        const query = await _util.read_json("validate/01-query.json")
 
         const paramd = {
             operations: ip.validate.operations,
