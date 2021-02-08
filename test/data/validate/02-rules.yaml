@@ -1,5 +1,10 @@
 ---
 version: 1.0
+context:
+  "schema": "http://schema.org"
+  "security": "https://w3id.org/security#"
+  "vc": "https://www.w3.org/2018/credentials/v1"
+
 rules:
 - name: "People born on or before January 1, 1980"
   credential: vc:PersonCredential
@@ -22,4 +27,4 @@ rules:
 - name: "People named David"
   credential: vc:PersonCredential
   credentialSubject:
-    schema:firstName: "David"
+    schema:givenName: "Joanne"

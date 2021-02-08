@@ -32,7 +32,7 @@ const with_certs = async (verified, certs) => {
     verified.cert_accepts = []
     verified.cert_rejects = []
 
-    console.log("with certs called", certs)
+    // console.log("with certs called", certs)
 
     return verified
 }
