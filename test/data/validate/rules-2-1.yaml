@@ -1,0 +1,25 @@
+---
+version: 1.0
+rules:
+- name: "People born on or before January 1, 1980"
+  credential: vc:PersonCredential
+  credentialSubject:
+    schema:birthDate: 
+      "$lte": "1980-01-01"
+
+- name: "People born before January 1, 1980"
+  credential: vc:PersonCredential
+  credentialSubject:
+    schema:birthDate: 
+      "$lt": "1980-01-01"
+
+- name: "People born on or after January 1, 1980"
+  credential: vc:PersonCredential
+  credentialSubject:
+    schema:birthDate: 
+      "$gte": "1980-01-01"
+
+- name: "People named David"
+  credential: vc:PersonCredential
+  credentialSubject:
+    schema:firstName: "David"

@@ -1,0 +1,64 @@
+- '@type':
+  - vc:VerifiableCredential
+  - vc:PersonCredential
+  vc:credentialSubject:
+    '@type': schema:Person
+    schema:additionalName: null
+    schema:birthDate: "1980-01-01"
+    schema:familyName: Rubio
+    schema:givenName: Andrew
+    schema:name: Andrew Rubio
+  vc:issuanceDate: '2021-01-29T12:30:42.993Z'
+  vc:issuer: https://passport.consensas.com
+  
+- '@type':
+  - vc:VerifiableCredential
+  - vc:PlaceCredential
+  vc:credentialSubject:
+    '@type': schema:Place
+    schema:name: General Hospital
+    schema:address:
+      '@type': schema:Address
+      schema:addressRegion: BC
+      schema:addressCountry: CA
+  vc:issuanceDate: '2021-01-29T12:30:42.993Z'
+  vc:issuer: https://passport.consensas.com
+  
+- '@type':
+  - vc:VerifiableCredential
+  - vc:PersonCredential
+  vc:credentialSubject:
+    '@type': schema:Person
+    schema:additionalName: null
+    schema:birthDate: "1960-01-01"
+    schema:familyName: Jones
+    schema:givenName: Locker
+    schema:name: Locker Jones
+  vc:issuanceDate: '2021-01-29T12:30:42.993Z'
+  vc:issuer: https://passport.consensas.com
+  
+- '@type':
+  - vc:VerifiableCredential
+  - vc:PersonCredential
+  vc:credentialSubject:
+    '@type': schema:Person
+    schema:additionalName: null
+    schema:birthDate: "1980-01-01"
+    schema:familyName: Rubio
+    schema:givenName: Andrew
+  vc:issuanceDate: '2021-01-29T12:30:42.993Z'
+  vc:issuer: https://passport.consensas.com
+  
+- '@type':
+  - vc:VerifiableCredential
+  - vc:PersonCredential
+  vc:credentialSubject:
+    '@type': schema:Person
+    schema:additionalName: null
+    schema:birthDate: "2001-02-01"
+    schema:familyName: Jelkins
+    schema:givenName: Joanne
+    schema:name: Joanne Jelkins
+  vc:issuanceDate: '2021-01-29T12:30:42.993Z'
+  vc:issuer: https://passport.consensas.com
+  
