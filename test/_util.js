@@ -28,6 +28,8 @@ const ip = require("..")
 const fs = require("fs")
 const path = require("path")
 
+const yaml = require("js-yaml")
+
 /**
  *  Shims
  */
@@ -71,6 +73,27 @@ const read_json = async (filename) => {
 }
 
 /**
+ */
+const write_yaml = async (json, filename) => {
+    await fs.promises.writeFile(
+        path.join(__dirname, "data", filename), 
+        yaml.dump(json, {
+            sortKeys: false,
+            noRefs: true,
+        })
+    )
+}
+
+/**
+ */
+const read_yaml = async (filename) => {
+    return yaml.load(await fs.promises.readFile(
+        path.join(__dirname, "data", filename), 
+        "utf8"
+    ))
+}
+
+/**
  *  API
  */
 exports.shims_on = shims_on
@@ -78,3 +101,5 @@ exports.shims_off = shims_off
 
 exports.write_json = write_json
 exports.read_json = read_json
+exports.write_yaml = write_yaml
+exports.read_yaml = read_yaml
