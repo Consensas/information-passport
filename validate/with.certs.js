@@ -23,12 +23,21 @@
 "use strict"
 
 /**
+ *  This will return a new verified, with
+ *  "cert_accepts" (certs that are accepted)
+ *  and "cert_rejects" (certs that are rejected)
  */
-const with_rules = (verified, certs) => {
-    console.log("with certs called")
+const with_certs = async (verified, certs) => {
+    verified = Object.assign({}, verified)
+    verified.cert_accepts = []
+    verified.cert_rejects = []
+
+    console.log("with certs called", certs)
+
+    return verified
 }
 
 /**
  *  API
  */
-exports.certs = with_rules
+exports.certs = with_certs

@@ -19,7 +19,6 @@ though that is not critical for what we are trying to accomplish right now.
       "@type": "schema:MedicalRecord-Vaccination",
       "schema:name": "David P Janes - Moderna COVID-19 Vaccine",
       "schema:patient": <Patient>
-      "schema:permit-healthCard": <HealthCard>
       "schema:location": <HOSPITAL>,
       "schema:primaryPrevention": <VACCINATION>,
       "schema:treatmentDate": "2021-01-06",

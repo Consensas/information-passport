@@ -14,5 +14,6 @@ has been redacted, but we're OK with this for now.
         "schema:additionalName": "P",
         "schema:birthDate": "••••-••-01",
         "schema:familyName": "Janes",
-        "schema:givenName": "David"
+        "schema:givenName": "David",
+        "schema:permit-healthCard": <HealthCard>
     }

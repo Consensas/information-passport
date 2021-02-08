@@ -127,10 +127,10 @@ _.promise({
     .then(_util.verify.p(ad.in))
     .make(async sd => {
         if (sd.rules) {
-            ip.validate.with.rules(sd.validated, sd.rules)
+            await ip.validate.with.rules(sd.validated, sd.rules)
         }
         if (sd.certs) {
-            ip.validate.with.certs(sd.validated, sd.certs)
+            await ip.validate.with.certs(sd.validated, sd.certs)
         }
     })
     .make(sd => {

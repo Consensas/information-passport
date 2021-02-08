@@ -23,9 +23,18 @@
 "use strict"
 
 /**
+ *  This will return a new verified, with
+ *  "rule_accepts" (rules that accept this payload)
+ *  and "rule_rejects" (rules that reject this payload)
  */
-const with_rules = (verified, rules) => {
-    console.log("with rules called")
+const with_rules = async (verified, rules) => {
+    verified = Object.assign({}, verified)
+    verified.rule_accepts = []
+    verified.rule_rejects = []
+
+    console.log("with rules called", rules)
+
+    return verified
 }
 
 /**

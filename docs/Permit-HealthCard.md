@@ -1,10 +1,9 @@
 <a href="https://github.com/Consensas/information-passport/tree/main/docs"><img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" /></a>
 
-# A schema.org description of a Hospital
+# A schema.org description of a Health Card
 
-This is a straight instantiation of [`schema:Hospital`](https://schema.org/Hospital).
-Nothing clever is needed here at all, except that we 
-recommend you use codes for Country and Region (if possible).
+This extends the concept of a Permit to a Health Card.
+Some more modelling may be needed for e.g. US / non-Canadian cards.
 
 ## Example
 
