@@ -1,13 +1,15 @@
 <a href="https://github.com/Consensas/information-passport/tree/main/docs"><img src="https://consensas-aws.s3.amazonaws.com/icons/passports-github.png" align="right" /></a>
 
-# Validation Proposal
+# Soft Business Rules to Validate Claims in W3C Verifiable Credentials
 
 ## Introduction
 
 This document describes a system for "validating" claims 
-in W3C Verifiable Credentials. 
+in [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model/). 
 Validation, for this document, means ensuring that a claim
-conforms to a set of business rules.
+conforms to a set of business rules. 
+(In our terminology, verifying a claim simply means that 
+the signature checks out).
 
 The motivation for this proposal is
 that even if we standard claim types, we 
@@ -25,11 +27,15 @@ the rules are "soft", they are entirely data-defined.
 Although the system described here is mainly about Vaccination
 Passports, it obviously can be applied to other credential types.
 
+## TL;DR
+
+We describe business rules using MongoDB-like queries running against normalized Verifiable Credentials.
+
 ## Baseline
 
 This system assumes that all claims are JSON-like data in "document" format. 
 By documents, we mean basically a de-normalized hierarchical database record,
-in the sense that NoSQL databases like MongoDB do.
+in the sense that NoSQL databases [like MongoDB do](https://docs.mongodb.com/manual/core/document/).
 
 Note that this is unlikely to work well with "graph" type
 structures such as RDF triples or FHIR objects, unless a pre-processing
@@ -46,17 +52,13 @@ not dealt with here
 
 ## The System
 
-This is an introduction document
+This is an introduction document, there'll be code and better docs
+in the future.
 
 ### Sample Rules
 
 Obviously these are somewhat silly rules, 
 but should be good enough for illustration.
-
-We're showing the rules in YAML, but I 
-expect that these will be compiled to JSON
-for actual delivery to end Validators.
-
 
 The `context` bit describes how input JSON-LD
 documents should be recontextualized. 
@@ -76,36 +78,53 @@ In each rule:
   the query is tested against the `vc:credentialSubject`
   of the VC
 
-    ---
-    version: 1.0
-    context:
-      "schema": "http://schema.org"
-      "security": "https://w3id.org/security#"
-      "vc": "https://www.w3.org/2018/credentials/v1"
+Here's our sample rules:
 
-    rules:
-    - name: "People born on or before January 1, 1980"
-      credential: vc:PersonCredential
-      credentialSubject:
-        schema:birthDate: 
-          "$lte": "1980-01-01"
+    {
+      "version": "1.0.0",
+      "context": {
+        "schema": "http://schema.org",
+        "security": "https://w3id.org/security#",
+        "vc": "https://www.w3.org/2018/credentials/v1"
+      },
+      "rules": [
+        {
+          "credential": "vc:PersonCredential",
+          "credentialSubject": {
+            "schema:birthDate": {
+              "$lte": "1980-01-01"
+            }
+          },
+          "name": "People born on or before January 1, 1980"
+        },
+        {
+          "credential": "vc:PersonCredential",
+          "credentialSubject": {
+            "schema:birthDate": {
+              "$lt": "1980-01-01"
+            }
+          },
+          "name": "People born before January 1, 1980"
+        },
+        {
+          "credential": "vc:PersonCredential",
+          "credentialSubject": {
+            "schema:birthDate": {
+              "$gte": "1980-01-01"
+            }
+          },
+          "name": "People born on or after January 1, 1980"
+        },
+        {
+          "credential": "vc:PersonCredential",
+          "credentialSubject": {
+            "schema:givenName": "Joanne"
+          },
+          "name": "People named David"
+        }
+      ]
+    }
 
-    - name: "People born before January 1, 1980"
-      credential: vc:PersonCredential
-      credentialSubject:
-        schema:birthDate: 
-          "$lt": "1980-01-01"
-
-    - name: "People born on or after January 1, 1980"
-      credential: vc:PersonCredential
-      credentialSubject:
-        schema:birthDate: 
-          "$gte": "1980-01-01"
-
-    - name: "People named David"
-      credential: vc:PersonCredential
-      credentialSubject:
-        schema:givenName: "Joanne"
 
 ### Sample Claims
 
@@ -197,11 +216,31 @@ by me for illustration.
         "vc:issuer": "https://passport.consensas.com"
       }
     ]
-
       
 ### Results
 
-## End Notes
+Here's a list of the various claims and what rules
+they match. Matching _one_ rule is sufficient for a pass,
+so only "General Hospital" is a no-go here against this rule
+set
 
-Versioning
+
+    Andrew Rubio
+    - People born on or before January 1, 1980
+    - People born on or after January 1, 1980
+
+    General Hospital
+
+    Locker Jones
+    - People born on or before January 1, 1980
+    - People born before January 1, 1980
+
+    Andrew Rubio
+    - People born on or before January 1, 1980
+    - People born on or after January 1, 1980
+
+    Joanne Jelkins
+    - People born on or after January 1, 1980
+    - People named David
+
 

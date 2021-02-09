@@ -46,6 +46,7 @@
     schema:birthDate: "1980-01-01"
     schema:familyName: Rubio
     schema:givenName: Andrew
+    schema:name: Andrew Rubio
   vc:issuanceDate: '2021-01-29T12:30:42.993Z'
   vc:issuer: https://passport.consensas.com
   
