@@ -21,11 +21,18 @@ const run = async (files) => {
     const private_key = await jose.JWK.asKey(private_pem, 'pem');
 
     const message = {
-        "hello": "world",
+        "@context": {
+            "schema": "http://schema.org",
+        },
+        "schema:name": "hello, world",
     }
     const verifier = "https://example.com/i/pat/keys/5"
 
-    const signed = await ip.crypto.sign(message, private_key, verifier)
+    const signed = await ip.crypto.sign({
+        payload: message, 
+        private_key: private_key, 
+        verification: verifier,
+    })
     console.log(JSON.stringify(signed, null, 2))
 }
 

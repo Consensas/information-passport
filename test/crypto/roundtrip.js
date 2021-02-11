@@ -54,11 +54,18 @@ describe("roundtrip", function() {
         // sign
         const message = {
             "hello": "world",
-            name: NAME,
         }
         const verifier = "https://example.com/i/pat/keys/5"
 
-        const signed = await ip.crypto.sign(message, private_key, verifier)
+        const signed = await ip.crypto.sign({ 
+            payload: message, 
+            private_key: private_key, 
+            verification: verifier,
+        })
+
+        if (DUMP) {
+            console.log("signed", JSON.stringify(signed, null, 2))
+        }
 
         // verify
         const v = await ip.crypto.verify(signed, async proof => {
@@ -66,7 +73,7 @@ describe("roundtrip", function() {
         })
 
         if (DUMP) {
-            console.log(JSON.stringify(v, null, 2))
+            console.log("verified", JSON.stringify(v, null, 2))
         }
 
         assert.ok(_.isArray(v.chain))

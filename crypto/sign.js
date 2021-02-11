@@ -26,19 +26,10 @@ const jose = require("node-jose")
 const _util = require("./_util")
 
 /**
- *  Digitally sign a message using the "ConsensasRSA2021" method.
- *
- *  d: JSON-like, the message to sign
- *  key: a node-jose key or a PEM string or buffer
- *  verification: a string, but really a URL to find the public key
  */
-const sign = async (d, key, verification) => {
-    if (_util.isString(key) || _util.isBuffer(key)) {
-        key = await jose.JWK.asKey(key, "pem")
-    }
-
+const _ConsensasRSA2021 = async paramd => {
     // build @context
-    const message = Object.assign({ "@context": null }, d)
+    const message = Object.assign({ "@context": null }, paramd.payload)
     const context = message["@context"]
     if (_util.isString(context)) {
         message["@context"] = [
@@ -73,7 +64,7 @@ const sign = async (d, key, verification) => {
         "security:proofPurpose": _util.SECURITY_PROOF_PURPOSE,
         "security:created": timestamp,
         "security:nonce": nonce,
-        "security:verificationMethod": verification,
+        "security:verificationMethod": paramd.verification,
     }
     const canonical_proof = _util.canonicalize(proof)
 
@@ -82,7 +73,7 @@ const sign = async (d, key, verification) => {
     const signed = await jose.JWS.createSign({
         format: "compact",
         alg: 'RS256',
-    }, key)
+    }, paramd.private_key)
         .update(plaintext, "utf8")
         .final()
 
@@ -91,6 +82,29 @@ const sign = async (d, key, verification) => {
     message["security:proof"] = proof
 
     return message
+}
+
+/**
+ *  paramd.payload: JSON-like, the message to sign
+ *  paramd.key: a node-jose key or a PEM string or buffer
+ *  paramd.verification: a string, but really a URL to find the public key
+ *  paramd.suite: signing suite, by default "ConsensasRSA2021"
+ */
+const sign = async paramd => {
+    paramd = Object.assign({}, paramd || {})
+    paramd.suite = paramd.suite || "ConsensasRSA2021"
+
+    if (_util.isString(paramd.private_key) || _util.isBuffer(paramd.private_key)) {
+        paramd.private_key = await jose.JWK.asKey(paramd.private_key, "pem")
+    }
+
+    switch (paramd.suite) {
+    case "ConsensasRSA2021":
+        return _ConsensasRSA2021(paramd)
+
+    default:
+        throw new errors.NotFound("unknown signing suite: " + paramd.suite)
+    }
 }
 
 /**

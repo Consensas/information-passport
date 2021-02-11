@@ -22,7 +22,7 @@ exports.isArray = v => Array.isArray(v)
 exports.SECURITY_KEY = "security"
 exports.SECURITY_VALUE = "https://w3id.org/security#"
 
-exports.SECURITY_TYPE = "https://models.consensas.com/security#ConsensasRSA2021"
+exports.SECURITY_TYPE = "https://cccc4.ca/vc#CanonicalRSA2021"
 exports.SECURITY_PROOF_PURPOSE = "assertionMethod"
 
 /**

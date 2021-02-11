@@ -5,11 +5,11 @@
   "hello": "world",
   "name": "signed/01.in.json",
   "security:proof": {
-    "security:type": "https://models.consensas.com/security#ConsensasRSA2021",
+    "security:type": "https://cccc4.ca/vc#CanonicalRSA2021",
     "security:proofPurpose": "assertionMethod",
     "security:created": "2021-01-18T10:10:26.179Z",
     "security:nonce": "123456789",
     "security:verificationMethod": "https://example.com/i/pat/keys/5",
-    "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..8E7EJZ4e1yWbWPJtKDee0Oyy6C_9JX13C1UPueDHEPZR2vABD4_r6Fe7tjXaIbJK-boDPt049xas8wzdT3TeaHjDXrhj77jDF-Ob5UhzHrdYN9IukEAq5W0T0Uks20zchfAxlVNYvVoQWzXxzYb4FVBuWZD3x6d8Aq20XoCGFxUbtnDKwN7u3LgLwqJ5DtUu9JwM43HsOoKGstXFW-ejXJIDRQEHgKhAVHpT6SxGoVCi_rSnzQnTIubk30Anbrr0BxvlThj0Zk48u69SpX9wY-e7lXj6CzDKyTFLJ_5eko0A-t7Ax0Zg624jmT-GPfq23pTUTYB7TLpnQjyN2QeT7w"
+    "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..Tis626CgNNt5Vv7oqBZfpOh1CSqCTNXn87qvn2Q9xMnn-t2c1Ai4idr6yBzfHdFMGVo6BNhCJrBIaSGxpLzGkKdItL7TsREXpakThoWipep7cGnF2c7AQN7KXCfk8A5-9E1xMV1lJMg3fnth6Bxxf38tuPQkm3GO4YQRe9LHdUfR1xL7dwZNKn-BnpTk0V_rJS7ZF8ewOs8Vr6pQbbXNazb0vnDPlr1629BmT4TsDqQlGQoVLfFFzDs9qAlEgOGRtwCAIWY_RKfoL_OGejgvbgx38HLYSOkRvqsO9hNU-bOQSZCQXAHW6muhGHEnwvSihywbzNAN6Y6sL91RbbWEVA"
   }
 }

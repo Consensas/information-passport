@@ -268,7 +268,11 @@ const _one = _.promise((self, done) => {
 
         // sign 
         .make(async sd => {
-            sd.json = await ip.crypto.sign(sd.HealthCredential, sd.private_pem, ad.verifier)
+            sd.json = await ip.crypto.sign({
+                payload: sd.HealthCredential, 
+                private_key: sd.private_pem, 
+                verification: ad.verifier,
+            })
             sd.path = `website/${sd.record.code}.json`
         })
 

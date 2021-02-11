@@ -90,7 +90,11 @@ const run = async (files) => {
     const private_pem = await fs.promises.readFile(ad.key)
     const message = JSON.parse(ad.file ? await fs.promises.readFile(ad.file) : await _util.read_stdin())
 
-    const signed = await ip.crypto.sign(message, private_pem, ad.verifier)
+    const signed = await ip.crypto.sign({
+        payload: message, 
+        private_key: private_pem, 
+        verification: ad.verifier,
+    })
     console.log(JSON.stringify(signed, null, 2))
 }
 
