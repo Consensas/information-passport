@@ -75,12 +75,15 @@ const validate = async url => {
 
     try {
         console.log("-", "fetch json", url)
+
         const response = await fetch(url, {
             headers: {
                 accept: "application/vc+ld+json",
             },
         })
+        console.log("A")
         const json = await response.json();
+        console.log("B", json)
         const verified = await ip.crypto.verify(json, async proof => {
             console.log("-", "fetch verification", proof.verificationMethod)
             const vresponse = await fetch(proof.verificationMethod)

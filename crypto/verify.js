@@ -67,7 +67,7 @@ const verify = async (d, key_fetcher) => {
 
     if (!_util.isString(proof.type)) {
         throw new errors.InvalidField('security:type')
-    } else if (proof.type !== _util.SECURITY_TYPE) {
+    } else if ((proof.type !== _util.SECURITY_TYPE) && (proof.type !== "https://models.consensas.com/security#ConsensasRSA2021")) {
         throw new errors.InvalidField('security:type')
     }
 
