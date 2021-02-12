@@ -78,6 +78,8 @@ const validate = async url => {
 
         const response = await fetch(url, {
             headers: {
+                "cache-control": "no-cache",
+                pragma: "no-cache",
                 accept: "application/vc+ld+json",
             },
         })

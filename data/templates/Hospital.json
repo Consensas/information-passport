@@ -1,7 +1,4 @@
 {
-  "@context": {
-    "schema:": "https://schema.org"
-  }, 
   "@type": "schema:Hospital", 
   "schema:address": {
     "@type": "schema:PostalAddress", 

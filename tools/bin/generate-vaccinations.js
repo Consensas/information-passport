@@ -232,7 +232,7 @@ const _one = _.promise((self, done) => {
         .add("result:MedicalCondition")
 
         // Vaccination
-        .then(tools.templates.by_name.p("MedicalTherapy-Vaccination"))
+        .then(tools.templates.by_name.p("ImmunizationRecommendation"))
         .then(tools.templates.fill.p({
             "schema:drug": "Drug",
             "schema:healthCondition": "MedicalCondition",
@@ -240,7 +240,7 @@ const _one = _.promise((self, done) => {
         .add("result:MedicalCondition")
 
         // Vaccination Record
-        .then(tools.templates.by_name.p("MedicalRecord-Vaccination"))
+        .then(tools.templates.by_name.p("ImmunizationRecord"))
         .then(tools.templates.fill.p({
             "schema:identifier": null,
             "schema:name": null,
