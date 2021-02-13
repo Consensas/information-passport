@@ -41,11 +41,11 @@ const mapping = {
     'patient/additionalName': "Middle Name",
     'patient/familyName': "Last Name",
     'patient/birthDate': "DOB",
-    'permit-healthCard/identifier-healthCard': "Health Card",
-    'permit-healthCard/issuedBy': "Issuer",
-    'permit-healthCard/validUntil': "Expiry",
+    'patient/healthCard/identifier-healthCard': "Health Card",
+    'patient/healthCard/issuedBy': "Issuer",
+    'patient/healthCard/validUntil': "Expiry",
     'primaryPrevention/name': "Treatment",
-    treatmentDate: "Treatment Date",
+    'immunizationDate': "Treatment Date",
 }
 
 const flatten = o => {
@@ -78,14 +78,10 @@ const validate = async url => {
 
         const response = await fetch(url, {
             headers: {
-                "cache-control": "no-cache",
-                pragma: "no-cache",
                 accept: "application/vc+ld+json",
             },
         })
-        console.log("A")
         const json = await response.json();
-        console.log("B", json)
         const verified = await ip.crypto.verify(json, async proof => {
             console.log("-", "fetch verification", proof.verificationMethod)
             const vresponse = await fetch(proof.verificationMethod)

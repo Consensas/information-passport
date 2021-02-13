@@ -202,6 +202,16 @@ const _one = _.promise((self, done) => {
         }))
         .add("result:Hospital")
 
+        // Health Card
+        .then(tools.templates.by_name.p("HealthCard"))
+        .then(tools.templates.fill.p({
+            "schema:identifier": "record/card/identifier",
+            "schema:issuedBy": "record/card/issuer",
+            "schema:validUntil": "record/card/expires",
+        }))
+        .add("result:HealthCard")
+
+
         // Patient
         .then(tools.templates.by_name.p("Patient"))
         .then(tools.templates.fill.p({
@@ -209,17 +219,9 @@ const _one = _.promise((self, done) => {
             'schema:birthDate': "record/birthDate",
             'schema:familyName': "record/familyName",
             'schema:givenName': "record/givenName",
+            'schema:healthCard': "HealthCard",
         }))
         .add("result:Patient")
-
-        // Health Card
-        .then(tools.templates.by_name.p("Permit-HealthCard"))
-        .then(tools.templates.fill.p({
-            "schema:identifier-healthCard": "record/card/identifier",
-            "schema:issuedBy": "record/card/issuer",
-            "schema:validUntil": "record/card/expires",
-        }))
-        .add("result:HealthCard")
 
         // Drug
         .then(tools.templates.by_name.p("Drug-Moderna"))
@@ -245,7 +247,6 @@ const _one = _.promise((self, done) => {
             "schema:identifier": null,
             "schema:name": null,
             "schema:patient": "Patient",
-            "schema:permit-healthCard": "HealthCard",
             "schema:primaryPrevention": "MedicalCondition",
             "schema:location": "Hospital",
             "schema:treatmentDate": "treatmentDate",
@@ -268,6 +269,7 @@ const _one = _.promise((self, done) => {
 
         // sign 
         .make(async sd => {
+            sd.HealthCredential = _.d.transform.denull(sd.HealthCredential)
             sd.json = await ip.crypto.sign({
                 payload: sd.HealthCredential, 
                 private_key: sd.private_pem, 

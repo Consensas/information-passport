@@ -3,7 +3,6 @@
   "schema:identifier": null,
   "schema:name": "{{ schema:patient/schema:name }} - {{ schema:primaryPrevention/schema:name }}",
   "schema:patient": null,
-  "schema:permit-healthCard": null,
   "schema:primaryPrevention": null,
   "schema:location": null,
   "schema:immunizationDate": null,

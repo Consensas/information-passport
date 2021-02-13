@@ -1,8 +1,9 @@
 {
   "@type": "schema:Patient", 
+  "schema:name": "{{ schema:givenName }} {{ schema:additionalName }} {{ schema:familyName }}",
   "schema:additionalName": null, 
   "schema:birthDate": null, 
   "schema:familyName": null, 
   "schema:givenName": null,
-  "schema:name": "{{ schema:givenName }} {{ schema:additionalName }} {{ schema:familyName }}"
+  "schema:healthCard": null
 }

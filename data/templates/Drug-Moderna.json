@@ -8,7 +8,6 @@
   "schema:manufacturer": {
     "@type": "schema:Organization",
     "schema:identifier": "MOD", 
-    "schema:identifier-mvx": "MVX", 
     "schema:name": "Moderna US, Inc."
   }, 
   "schema:name": "Moderna COVID-19 Vaccine"

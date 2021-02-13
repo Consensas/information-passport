@@ -1,6 +1,6 @@
 {
   "@type": "schema:HealthCard", 
-  "schema:healthCard": null, 
+  "schema:identifier": null, 
   "schema:issuedBy": null, 
   "schema:validUntil": null
 }
