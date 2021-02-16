@@ -52,8 +52,8 @@ const ad = minimist(process.argv.slice(2), {
         "in": "url",
     },
     default: {
-        "rules": null,
-        "certs": null,
+        "rules": false,
+        "certs": false,
         "claim": false,
     },
 });
@@ -143,6 +143,8 @@ _.promise({
     .conditional(ad.lint, _util.lint)
     .make(sd => {
         if (ad.silent) {
+        } else if (ad.lint) {
+            console.log(JSON.stringify(sd.verified.lints, null, 2))
         } else if (!ad.pretty) {
             console.log(JSON.stringify(sd.verified, null, 2))
         } else {

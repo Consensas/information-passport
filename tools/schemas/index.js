@@ -27,4 +27,5 @@ module.exports = Object.assign(
     require("./initialize"),
     require("./by_data_type"),
     require("./required"),
+    require("./lint"),
 )

@@ -1,0 +1,106 @@
+name: Vaccination Record
+data_type: schema:ImmunizationRecord
+
+groups:
+- name: Framing ## this is basically lint stuff
+  show: false
+  nodes:
+  - id: "@type"
+    expected: "schema:ImmunizationRecord"
+
+  - id: "schema:patient.@type"
+    expected: "schema:Patient"
+
+  - id: "schema:patient.schema:healthCard.@type"
+    expected: "schema:HealthCard"
+
+  - id: "schema:primaryPrevention.@type"
+    expected: "schema:ImmunizationRecommendation"
+
+  - id: "schema:primaryPrevention.schema:drug.@type"
+    expected: "schema:Drug"
+
+  - id: "schema:primaryPrevention.schema:drug.schema:code.@type"
+    expected: "schema:MedicalCode"
+
+  - id: "schema:primaryPrevention.schema:drug.schema:manufacturer.@type"
+    expected: "schema:Organization"
+
+  - id: "schema:primaryPrevention.schema:healthCondition.@type"
+    expected: "schema:MedicalCondition"
+
+  - id: "schema:primaryPrevention.schema:healthCondition.schema:code.@type"
+    expected: "schema:MedicalCode"
+
+  - id: "schema:location.@type"
+    expected: "schema:Hospital"
+
+  - id: "schema:location.schema:address.@type"
+    expected: "schema:PostalAddress"
+
+  - id: "schema:agent.@type"
+    expected: "schema:Person"
+
+- name: Patient
+  nodes:
+  - id: "schema:patient.schema:givenName"
+    name: "First Name"
+    recommended: true
+  - id: "schema:patient.schema:additionalName"
+    name: "Middle Name"
+  - id: "schema:patient.schema:familyName"
+    name: "Last Name"
+    recommended: true
+  - id: "schema:patient.schema:birthDate"
+    name: "DOB"
+    recommended: true
+
+- name: Health Card
+  nodes:
+  - id: "schema:patient.schema:healthCard.schema:identifier"
+    name: "Health Card"
+    recommended: true
+  - id: "schema:patient.schema:healthCard.schema:issuedBy"
+    name: "Issuer"
+    recommended: true
+  - id: "schema:patient.schema:healthCard.schema:validUntil"
+    name: "Expiry"
+    data_type: schema:Date
+    recommended: true
+
+- name: Treatment
+  nodes:
+  - id: "schema:primaryPrevention.schema:name"
+    name: "Treatment"
+    recommended: true
+
+  - id: "schema:immunizationDate"
+    name: "Immunization Date"
+    data_type: schema:Date
+    recommended: true
+
+  - id: "schema:doseSequence"
+    name: "Dose Number"
+    recommended: true
+    data_type: schema:Integer
+    minimum: 1
+
+  - id: "schema:lotNumber"
+    name: "Lot Number"
+    recommended: true
+
+- name: Vaccination Provider
+  nodes:
+  - id: "schema:agent.schema:name"
+    name: "Doctor / Nurse / Clinician"
+    recommended: true
+
+  - id: "schema:location.schema:name"
+    name: "Hospital"
+    recommended: true
+
+
+- name: Other
+  nodes:
+  - id: "w3did:id"
+    name: "ID"

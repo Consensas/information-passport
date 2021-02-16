@@ -33,6 +33,68 @@ const colors = require("colors")
 
 /**
  */
+const verify = _.promise((self, done) => {
+    _.promise(self)
+        .validate(verify)
+
+        .then(_load_json)
+        .make(async sd => {
+            if (sd.is_claim) {
+                const vc = {
+                    "@context": {
+                        "schema": "http://schema.org/",
+                        "security": "https://w3id.org/security#",
+                        "vc": "https://www.w3.org/2018/credentials/v1"
+                    },
+                    "@type": [
+                        "vc:VerifiableCredential",
+                        "vc:HealthCredential"
+                    ],
+                    "vc:issuer": "https://passport.consensas.com",
+                    "vc:issuanceDate": _.timestamp.make(),
+                    "vc:credentialSubject": sd.json,
+                }
+
+                sd.verified = {
+                    payload: vc,
+                    claim: sd.json,
+                    types: [ "vc:VerifiableCredential", "vc:HealthCredential" ],
+                    chain: [],
+                    proof: {},
+                }
+            } else {
+                sd.verified = await ip.crypto.verify(sd.json, async proof => {
+                    const result = await _.promise({})
+                        .then(fetch.document.get(proof.verificationMethod))
+
+                    return result.document
+                })
+            }
+
+        })
+
+        .end(done, self, verify)
+})
+
+verify.method = "_util.verify"
+verify.description = ``
+verify.requires = {
+    in: [ _.is.String, _.is.AbsoluteURL ],
+}
+verify.accepts = {
+    is_claim: _.is.Boolean,
+}
+verify.produces = {
+    verified: _.is.Dictionary,
+}
+verify.params = {
+    in: _.p.normal,
+    is_claim: _.p.normal,
+}
+verify.p = _.p(verify)
+
+/**
+ */
 const read_stdin = () => {
     return new Promise((resolve, reject) => {
         process.stdin.resume()
@@ -119,51 +181,6 @@ _load_json.produces = {
 
 /**
  */
-const verify = _.promise((self, done) => {
-    _.promise(self)
-        .validate(verify)
-
-        .then(_load_json)
-        .make(async sd => {
-            if (sd.is_claim) {
-                sd.verified = {
-                    payload: sd.json,
-                    chain: [],
-                    proof: {},
-                }
-            } else {
-                sd.verified = await ip.crypto.verify(sd.json, async proof => {
-                    const result = await _.promise({})
-                        .then(fetch.document.get(proof.verificationMethod))
-
-                    return result.document
-                })
-            }
-
-        })
-
-        .end(done, self, verify)
-})
-
-verify.method = "_util.verify"
-verify.description = ``
-verify.requires = {
-    in: [ _.is.String, _.is.AbsoluteURL ],
-}
-verify.accepts = {
-    is_claim: _.is.Boolean,
-}
-verify.produces = {
-    verified: _.is.Dictionary,
-}
-verify.params = {
-    in: _.p.normal,
-    is_claim: _.p.normal,
-}
-verify.p = _.p(verify)
-
-/**
- */
 const load_certs = _.promise((self, done) => {
     _.promise(self)
         .validate(load_certs)
@@ -233,13 +250,12 @@ const lint = _.promise((self, done) => {
 
         .make(sd => {
             sd.verified.lints = []
-            sd.claim = _.d.first(sd, "verified/payload/vc:credentialSubject", null)
-            sd.data_type = _.d.first(sd.claim, "@type", null)
-            console.log(sd.claim)
+            sd.data_type = _.d.first(sd.verified.claim, "@type", null)
         })
         .then(tools.schemas.initialize)
         .then(tools.schemas.by_data_type)
         .conditional(sd => !sd.schema, _.promise.bail)
+        .then(tools.schemas.lint)
 
         .end(done, self, lint)
 })
@@ -248,7 +264,7 @@ lint.method = "lint"
 lint.description = ``
 lint.requires = {
     verified: {
-        payload: _.is.Dictionary,
+        claim: _.is.Dictionary,
     },
 }
 lint.accepts = {
