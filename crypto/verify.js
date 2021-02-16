@@ -26,6 +26,7 @@ const forge = require("node-forge")
 const jose = require("node-jose")
 const _util = require("./_util")
 const errors = require("../errors")
+const jsonld = require("jsonld")
 
 /**
  *  This always assumes that the proof is 
@@ -45,9 +46,15 @@ const errors = require("../errors")
  */
 const verify = async (d, key_fetcher) => {
     const ip = require("..")
-    // assert.ok(_util.isDictionary(d))
 
     const message = _util.clone(d)
+    const context = {
+        "schema": "http://schema.org/",
+        "security": "https://w3id.org/security#",
+        "vc": "https://www.w3.org/2018/credentials/v1/"
+    }
+    const compacted = await jsonld.compact(d, context);
+
     const proof = message["security:proof"]
     if (!_util.isDictionary(proof)) {
         throw new errors.InvalidField("security:proof")
@@ -136,9 +143,9 @@ const verify = async (d, key_fetcher) => {
         if (!!result) {
             return {
                 proof: proof,
-                payload: message,
-                types: _util.coerce.list(message["@type"], _util.coerce.list(message["vc:type"], [])),
-                claim: _util.coerce.first(message["vc:credentialSubject"], null),
+                payload: compacted,
+                types: _util.coerce.list(compacted["@type"], _util.coerce.list(compacted["vc:type"], [])),
+                claim: _util.coerce.first(compacted["vc:credentialSubject"], null),
                 chain: certs.map(cert => {
                     const d = {}
 

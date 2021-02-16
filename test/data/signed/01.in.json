@@ -1,15 +1,16 @@
 {
   "@context": {
+    "schema": "http://schema.org",
     "security": "https://w3id.org/security#"
   },
-  "hello": "world",
-  "name": "signed/01.in.json",
+  "schema:hello": "world",
+  "schema:name": "david",
   "security:proof": {
     "security:type": "https://cccc4.ca/vc#CanonicalRSA2021",
     "security:proofPurpose": "assertionMethod",
     "security:created": "2021-01-18T10:10:26.179Z",
     "security:nonce": "123456789",
     "security:verificationMethod": "https://example.com/i/pat/keys/5",
-    "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..Tis626CgNNt5Vv7oqBZfpOh1CSqCTNXn87qvn2Q9xMnn-t2c1Ai4idr6yBzfHdFMGVo6BNhCJrBIaSGxpLzGkKdItL7TsREXpakThoWipep7cGnF2c7AQN7KXCfk8A5-9E1xMV1lJMg3fnth6Bxxf38tuPQkm3GO4YQRe9LHdUfR1xL7dwZNKn-BnpTk0V_rJS7ZF8ewOs8Vr6pQbbXNazb0vnDPlr1629BmT4TsDqQlGQoVLfFFzDs9qAlEgOGRtwCAIWY_RKfoL_OGejgvbgx38HLYSOkRvqsO9hNU-bOQSZCQXAHW6muhGHEnwvSihywbzNAN6Y6sL91RbbWEVA"
+    "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..tpE_CYNfO4xmY0bR4ZG_3oUHcTWB6odiAZS4xc_8LQHw6Kz5Z-nzGwvHx3jK0j93UE_h5U3dFwgvz5w13h-OJYBBkRxIROXb16N9_s-s_2vPD7DotjblPWfBczcXH-spyw3lmCgvSovOvzKdmBwtT54kJbcFu1N3NEAaxcQmOuRysbTdxRd2zD82bKJJ2p8wTfblp3WmcQVbznO6X6K-j9FahSJHxxqi8CWeqwruXaD95m65OPql7sM4SqNY4qd7KMQY60YxY6eUkIGlH8wwLnVXM6k-pzFmMioiUbvPYAqgSDoBvF0HhZRkt3ElCUoTn11SyXTo9cMeHYS6p0KPFw"
   }
 }

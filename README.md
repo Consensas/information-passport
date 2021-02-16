@@ -39,7 +39,8 @@ Test Passports and so forth.
 * web: a sample web interface that will scan and verify
   Information Passport QR codes or take QR code entry
 
-* tools: tools for working with IPs. Includes command line
+* [tools](https://github.com/Consensas/information-passport-tools): 
+  tools for working with IPs. Includes command line
   verification and pretty printing code, interface for 
   barcode scanner on Raspberry Pi (or likely anywhere).
 

@@ -52,8 +52,11 @@ describe("sign", function() {
         const private_key = await jose.JWK.asKey(private_pem, 'pem');
 
         const message = {
-            "hello": "world",
-            name: NAME,
+            "@context": {
+                "schema": "http://schema.org"
+            },
+            "schema:hello": "world",
+            "schema:name": "david",
         }
         const verifier = "https://example.com/i/pat/keys/5"
 
@@ -81,8 +84,11 @@ describe("sign", function() {
         const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
 
         const message = {
-            "hello": "world",
-            name: NAME,
+            "@context": {
+                "schema": "http://schema.org"
+            },
+            "schema:hello": "world",
+            "schema:name": "david",
         }
         const verifier = "https://example.com/i/pat/keys/5"
 

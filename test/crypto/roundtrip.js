@@ -53,7 +53,10 @@ describe("roundtrip", function() {
 
         // sign
         const message = {
-            "hello": "world",
+            "@context": {
+                "schema": "http://schema.org/",
+            },
+            "schema:hello": "world",
         }
         const verifier = "https://example.com/i/pat/keys/5"
 
@@ -80,7 +83,12 @@ describe("roundtrip", function() {
         assert.ok(_.isPlainObject(v.payload))
         assert.ok(_.isPlainObject(v.proof))
 
-        delete v.payload["@context"]
-        assert.deepEqual(v.payload, message)
+        _.mapValues(message, (value, key) => {
+            if (key.startsWith("@")) {
+                return
+            }
+
+            assert.deepEqual(value, v.payload[key])
+        })
     })
 })
