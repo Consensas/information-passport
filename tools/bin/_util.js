@@ -55,12 +55,12 @@ const pretty = _.promise((self, done) => {
             sd.claim = _.d.first(sd, "verified/payload/vc:credentialSubject", null)
             sd.data_type = _.d.first(sd.claim, "@type", null)
         })
-        .then(tools.projects.initialize)
-        .then(tools.projects.by_data_type)
-        .then(tools.projects.required)
+        .then(tools.schemas.initialize)
+        .then(tools.schemas.by_data_type)
+        .then(tools.schemas.required)
 
         .make(sd => {
-            _.d.list(sd.project, "groups", []).forEach(group => {
+            _.d.list(sd.schema, "groups", []).forEach(group => {
                 console.log(colors.green(group.name))
                 _.d.list(group, "nodes", []).forEach(node => {
                     console.log(`  ${node.name}: ` + colors.cyan(_.d.first(sd.claim, node.id, "")))

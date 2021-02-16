@@ -1,5 +1,5 @@
 /*
- *  tools/tools/by_data_type.js
+ *  tools/tools/required.js
  *
  *  David Janes
  *  Consenas.com
@@ -23,33 +23,26 @@
 "use strict"
 
 const _ = require("iotdb-helpers")
+const errors = require("iotdb-errors")
 
 /**
  */
-const by_data_type = _.promise(self => {
-    _.promise.validate(self, by_data_type)
-
-    self.project = self.projects.find(project => project.data_type === self.data_type) || null
+const required = _.promise(self => {
+    if (!self.schema) {
+        throw new errors.NotFound("schema not found")
+    }
 })
 
-by_data_type.method = "projects.by_data_type"
-by_data_type.description = ``
-by_data_type.requires = {
-    projects: _.is.Array,
-    data_type: _.is.String,
+required.method = "schemas.required"
+required.description = ``
+required.requires = {
 }
-by_data_type.accepts = {
+required.accepts = {
 }
-by_data_type.produces = {
-    project: _.is.Dictionary,
+required.produces = {
 }
-by_data_type.params = {
-    data_type: _.p.normal,
-}
-by_data_type.p = _.p(by_data_type)
-
 
 /**
  *  API
  */
-exports.by_data_type = by_data_type
+exports.required = required

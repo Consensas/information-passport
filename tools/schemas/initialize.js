@@ -34,26 +34,26 @@ const initialize = _.promise((self, done) => {
         .validate(initialize)
 
         .add({
-            path: path.join(__dirname, "../../data/projects"),
+            path: path.join(__dirname, "../../data/schemas"),
             fs$filter_name: name => name.endsWith(".yaml"),
         })
         .then(fs.list)
         .then(fs.all(fs.read.yaml))
 		.make(sd => {
-			sd.projects = sd.jsons.filter(json => json)
+			sd.schemas = sd.jsons.filter(json => json)
 		})
 
         .end(done, self, initialize)
 })
 
-initialize.method = "projects.initialize"
+initialize.method = "schemas.initialize"
 initialize.description = ``
 initialize.requires = {
 }
 initialize.accepts = {
 }
 initialize.produces = {
-    projects: _.is.Array,
+    schemas: _.is.Array,
 }
 
 /**

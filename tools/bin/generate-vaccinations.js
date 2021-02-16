@@ -112,10 +112,10 @@ const _html = _.promise((self, done) => {
         .then(fs.read.utf8.p(path.join(__dirname, "../data/vaccination-template.html")))
         .add("document:template")
 
-        .then(tools.projects.initialize)
+        .then(tools.schemas.initialize)
         .add("json/@type:data_type")
-        .then(tools.projects.by_data_type)
-        .then(tools.projects.required)
+        .then(tools.schemas.by_data_type)
+        .then(tools.schemas.required)
 
         .make(sd => {
             const lines = []
@@ -124,7 +124,7 @@ const _html = _.promise((self, done) => {
             lines.push(`<img src="https://chart.googleapis.com/chart?cht=qr&chs=400x400&chld=H&chl=http://${ad.host}/did:example:${sd.record.code}" />`)
             lines.push("</p>")
 
-            _.d.list(sd.project, "groups", []).forEach(group => {
+            _.d.list(sd.schema, "groups", []).forEach(group => {
                 lines.push("<h2>")
                 lines.push(_encode(group.name))
                 lines.push("</h2><ul>")
@@ -316,7 +316,7 @@ _.promise()
     })
 
     .then(tools.templates.initialize)
-    .then(tools.projects.initialize)
+    .then(tools.schemas.initialize)
 
     .add("path", path.join(__dirname, "../data/fake-records.yaml"))
     .then(fs.read.json.magic)
