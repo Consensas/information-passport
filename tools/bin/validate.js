@@ -37,6 +37,8 @@ const ad = minimist(process.argv.slice(2), {
 		"clear",
         "json",
         "silent",
+        "claim",
+        "lint",
     ],
     string: [
         "in",
@@ -52,6 +54,7 @@ const ad = minimist(process.argv.slice(2), {
     default: {
         "rules": null,
         "certs": null,
+        "claim": false,
     },
 });
 
@@ -66,9 +69,12 @@ const help = message => {
     console.log(`\
 usage: ${name} [options] 
 
+Validate a Verifiable Credential
+
 input options:
 
 --in <url|file>    input document (URL or file)
+--claim            the document is the claim, not the whole VC
 
 fomatting options:
 
@@ -76,6 +82,7 @@ fomatting options:
 --json             format the output as JSON (the default)
 --pretty           format the output the best you can 
 --clear            clear screen when result found
+--lint             check for issues with the VC
 
 rule options (one of these are required):
 
@@ -124,7 +131,7 @@ _.promise({
 })
     .conditional(ad.certs, _util.load_certs.p(ad.certs))
     .conditional(ad.rules, _util.load_rules.p(ad.rules))
-    .then(_util.verify.p(ad.in))
+    .then(_util.verify.p(ad.in, ad.claim))
     .make(async sd => {
         if (sd.rules) {
             await ip.validate.with.rules(sd.validated, sd.rules)
@@ -133,6 +140,7 @@ _.promise({
             await ip.validate.with.certs(sd.validated, sd.certs)
         }
     })
+    .conditional(ad.lint, _util.lint)
     .make(sd => {
         if (ad.silent) {
         } else if (!ad.pretty) {

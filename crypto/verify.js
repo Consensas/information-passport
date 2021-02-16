@@ -137,6 +137,8 @@ const verify = async (d, key_fetcher) => {
             return {
                 proof: proof,
                 payload: message,
+                types: _util.coerce.list(message["@type"], _util.coerce.list(message["vc:type"], [])),
+                claim: _util.coerce.first(message["vc:credentialSubject"], null),
                 chain: certs.map(cert => {
                     const d = {}
 

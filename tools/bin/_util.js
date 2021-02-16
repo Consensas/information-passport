@@ -125,12 +125,21 @@ const verify = _.promise((self, done) => {
 
         .then(_load_json)
         .make(async sd => {
-            sd.verified = await ip.crypto.verify(sd.json, async proof => {
-                const result = await _.promise({})
-                    .then(fetch.document.get(proof.verificationMethod))
+            if (sd.is_claim) {
+                sd.verified = {
+                    payload: sd.json,
+                    chain: [],
+                    proof: {},
+                }
+            } else {
+                sd.verified = await ip.crypto.verify(sd.json, async proof => {
+                    const result = await _.promise({})
+                        .then(fetch.document.get(proof.verificationMethod))
 
-                return result.document
-            })
+                    return result.document
+                })
+            }
+
         })
 
         .end(done, self, verify)
@@ -142,12 +151,14 @@ verify.requires = {
     in: [ _.is.String, _.is.AbsoluteURL ],
 }
 verify.accepts = {
+    is_claim: _.is.Boolean,
 }
 verify.produces = {
     verified: _.is.Dictionary,
 }
 verify.params = {
     in: _.p.normal,
+    is_claim: _.p.normal,
 }
 verify.p = _.p(verify)
 
@@ -216,8 +227,40 @@ load_rules.p = _.p(load_rules)
 
 /**
  */
+const lint = _.promise((self, done) => {
+    _.promise(self)
+        .validate(lint)
+
+        .make(sd => {
+            sd.verified.lints = []
+            sd.claim = _.d.first(sd, "verified/payload/vc:credentialSubject", null)
+            sd.data_type = _.d.first(sd.claim, "@type", null)
+            console.log(sd.claim)
+        })
+        .then(tools.schemas.initialize)
+        .then(tools.schemas.by_data_type)
+        .conditional(sd => !sd.schema, _.promise.bail)
+
+        .end(done, self, lint)
+})
+
+lint.method = "lint"
+lint.description = ``
+lint.requires = {
+    verified: {
+        payload: _.is.Dictionary,
+    },
+}
+lint.accepts = {
+}
+lint.produces = {
+}
+
+/**
+ */
 exports.pretty = pretty
 exports.read_stdin = read_stdin
 exports.verify = verify
 exports.load_certs = load_certs
 exports.load_rules = load_rules
+exports.lint = lint

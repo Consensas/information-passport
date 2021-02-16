@@ -8,6 +8,8 @@
 
 "use strict"
 
+const _ = require("lodash")
+
 // https://stackoverflow.com/a/33332038/96338
 exports.isDictionary = d => {
    return (d === void 0 || d === null || Array.isArray(d) || typeof d == 'function' || d.constructor === Date ) ?
@@ -30,6 +32,38 @@ exports.SECURITY_PROOF_PURPOSE = "assertionMethod"
  */
 exports.make_timestamp = () => new Date().toISOString()
 exports.make_nonce = () => `${Math.random()}`.substring(2)
+
+/**
+ */
+exports.coerce = {}
+
+exports.coerce.list = (v, otherwise) => {
+    if (_.isNull(v)) {
+        return otherwise
+    } else if (_.isUndefined(v)) {
+        return otherwise
+    } else if (_.isArray(v)) {
+        return v
+    } else {
+        return [ v ]
+    }
+}
+
+exports.coerce.first = (v, otherwise) => {
+    if (_.isNull(v)) {
+        return otherwise
+    } else if (_.isUndefined(v)) {
+        return otherwise
+    } else if (_.isArray(v)) {
+        if (v.length) {
+            return v[0]
+        } else {
+            return otherwise
+        }
+    } else {
+        return v
+    }
+}
 
 /**
  *  Deep Clone
