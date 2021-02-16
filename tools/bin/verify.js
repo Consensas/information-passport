@@ -24,8 +24,9 @@
 
 const _ = require("iotdb-helpers")
 const ip = require("../..")
+const fetch = require("iotdb-fetch")
+const fs = require("iotdb-fs")
 
-const fs = require("fs")
 const jose = require("node-jose")
 const path = require("path")
 
@@ -38,7 +39,7 @@ const ad = minimist(process.argv.slice(2), {
     ],
     string: [
         "_",
-        "file",
+        "in",
         "verifier",
     ],
     alias: {
@@ -73,13 +74,23 @@ _.logger.levels({
 })
 
 const run = async (files) => {
-    const message = JSON.parse(ad.file ? await fs.promises.readFile(ad.file) : await _util.read_stdin())
+    const message = JSON.parse(ad.in ? await fs.promises.readFile(ad.in, "utf-8") : await _util.read_stdin())
 
-    const signed = await ip.crypto.verify(message, async proof => {
-        return fs.promises.readFile(ad.verifier ? ad.verifier : proof, "utf8")
+    const verified = await ip.crypto.verify(message, async proof => {
+        if (_.is.AbsoluteURL(ad.verifier)) {
+            const sd = await _.promise({})
+                .then(fetch.document.get(ad.verifier))
+            return sd.document
+        } else if (_.is.String(ad.verifier)) {
+            return fs.promises.readFile(ad.verifier, "utf-8")
+        } else {
+            const sd = await _.promise({})
+                .then(fetch.document.get(proof.verificationMethod))
+            return sd.document
+        }
     })
 
-    console.log(JSON.stringify(signed, null, 2))
+    console.log(JSON.stringify(verified, null, 2))
 }
 
 run().catch(error => {
