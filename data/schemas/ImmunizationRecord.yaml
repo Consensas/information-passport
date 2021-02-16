@@ -99,7 +99,6 @@ groups:
     name: "Hospital"
     recommended: true
 
-
 - name: Other
   nodes:
   - id: "w3did:id"

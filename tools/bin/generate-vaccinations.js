@@ -168,7 +168,9 @@ const _one = _.promise((self, done) => {
 
         .make(sd => {
             sd.did = `did:example:${sd.record.code}`
-            sd.treatmentDate = "2021-01-01"
+            sd.immunizationDate = "2021-01-01"
+            sd.doseSequence = 2
+            sd.lotNumber = "123-456-789"
         })
 
         // Redaction
@@ -249,7 +251,9 @@ const _one = _.promise((self, done) => {
             "schema:patient": "Patient",
             "schema:primaryPrevention": "MedicalCondition",
             "schema:location": "Hospital",
-            "schema:treatmentDate": "treatmentDate",
+            "schema:immunizationDate": "immunizationDate",
+            "schema:doseSequence": "doseSequence",
+            "schema:lotNumber": "lotNumber",
             "w3did:id": "did",
         }))
         .add("result:MedicalRecord")
@@ -278,7 +282,6 @@ const _one = _.promise((self, done) => {
             sd.path = `website/${sd.record.code}.json`
         })
 
-
         // write the JSON
         .then(fs.make.directory.parent)
         .then(fs.write.json.pretty)
@@ -287,7 +290,6 @@ const _one = _.promise((self, done) => {
         // write the HTML
         .add("MedicalRecord:json")
         .then(_html)
-
 
         .end(done, self, _one)
 })
@@ -331,5 +333,8 @@ _.promise()
         inputs: "records:record",
     })
     .except(error => {
+        delete error.self
+        console.log(error)
+
         console.log("#", _.error.message(error))
     })

@@ -83,11 +83,13 @@ const lint = _.promise(self => {
                         id: node.id,
                         issue: "field is recommended but is missing",
                     })
+                /*
                 } else if (node.expected) {
                     lints.push({
                         id: node.id,
                         issue: "field had expected value but is missing",
                     })
+                    */
                 }
 
                 return

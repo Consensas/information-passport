@@ -19,7 +19,7 @@
     "homepage": "https://github.com/Consensas/information-passport",
     "license": "Apache-2.0",
     "main": "index.js",
-    "name": "tools",
+    "name": "information-passport-tools",
     "private": false,
     "repository": {
         "type": "git",
