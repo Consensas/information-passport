@@ -82,12 +82,14 @@ const validate = async url => {
             },
         })
         const json = await response.json();
-        const verified = await ip.crypto.verify(json, async proof => {
-            console.log("-", "fetch verification", proof.verificationMethod)
-            const vresponse = await fetch(proof.verificationMethod)
-            const vtext = await vresponse.text()
+        const verified = await ip.crypto.verify(json, {
+            fetch_key: async proof => {
+                console.log("-", "fetch verification", proof.verificationMethod)
+                const vresponse = await fetch(proof.verificationMethod)
+                const vtext = await vresponse.text()
 
-            return vtext
+                return vtext
+            },
         })
 
         // hack - should be just "vc:credentialSubject"

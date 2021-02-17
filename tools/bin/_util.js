@@ -63,11 +63,13 @@ const verify = _.promise((self, done) => {
                     proof: {},
                 }
             } else {
-                sd.verified = await ip.crypto.verify(sd.json, async proof => {
-                    const result = await _.promise({})
-                        .then(fetch.document.get(proof.verificationMethod))
+                sd.verified = await ip.crypto.verify(sd.json, {
+                    fetch_key: async proof => {
+                        const result = await _.promise({})
+                            .then(fetch.document.get(proof.verificationMethod))
 
-                    return result.document
+                        return result.document
+                    },
                 })
             }
 

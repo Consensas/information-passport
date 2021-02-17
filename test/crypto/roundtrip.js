@@ -71,8 +71,10 @@ describe("roundtrip", function() {
         }
 
         // verify
-        const v = await ip.crypto.verify(signed, async proof => {
-            return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
+        const v = await ip.crypto.verify(signed, {
+            fetch_key: async proof => {
+                return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
+            },
         })
 
         if (DUMP) {

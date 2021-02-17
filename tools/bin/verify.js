@@ -76,18 +76,20 @@ _.logger.levels({
 const run = async (files) => {
     const message = JSON.parse(ad.in ? await fs.promises.readFile(ad.in, "utf-8") : await _util.read_stdin())
 
-    const verified = await ip.crypto.verify(message, async proof => {
-        if (_.is.AbsoluteURL(ad.verifier)) {
-            const sd = await _.promise({})
-                .then(fetch.document.get(ad.verifier))
-            return sd.document
-        } else if (_.is.String(ad.verifier)) {
-            return fs.promises.readFile(ad.verifier, "utf-8")
-        } else {
-            const sd = await _.promise({})
-                .then(fetch.document.get(proof.verificationMethod))
-            return sd.document
-        }
+    const verified = await ip.crypto.verify(message, {
+        fetch_key: async proof => {
+            if (_.is.AbsoluteURL(ad.verifier)) {
+                const sd = await _.promise({})
+                    .then(fetch.document.get(ad.verifier))
+                return sd.document
+            } else if (_.is.String(ad.verifier)) {
+                return fs.promises.readFile(ad.verifier, "utf-8")
+            } else {
+                const sd = await _.promise({})
+                    .then(fetch.document.get(proof.verificationMethod))
+                return sd.document
+            }
+        },
     })
 
     console.log(JSON.stringify(verified, null, 2))

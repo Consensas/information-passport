@@ -29,6 +29,8 @@ const errors = require("../errors")
 const jsonld = require("jsonld")
 
 /**
+ *  Needs work for dealing with any type of signing algorithm.
+ *
  *  This always assumes that the proof is 
  *  under "security:proof" - this probably is not 
  *  a requirement if you're writing a JSON-LD verifier.
@@ -40,26 +42,40 @@ const jsonld = require("jsonld")
  *  The return value has:
  *  {
  *      payload - the original message (with @context)
+ *      claim - the claim in the message
+ *      types - the types of VC
  *      chain - the X.509 chain, leaf to root
  *      proof - the simplified (no security: proof)
  *  }
  */
-const verify = async (d, key_fetcher) => {
+const verify = async (d, paramd) => {
     const ip = require("..")
 
     const message = _util.clone(d)
-    const context = {
-        "schema": "http://schema.org/",
-        "security": "https://w3id.org/security#",
-        "vc": "https://www.w3.org/2018/credentials/v1/"
-    }
-    const compacted = await jsonld.compact(d, context);
+    const compacted = await jsonld.compact(d, ip.context);
+    const types = _util.coerce.list(compacted["@type"], _util.coerce.list(compacted["vc:type"], []))
+    const claim = _util.coerce.first(compacted["vc:credentialSubject"], null)
 
-    const proof = message["security:proof"]
-    if (!_util.isDictionary(proof)) {
-        throw new errors.InvalidField("security:proof")
+    // allow proof to come as security:proof or proof
+    let proof
+    for (let proof_key of [ "security:proof", "proof" ]) {
+        proof = message[proof_key]
+        if (_util.isDictionary(proof)) {
+            delete message[proof_key]
+            break
+        }
     }
-    delete message["security:proof"]
+
+    // it's ok for there to be no proof
+    if (!proof) {
+        return {
+            proof: null,
+            payload: compacted,
+            types: types,
+            claim: claim,
+            chain: [],
+        }
+    }
 
     // we simplify proof for JS programming
     const proof_original = Object.assign({}, proof)
@@ -117,7 +133,7 @@ const verify = async (d, key_fetcher) => {
     jws = jws.replace("..", `.${payload}.`)
 
     // get the cert chain - the top is the leaf, the bottom the CA
-    const chain_pem = await key_fetcher(proof)
+    const chain_pem = await paramd.fetch_key(proof)
 
     const pems = chain_pem
         .split(/(-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----\n)/s)
@@ -144,8 +160,8 @@ const verify = async (d, key_fetcher) => {
             return {
                 proof: proof,
                 payload: compacted,
-                types: _util.coerce.list(compacted["@type"], _util.coerce.list(compacted["vc:type"], [])),
-                claim: _util.coerce.first(compacted["vc:credentialSubject"], null),
+                types: types,
+                claim: claim,
                 chain: certs.map(cert => {
                     const d = {}
 

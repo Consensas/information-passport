@@ -27,3 +27,9 @@ module.exports = {
     crypto: require("./crypto"),
     validate: require("./validate"),
 }
+
+module.exports.context = {
+    "schema": "http://schema.org/",
+    "security": "https://w3id.org/security#",
+    "vc": "https://www.w3.org/2018/credentials/v1/"
+}
