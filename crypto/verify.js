@@ -133,7 +133,7 @@ const verify = async (d, paramd) => {
     jws = jws.replace("..", `.${payload}.`)
 
     // get the cert chain - the top is the leaf, the bottom the CA
-    const chain_pem = await paramd.fetch_key(proof)
+    const chain_pem = await paramd.fetch_chain(proof)
 
     const pems = chain_pem
         .split(/(-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----\n)/s)

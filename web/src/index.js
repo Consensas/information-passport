@@ -83,7 +83,7 @@ const validate = async url => {
         })
         const json = await response.json();
         const verified = await ip.crypto.verify(json, {
-            fetch_key: async proof => {
+            fetch_chain: async proof => {
                 console.log("-", "fetch verification", proof.verificationMethod)
                 const vresponse = await fetch(proof.verificationMethod)
                 const vtext = await vresponse.text()

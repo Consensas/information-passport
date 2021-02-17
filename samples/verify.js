@@ -20,7 +20,7 @@ const signed = require("./signed.json")
 
 const run = async (files) => {
     const v = await ip.crypto.verify(signed, {
-        fetch_key: async proof => {
+        fetch_chain: async proof => {
             return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
         },
     })
