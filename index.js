@@ -33,3 +33,12 @@ module.exports.context = {
     "security": "https://w3id.org/security#",
     "vc": "https://www.w3.org/2018/credentials/v1/"
 }
+
+module.exports.level = {
+    TRACE: 10,
+    DEBUG: 20,
+    INFO: 30,
+    WARN: 40,
+    ERROR: 50,
+    FATAL: 60,
+}
