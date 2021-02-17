@@ -52,7 +52,7 @@ const verify = async (d, paramd) => {
     const ip = require("..")
 
     paramd = Object.assign({}, paramd || {})
-    paramd.verify_signature = paramd.verify_signature ?? true
+    paramd.verify = paramd.verify ?? true
 
     const message = _util.clone(d)
     const compacted = await jsonld.compact(d, ip.context);
@@ -70,7 +70,7 @@ const verify = async (d, paramd) => {
     }
 
     // it's ok for there to be no proof
-    if (!proof || !paramd.verify_signature) {
+    if (!proof || !paramd.verify) {
         return {
             proof: null,
             payload: compacted,
