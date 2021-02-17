@@ -1,6 +1,0 @@
-{
-  "@type": "schema:ImmunizationRecommendation", 
-  "schema:drug": null, 
-  "schema:healthCondition": null, 
-  "schema:name": "{{ schema:drug/schema:name }}"
-}

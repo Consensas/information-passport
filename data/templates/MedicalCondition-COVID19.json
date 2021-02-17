@@ -1,9 +1,0 @@
-{
-  "@type": "schema:MedicalCondition", 
-  "schema:code": {
-    "@type": "schema:MedicalCode", 
-    "schema:codeValue": "U07", 
-    "schema:codingSystem": "ICD-10"
-  }, 
-  "schema:name": "COVID-19"
-}
