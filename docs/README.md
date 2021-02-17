@@ -86,33 +86,14 @@ The Node.JS code and package documentation is [here](Code.md).
 
 ## Tools
 
-### Command Line Signing and Verification
+Please see [https://github.com/Consensas/information-passport-tools](Information Passport Tools)
+for command line tools.
 
-Command Line tools for signing and verification,
-including bulk generation of records,
-can be found in [tools/bin](../tools/bin). 
-Please see the documentation there for more.
-
-### Web Based Verification
+## Web Based Verification
 
 A web-based verifier, including QR code scanners,
 can be found in [web](../web). 
 Please see the documentation there for more.
-
-### Hand-held Scanner Verfication
-
-A hand-held scanner verifier - for Raspberry Pi, 
-but likely easily adaptable to any platform - 
-can be found in [tools/bin](../tools/bin). 
-Please see the documentation there for more.
-
-Video:
-
-<div align="left">
-      <a href="https://www.youtube.com/watch?v=d3oz7kR6ZjU" target="video">
-         <img src="https://img.youtube.com/vi/d3oz7kR6ZjU/0.jpg" style="width: 200px">
-      </a>
-</div>
 
 ## Specifications
 
