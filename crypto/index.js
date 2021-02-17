@@ -27,5 +27,6 @@ module.exports = Object.assign(
     require("./fingerprint"),
     require("./sign"),
     require("./verify"),
+    require("./make"),
     {},
 )

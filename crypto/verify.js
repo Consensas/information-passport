@@ -51,6 +51,9 @@ const jsonld = require("jsonld")
 const verify = async (d, paramd) => {
     const ip = require("..")
 
+    paramd = Object.assign({}, paramd || {})
+    paramd.verify_signature = paramd.verify_signature ?? true
+
     const message = _util.clone(d)
     const compacted = await jsonld.compact(d, ip.context);
     const types = _util.coerce.list(compacted["@type"], _util.coerce.list(compacted["vc:type"], []))
@@ -67,7 +70,7 @@ const verify = async (d, paramd) => {
     }
 
     // it's ok for there to be no proof
-    if (!proof) {
+    if (!proof || !paramd.verify_signature) {
         return {
             proof: null,
             payload: compacted,
