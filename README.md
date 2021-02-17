@@ -36,15 +36,14 @@ Test Passports and so forth.
 
 * [validate](validate): the validation algortithms.
 
-* web: a sample web interface that will scan and verify
+* [web](https://github.com/Consensas/information-passport-wbesite): 
+  a sample web interface that will scan and verify
   Information Passport QR codes or take QR code entry
 
 * [tools](https://github.com/Consensas/information-passport-tools): 
   tools for working with IPs. Includes command line
   verification and pretty printing code, interface for 
   barcode scanner on Raspberry Pi (or likely anywhere).
-
-  if you just want to try it, this is the place to go
 
 * test: test code
 
