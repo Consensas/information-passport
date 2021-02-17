@@ -22,10 +22,7 @@
 
 "use strict"
 
-const forge = require("node-forge")
-const jose = require("node-jose")
 const _util = require("./_util")
-const errors = require("../errors")
 const jsonld = require("jsonld")
 
 /**
@@ -34,18 +31,12 @@ const make = async (paramd) => {
     const ip = require("..")
 
     paramd = Object.assign({}, paramd || {})
-    paramd.types = _util.coerce.list(paramd.types || paramd.type) ?? [ "vc:VerifiableCredential" ]
-    paramd.claim = paramd.claim || {}
-    paramd.issuer = paramd.issuer ?? "https://passport.consensas.com",
-    paramd.issuanceDate = paramd.issuanceDate ?? _.timestamp.make()
-
-    const compacted = await jsonld.compact(paramd.claim, ip.context);
     const vc = {
         "@context": ip.context,
-        "@type": paramd.types,
-        "vc:issuer": paramd.issuer,
-        "vc:issuanceDate": paramd.issuanceDate,
-        "vc:credentialSubject": paramd.claim,
+        "@type": _util.coerce.list(paramd.type, [ "vc:VerifiableCredential" ]),
+        "vc:issuer": paramd.issuer ?? "https://passport.consensas.com",
+        "vc:issuanceDate": paramd.issuanceDate ?? new Date().toISOString(),
+        "vc:credentialSubject": await jsonld.compact(paramd.credentialSubject, ip.context),
     }
 
     return vc
