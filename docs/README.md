@@ -86,14 +86,13 @@ The Node.JS code and package documentation is [here](Code.md).
 
 ## Tools
 
-Please see [https://github.com/Consensas/information-passport-tools](Information Passport Tools)
+Please see [Information Passport Tools](https://github.com/Consensas/information-passport-tools)
 for command line tools.
 
 ## Web Based Verification
 
 A web-based verifier, including QR code scanners,
-can be found in [web](../web). 
-Please see the documentation there for more.
+can be found here: [Information Passport Website](https://github.com/Consensas/information-passport-website)
 
 ## Specifications
 
