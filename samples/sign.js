@@ -38,6 +38,7 @@ const ad = minimist(process.argv.slice(2), {
         "in": null,
         "verification": "https://example.com/i/pat/keys/5",
         "private": path.join(FOLDER, "private.key.pem"),
+        "public": path.join(FOLDER, "public.key.pem"),
         "suite": "ConsensasRSA2021",
     },
 });
@@ -62,11 +63,12 @@ const run = async (ad) => {
     }
 
     const private_pem = await fs.promises.readFile(ad.private, "utf-8")
-    const private_key = await jose.JWK.asKey(private_pem, "pem");
+    const public_pem = await fs.promises.readFile(ad.public, "utf-8")
 
     const signed = await ip.crypto.sign({
         payload: message, 
         private_key: private_pem, 
+        public_key: public_pem,
         verification: ad.verification,
         suite: ad.suite,
     })

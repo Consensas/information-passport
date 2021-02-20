@@ -42,7 +42,19 @@ const _RsaSignature2018 = async paramd => {
         type: "RsaVerificationKey2018",
         id: paramd.verification,
         // controller: "https://example.com/i/alice", … this doesn't see to do anything
-        // publicKeyPem: paramd.private_key,
+        // publicKeyPem: paramd.public_key,
+    }
+
+    /**
+     *  The message needs to have "https://w3id.org/security/v2"
+     *  or the JSON-LD signing algorithm gets upset and
+     *  pushes out an @graph
+     */
+    const json = Object.assign({}, paramd.payload)
+    const contexts = _util.coerce.list(json["@context"], [])
+    if (contexts.indexOf("https://w3id.org/security/v2") === -1) {
+        contexts.push("https://w3id.org/security/v2")
+        json["@context"] = contexts
     }
 
     /**
@@ -57,12 +69,12 @@ const _RsaSignature2018 = async paramd => {
     })
 
     // sign the document as a simple assertion
-    const signed = await jlds.sign(paramd.payload, {
+    const signed = await jlds.sign(json, {
         suite: suite_with_private,
         purpose: new jlds.purposes.AssertionProofPurpose()
     });
 
-    return jsonld.compact(signed, ip.context)
+    return signed
 }
 
 /**
@@ -82,29 +94,7 @@ const _ConsensasRSA2021 = async paramd => {
 
     // build @context
     const message = Object.assign({ "@context": null }, paramd.payload)
-    const context = message["@context"]
-    if (_util.isString(context)) {
-        message["@context"] = [
-            {
-                [ _util.SECURITY_KEY ]: _util.SECURITY_VALUE,
-            },
-            context
-        ]
-    } else if (_util.isDictionary(context)) {
-        message["@context"] = Object.assign({}, context)
-        message["@context"][_util.SECURITY_KEY] = _util.SECURITY_VALUE
-    } else if (_util.isArray(context)) {
-        message["@context"] = [].concat([
-            {
-                [ _util.SECURITY_KEY ]: _util.SECURITY_VALUE,
-            },
-            context
-        ])
-    } else {
-        message["@context"] = {
-            [ _util.SECURITY_KEY ]: _util.SECURITY_VALUE,
-        }
-    }
+    _util.recontext(message)
 
     // build the pre-signature proof
     const timestamp = _util.make_timestamp()
@@ -112,11 +102,11 @@ const _ConsensasRSA2021 = async paramd => {
     const canonical_message = _util.canonicalize(message)
 
     const proof = {
-        "security:type": _util.SECURITY_TYPE,
-        "security:proofPurpose": _util.SECURITY_PROOF_PURPOSE,
-        "security:created": timestamp,
-        "security:nonce": nonce,
-        "security:verificationMethod": paramd.verification,
+        "type": _util.SECURITY_TYPE,
+        "proofPurpose": _util.SECURITY_PROOF_PURPOSE,
+        "created": timestamp,
+        "nonce": nonce,
+        "verificationMethod": paramd.verification,
     }
     const canonical_proof = _util.canonicalize(proof)
 
@@ -130,8 +120,8 @@ const _ConsensasRSA2021 = async paramd => {
         .final()
 
     // attach the signature and proof
-    proof["security:jws"] = signed.replace(/[.].*[.]/, "..")
-    message["security:proof"] = proof
+    proof["jws"] = signed.replace(/[.].*[.]/, "..")
+    message["proof"] = proof
 
     return message
 }

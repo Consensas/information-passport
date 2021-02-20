@@ -35,6 +35,31 @@ exports.make_nonce = () => `${Math.random()}`.substring(2)
 
 /**
  */
+exports.recontext = (message, ncontext) => {
+    const _util = exports
+    const ip = require("..")
+    const context = message["@context"]
+    if (_util.isString(context) || _util.isDictionary(context)) {
+        message["@context"] = [
+            context,
+            "https://w3id.org/security/v2"
+        ]
+    } else if (_util.isArray(context)) {
+        message["@context"] = [].concat([
+            context,
+            "https://w3id.org/security/v2"
+        ])
+    } else {
+        message["@context"] = [
+            "https://w3id.org/security/v2"
+        ]
+    }
+
+    return message["@context"]
+}
+
+/**
+ */
 exports.coerce = {}
 
 exports.coerce.list = (v, otherwise) => {

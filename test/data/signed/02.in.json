@@ -1,16 +1,18 @@
 {
-  "@context": {
-    "schema": "http://schema.org",
-    "security": "https://w3id.org/security#"
-  },
+  "@context": [
+    {
+      "schema": "http://schema.org"
+    },
+    "https://w3id.org/security/v2"
+  ],
   "schema:hello": "world",
   "schema:name": "david",
-  "security:proof": {
-    "security:type": "https://cccc4.ca/vc#CanonicalRSA2021",
-    "security:proofPurpose": "assertionMethod",
-    "security:created": "2021-01-18T10:10:26.179Z",
-    "security:nonce": "123456789",
-    "security:verificationMethod": "https://example.com/i/pat/keys/5",
-    "security:jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..tpE_CYNfO4xmY0bR4ZG_3oUHcTWB6odiAZS4xc_8LQHw6Kz5Z-nzGwvHx3jK0j93UE_h5U3dFwgvz5w13h-OJYBBkRxIROXb16N9_s-s_2vPD7DotjblPWfBczcXH-spyw3lmCgvSovOvzKdmBwtT54kJbcFu1N3NEAaxcQmOuRysbTdxRd2zD82bKJJ2p8wTfblp3WmcQVbznO6X6K-j9FahSJHxxqi8CWeqwruXaD95m65OPql7sM4SqNY4qd7KMQY60YxY6eUkIGlH8wwLnVXM6k-pzFmMioiUbvPYAqgSDoBvF0HhZRkt3ElCUoTn11SyXTo9cMeHYS6p0KPFw"
+  "proof": {
+    "type": "https://cccc4.ca/vc#CanonicalRSA2021",
+    "proofPurpose": "assertionMethod",
+    "created": "2021-01-18T10:10:26.179Z",
+    "nonce": "123456789",
+    "verificationMethod": "https://example.com/i/pat/keys/5",
+    "jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..x-3ezSSOcJ04XyVzKqvjm0cHPoETAdwuhDHppOHUA90ZuueGyHhryUZcuy-g3FAX_ZY8rT-fJrj8RPfW9mA4TfEKu_lBxjyyUqPGiK2tenSNZEGmG8fsgGY-kgP9-RxwM2lEwGZDzyDNcvXZ2KdbU_o2EpREqTZMztVnWSL0pZayuyakBmBiW4-tjiCEguITTGggvqGlrd8MbawZ5BHjBMQc1g3dHt-CIAcqK8GXEHsMC4f5syBUSbFcU4fDx7z-mf5AYj_vCDB0-vWiSChmE1Qdzec3Z8_RRzHUhcwquIfXwA86_1sW7BXac-fFNon2M-ZZFbgEpkCIpbydj-MT8Q"
   }
 }
