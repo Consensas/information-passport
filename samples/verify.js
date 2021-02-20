@@ -16,9 +16,28 @@ const path = require("path")
 
 const FOLDER = path.join(__dirname, "..", "test", "data")
 
-const signed = require("./signed.json")
+const minimist = require("minimist")
+const ad = minimist(process.argv.slice(2), {
+    boolean: [
+        "verbose", "trace", "debug",
+    ],
+    string: [
+        "_",
+        "in",
+        "public",
+        "private",
+    ],
+    alias: {
+    },
+    default: {
+        "in": null,
+        "private": path.join(FOLDER, "private.key.pem"),
+        "public": path.join(FOLDER, "public.cer.pem"),
+    },
+})
 
-const run = async (files) => {
+const run = async file => {
+    const signed = JSON.parse(await fs.promises.readFile(file, "utf-8"))
     const v = await ip.crypto.verify(signed, {
         fetch_chain: async proof => {
             return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
@@ -27,7 +46,7 @@ const run = async (files) => {
     console.log(JSON.stringify(v, null, 2))
 }
 
-run(process.argv.slice(2)).catch(error => {
+run(ad.in || "signed.json").catch(error => {
     console.log(error)
 })
 
