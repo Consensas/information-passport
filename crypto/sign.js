@@ -22,12 +22,64 @@
 
 "use strict"
 
-const jose = require("node-jose")
 const _util = require("./_util")
 
 /**
  */
+const _RsaSignature2018 = async paramd => {
+    const ip = require("..")
+    const jlds = require("jsonld-signatures")
+    const jsonld = require("jsonld")
+    const cryptold = require("crypto-ld")
+
+    /**
+     *  The PEM file is wrapped up in some JSON-LD
+     *  and put into "documents" so it can be
+     *  discovered during verification.
+     */
+    const publicKey = {
+        "@context": jlds.SECURITY_CONTEXT_URL,
+        type: "RsaVerificationKey2018",
+        id: paramd.verification,
+        // controller: "https://example.com/i/alice", … this doesn't see to do anything
+        // publicKeyPem: paramd.private_key,
+    }
+
+    /**
+     *  PRIVATE PART - signing
+     */
+    const keypair_with_private = new cryptold.RSAKeyPair({
+        ...publicKey,
+        privateKeyPem: paramd.private_key,
+    });
+    const suite_with_private = new jlds.suites.RsaSignature2018({
+        key: keypair_with_private,
+    })
+
+    // sign the document as a simple assertion
+    const signed = await jlds.sign(paramd.payload, {
+        suite: suite_with_private,
+        purpose: new jlds.purposes.AssertionProofPurpose()
+    });
+
+    return jsonld.compact(signed, ip.context)
+}
+
+/**
+ */
+const _BbsBlsSignature2020 = async paramd => {
+    throw new Error("BbsBlsSignature2020: not implemented yet")
+}
+
+/**
+ */
 const _ConsensasRSA2021 = async paramd => {
+    const jose = require("node-jose")
+
+    if (_util.isString(paramd.private_key) || _util.isBuffer(paramd.private_key)) {
+        paramd.private_key = await jose.JWK.asKey(paramd.private_key, "pem")
+    }
+
     // build @context
     const message = Object.assign({ "@context": null }, paramd.payload)
     const context = message["@context"]
@@ -94,16 +146,18 @@ const sign = async paramd => {
     paramd = Object.assign({}, paramd || {})
     paramd.suite = paramd.suite || "ConsensasRSA2021"
 
-    if (_util.isString(paramd.private_key) || _util.isBuffer(paramd.private_key)) {
-        paramd.private_key = await jose.JWK.asKey(paramd.private_key, "pem")
-    }
-
     switch (paramd.suite) {
     case "ConsensasRSA2021":
         return _ConsensasRSA2021(paramd)
 
+    case "RsaSignature2018":
+        return _RsaSignature2018(paramd)
+
+    case "BbsBlsSignature2020":
+        return _BbsBlsSignature2020(paramd)
+
     default:
-        throw new errors.NotFound("unknown signing suite: " + paramd.suite)
+        throw new Error("unknown signing suite: " + paramd.suite)
     }
 }
 
