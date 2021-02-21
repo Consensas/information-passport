@@ -22,36 +22,37 @@
 
 "use strict"
 
+const _ = require("lodash")
 const _util = require("./_util")
 const errors = require("../errors")
 const jsonld = require("jsonld")
 
 /**
- *  XXX - major bug here: validate PK fingerprint again
  *  public key fingerprint
  */
-const _chain = async (chain_pem, public_key) => {
+const _chain = async (chain_pem) => {
     const forge = require("node-forge")
     const ip = require("..")
 
     const pems = chain_pem
         .split(/(-----BEGIN [A-Z0-9]+-----.*?-----END [A-Z0-9]+-----\n)/s)
+    const cert_pems = pems
         .filter(part => part.startsWith("-----BEGIN CERTIFICATE"))
 
     const certs = []
-    for (let pem of pems) {
+    for (let pem of cert_pems) {
         certs.push(await forge.pki.certificateFromPem(pem, "pem"))
     }
 
     // validate the chain
     try {
-        const store = forge.pki.createCaStore([ pems.join("\n") ]);
+        const store = forge.pki.createCaStore([ cert_pems.join("\n") ]);
     } catch (error) {
         throw new errors.InvalidChain(error)
     }
 
-    // return the chain
-    return certs.map(cert => {
+    // build the chain
+    const chain = certs.map(cert => {
         const d = {}
 
         cert.subject.attributes.forEach(attribute => {
@@ -62,6 +63,18 @@ const _chain = async (chain_pem, public_key) => {
 
         return d
     })
+    
+    // if there was a public key, make sure it matches the chain leaf
+    const public_pem = pems.find(pem => pem.startsWith("-----BEGIN PUBLIC KEY"))
+    if (public_pem && certs[0]) {
+        const public_key = await forge.pki.publicKeyFromPem(public_pem, "pem")
+        if (!_.isEqual(public_key.n, certs[0].publicKey.n) || !_.isEqual(public_key.e, certs[0].publicKey.e)) {
+            throw new errors.InvalidChain(error)
+        }
+    }
+
+    // return the chain
+    return chain
 }
 
 /**
