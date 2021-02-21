@@ -50,7 +50,7 @@ const _RsaSignature2018 = async paramd => {
      *  or the JSON-LD signing algorithm gets upset and
      *  pushes out an @graph
      */
-    const json = Object.assign({}, paramd.payload)
+    const json = Object.assign({}, paramd.json)
     const contexts = _util.coerce.list(json["@context"], [])
     if (contexts.indexOf("https://w3id.org/security/v2") === -1) {
         contexts.push("https://w3id.org/security/v2")
@@ -93,7 +93,7 @@ const _ConsensasRSA2021 = async paramd => {
     }
 
     // build @context
-    const message = Object.assign({ "@context": null }, paramd.payload)
+    const message = Object.assign({ "@context": null }, paramd.json)
     _util.recontext(message)
 
     // build the pre-signature proof
@@ -127,7 +127,7 @@ const _ConsensasRSA2021 = async paramd => {
 }
 
 /**
- *  paramd.payload: JSON-like, the message to sign
+ *  paramd.json: JSON-like, the message to sign
  *  paramd.key: a node-jose key or a PEM string or buffer
  *  paramd.verification: a string, but really a URL to find the public key
  *  paramd.suite: signing suite, by default "ConsensasRSA2021"

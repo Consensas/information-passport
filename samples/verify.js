@@ -40,7 +40,7 @@ const run = async file => {
     const signed = JSON.parse(await fs.promises.readFile(file, "utf-8"))
     const v = await ip.crypto.verify(signed, {
         fetch_chain: async proof => {
-            return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
+            return fs.promises.readFile(path.join(FOLDER, "public.combined.pem"), "utf8")
         },
     })
     console.log(JSON.stringify(v, null, 2))

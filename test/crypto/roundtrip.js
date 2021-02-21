@@ -61,7 +61,7 @@ describe("roundtrip", function() {
         const verifier = "https://example.com/i/pat/keys/5"
 
         const signed = await ip.crypto.sign({ 
-            payload: message, 
+            json: message, 
             private_key: private_key, 
             verification: verifier,
         })
@@ -82,7 +82,7 @@ describe("roundtrip", function() {
         }
 
         assert.ok(_.isArray(v.chain))
-        assert.ok(_.isPlainObject(v.payload))
+        assert.ok(_.isPlainObject(v.json))
         assert.ok(_.isPlainObject(v.proof))
 
         _.mapValues(message, (value, key) => {
@@ -90,7 +90,7 @@ describe("roundtrip", function() {
                 return
             }
 
-            assert.deepEqual(value, v.payload[key])
+            assert.deepEqual(value, v.json[key])
         })
     })
 })

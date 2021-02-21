@@ -61,7 +61,7 @@ describe("sign", function() {
         const verifier = "https://example.com/i/pat/keys/5"
 
         const signed = await ip.crypto.sign({ 
-            payload: message, 
+            json: message, 
             private_key: private_key, 
             verification: verifier,
         })
@@ -93,7 +93,7 @@ describe("sign", function() {
         const verifier = "https://example.com/i/pat/keys/5"
 
         const signed = await ip.crypto.sign({
-            payload: message, 
+            json: message, 
             private_key: private_pem, 
             verification: verifier,
         })

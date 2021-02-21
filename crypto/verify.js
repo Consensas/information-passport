@@ -22,16 +22,106 @@
 
 "use strict"
 
-const forge = require("node-forge")
-const jose = require("node-jose")
 const _util = require("./_util")
 const errors = require("../errors")
 const jsonld = require("jsonld")
 
 /**
+ *  XXX - major bug here: validate PK fingerprint again
+ *  public key fingerprint
+ */
+const _chain = async (chain_pem, public_key) => {
+    const forge = require("node-forge")
+    const ip = require("..")
+
+    const pems = chain_pem
+        .split(/(-----BEGIN [A-Z0-9]+-----.*?-----END [A-Z0-9]+-----\n)/s)
+        .filter(part => part.startsWith("-----BEGIN CERTIFICATE"))
+
+    const certs = []
+    for (let pem of pems) {
+        certs.push(await forge.pki.certificateFromPem(pem, "pem"))
+    }
+
+    // validate the chain
+    try {
+        const store = forge.pki.createCaStore([ pems.join("\n") ]);
+    } catch (error) {
+        throw new errors.InvalidChain(error)
+    }
+
+    // return the chain
+    return certs.map(cert => {
+        const d = {}
+
+        cert.subject.attributes.forEach(attribute => {
+            d[attribute.shortName] = attribute.value
+        })
+
+        d.fingerprint = ip.crypto.fingerprint(cert)
+
+        return d
+    })
+}
+
+/**
  */
 const _RsaSignature2018 = async (message, paramd, proof) => {
-    throw new Error("RsaSignature2018: not implemented yet")
+    const jlds = require("jsonld-signatures")
+    const cryptold = require("crypto-ld")
+
+    const pk = await paramd.fetch_chain(proof)
+
+    const publicKey = {
+        "@context": jlds.SECURITY_CONTEXT_URL,
+        type: "RsaVerificationKey2018",
+        id: proof.verificationMethod,
+        publicKeyPem: pk,
+    }
+
+    const document_loader = url => {
+        if (url === proof.verificationMethod) {
+            return {
+                contextUrl: null, // this is for a context via a link header
+                document: publicKey, // this is the actual document that was loaded
+                documentUrl: url // this is the actual context URL after redirects
+            }
+        }
+
+        return jsonld.documentLoaders.node()(url);
+    };
+
+
+    // specify the public key controller object (whatevery the hell that is)
+    const controller = {
+        "@context": jlds.SECURITY_CONTEXT_URL,
+        // id: "https://example.com/i/alice", // … this doesn't see to do anything
+        publicKey: [ publicKey ],
+        // this authorizes this key to be used for making assertions
+        assertionMethod: [ publicKey.id ]
+    };
+
+    const keypair_without_private = new cryptold.RSAKeyPair({
+        ...publicKey, 
+    });
+    const suite_without_private = new jlds.suites.RsaSignature2018(keypair_without_private)
+
+    // verify the signed document
+    const result = await jlds.verify(message, {
+        documentLoader: document_loader,
+        suite: suite_without_private,
+        purpose: new jlds.purposes.AssertionProofPurpose({
+            controller,
+        })
+    });
+
+    if (!result.verified) {
+        throw new errors.InvalidSignature(error)
+    }
+
+    return {
+        chain: await _chain(pk, null),
+    }
 }
 
 /**
@@ -44,6 +134,7 @@ const _BbsBlsSignature2020 = async (message, paramd, proof) => {
  */
 const _CanonicalRSA2021 = async (message, paramd, proof) => {
     const ip = require("..")
+    const jose = require("node-jose")
 
     if (!_util.isString(proof.proofPurpose)) {
         throw new errors.InvalidField('security:proofPurpose')
@@ -88,9 +179,20 @@ const _CanonicalRSA2021 = async (message, paramd, proof) => {
     // get the cert chain - the top is the leaf, the bottom the CA
     const chain_pem = await paramd.fetch_chain(proof)
 
+    const key = await jose.JWK.asKey(chain_pem, "pem")
+    const result = await jose.JWS.createVerify(key).verify(jws)
+    if (!result) {
+        throw new errors.InvalidSignature()
+    }
+
+    return {
+        chain: await _chain(chain_pem, key),
+    }
+
+/*
     const pems = chain_pem
-        .split(/(-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----\n)/s)
-        .filter(part => part.startsWith("---"))
+        .split(/(-----BEGIN [A-Z0-9]+-----.*?-----END [A-Z0-9]+-----\n)/s)
+        .filter(part => part.startsWith("-----BEGIN CERTIFICATE"))
 
     const keys = []
     const certs = []
@@ -101,7 +203,7 @@ const _CanonicalRSA2021 = async (message, paramd, proof) => {
 
     // validate the chain
     try {
-        const store = forge.pki.createCaStore([ chain_pem ]);
+        const store = forge.pki.createCaStore([ pems.join("\n") ]);
     } catch (error) {
         throw new errors.InvalidChain(error)
     }
@@ -129,6 +231,7 @@ const _CanonicalRSA2021 = async (message, paramd, proof) => {
     } catch (error) {
         throw new errors.InvalidSignature(error)
     }
+*/
 }
 
 /**
@@ -161,13 +264,20 @@ const verify = async (json, paramd) => {
 
     switch (paramd.verify ? json?.proof?.type || "NOOP" : "NOOP") {
     case "NOOP":
-        proof = null
         result = {}
         break
 
     case 'https://cccc4.ca/vc#CanonicalRSA2021':
     case "https://models.consensas.com/security#ConsensasRSA2021":
         result = await _CanonicalRSA2021(json, paramd, json.proof)
+        break
+
+    case "RsaSignature2018":
+        result = await _RsaSignature2018(json, paramd, json.proof)
+        break
+
+    case "BbsBlsSignature2020":
+        result = await _BbsBlsSignature2020(json, paramd, json.proof)
         break
 
     default:
@@ -180,7 +290,7 @@ const verify = async (json, paramd) => {
 
     return Object.assign({
         proof: json?.proof || null,
-        payload: json,
+        json: json,
         claim_types: claim_types,
         claim: claim,
         chain: [],

@@ -58,9 +58,9 @@ describe("validate/query", function() {
         }
 
         const outs = []
-        for (let payload of ins) {
+        for (let json of ins) {
             const wrapped = await ip.validate.with.rules({
-                payload: payload,
+                json: json,
             }, ruled.rules)
 
             outs.push(wrapped)
@@ -69,7 +69,7 @@ describe("validate/query", function() {
                 console.log("wrapped", wrapped)
             }
     
-            console.log(payload["vc:credentialSubject"]["schema:name"])
+            console.log(json["vc:credentialSubject"]["schema:name"])
 
             wrapped.rule_accepts.forEach(rule => {
                 console.log("-", rule.name)

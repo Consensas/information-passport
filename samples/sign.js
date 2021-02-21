@@ -63,12 +63,12 @@ const run = async (ad) => {
     }
 
     const private_pem = await fs.promises.readFile(ad.private, "utf-8")
-    const public_pem = await fs.promises.readFile(ad.public, "utf-8")
+    // const public_pem = await fs.promises.readFile(ad.public, "utf-8")
 
     const signed = await ip.crypto.sign({
-        payload: message, 
+        json: message, 
         private_key: private_pem, 
-        public_key: public_pem,
+        // public_key: public_pem,
         verification: ad.verification,
         suite: ad.suite,
     })
