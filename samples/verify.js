@@ -39,7 +39,7 @@ const ad = minimist(process.argv.slice(2), {
 const run = async file => {
     const signed = JSON.parse(await fs.promises.readFile(file, "utf-8"))
     const v = await ip.crypto.verify(signed, {
-        fetchProof: async proof => {
+        fetchVerification: async proof => {
             return fs.promises.readFile(path.join(FOLDER, "public.combined.pem"), "utf8")
         },
     })

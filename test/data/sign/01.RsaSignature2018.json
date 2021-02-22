@@ -1,0 +1,17 @@
+{
+  "@context": [
+    {
+      "schema": "http://schema.org"
+    },
+    "https://w3id.org/security/v2"
+  ],
+  "schema:hello": "world",
+  "schema:name": "david",
+  "proof": {
+    "type": "RsaSignature2018",
+    "created": "2021-01-18T10:10:26Z",
+    "jws": "eyJhbGciOiJQUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..NVx8mKWsUaG7JHvKACaiX6GpoZS8wk20BJPSRIeDOp_MsX8gztmDgUSpCAzdjlK9VRtJ3ShLfI6I5LLatba4wkGsuI9W7v5Zf5vI2zSIu1o-Q-8bgzNC-0D-JIis4PyJfKn26WmPEXFwb4ixCpxMYPY8AD7MELHzJLfmUn3aHbhETlFrlEXpMah-3QncJY72MGCM6H6k5hHMgAgyRch7joneq5mdnay_nA-VboPMONCf5C5b-u-XxVLdwJDAZQKsWlQNeHs0iDQRU5im67YHz7ybI1jWeTO_ceuBl68VEKsp3mEKgf4f-iE8tUvL_fRsrOCbm6ZBjFK5ey8eeejEXg",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "https://example.com/i/pat/keys/5"
+  }
+}

@@ -83,7 +83,7 @@ const _RsaSignature2018 = async (message, paramd, proof) => {
     const jlds = require("jsonld-signatures")
     const cryptold = require("crypto-ld")
 
-    const pk = await paramd.fetchProof(proof)
+    const pk = await paramd.fetchVerification(proof)
 
     const publicKey = {
         "@context": jlds.SECURITY_CONTEXT_URL,
@@ -117,7 +117,10 @@ const _RsaSignature2018 = async (message, paramd, proof) => {
     const keypair_without_private = new cryptold.RSAKeyPair({
         ...publicKey, 
     });
-    const suite_without_private = new jlds.suites.RsaSignature2018(keypair_without_private)
+    const suite_without_private = new jlds.suites.RsaSignature2018({
+        key: keypair_without_private,
+        date: proof.created,
+    })
 
     // verify the signed document
     const result = await jlds.verify(message, {
@@ -190,7 +193,7 @@ const _CanonicalRSA2021 = async (message, paramd, proof) => {
     jws = jws.replace("..", `.${payload}.`)
 
     // get the cert chain - the top is the leaf, the bottom the CA
-    const chain_pem = await paramd.fetchProof(proof)
+    const chain_pem = await paramd.fetchVerification(proof)
 
     const key = await jose.JWK.asKey(chain_pem, "pem")
     const result = await jose.JWS.createVerify(key).verify(jws)

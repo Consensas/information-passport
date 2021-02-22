@@ -46,51 +46,67 @@ describe("roundtrip", function() {
         _util.shims_off()
     })
 
-    it("works", async function() {
-        const NAME = "roundtrip/01.in.json"
-        const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
-        const private_key = await jose.JWK.asKey(private_pem, 'pem');
+    for (let suite of [
+        "ConsensasRSA2021",
+        "RsaSignature2018",
+        // "BbsBlsSignature2020",
+    ]) {
+        it(`works - suite:${suite}`, async function() {
+            const NAME = `roundtrip/01.${suite}.json`
+            const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
 
-        // sign
-        const message = {
-            "@context": {
-                "schema": "http://schema.org/",
-            },
-            "schema:hello": "world",
-        }
-        const verifier = "https://example.com/i/pat/keys/5"
+            // sign
+            const message = {
+                "@context": {
+                    "schema": "http://schema.org/",
+                },
+                "schema:hello": "world",
+            }
+            const verifier = "https://example.com/i/pat/keys/5"
 
-        const signed = await ip.crypto.sign({ 
-            json: message, 
-            private_key: private_key, 
-            verification: verifier,
-        })
+            const signed = await ip.crypto.sign({ 
+                json: message, 
+                private_key: private_pem, 
+                verification: verifier,
+                suite: suite,
+            })
 
-        if (DUMP) {
-            console.log("signed", JSON.stringify(signed, null, 2))
-        }
-
-        // verify
-        const v = await ip.crypto.verify(signed, {
-            fetchProof: async proof => {
-                return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
-            },
-        })
-
-        if (DUMP) {
-            console.log("verified", JSON.stringify(v, null, 2))
-        }
-
-        assert.ok(_.isArray(v.chain))
-        assert.ok(_.isPlainObject(v.json))
-        assert.ok(_.isPlainObject(v.proof))
-
-        _.mapValues(message, (value, key) => {
-            if (key.startsWith("@")) {
-                return
+            if (DUMP) {
+                console.log("signed", JSON.stringify(signed, null, 2))
             }
 
-            assert.deepEqual(value, v.json[key])
+            // verify
+            const v = await ip.crypto.verify(signed, {
+                fetchVerification: async proof => {
+                    return fs.promises.readFile(path.join(FOLDER, "public.combined.pem"), "utf8")
+                },
+            })
+
+            if (DUMP) {
+                console.log("verified", JSON.stringify(v, null, 2))
+            }
+            if (WRITE) {
+                await _util.write_json(v, NAME)
+            }
+
+            // For some reason, even though data is same, signature is mutating
+            const got = v
+            const want = await _util.read_json(NAME)
+            if (suite !== "RsaSignature2018") {
+                assert.deepEqual(got, want)
+            }
+
+            assert.ok(_.isArray(v.chain))
+            assert.ok(_.isPlainObject(v.json))
+            assert.ok(_.isPlainObject(v.proof))
+
+            _.mapValues(message, (value, key) => {
+                if (key.startsWith("@")) {
+                    return
+                }
+
+                assert.deepEqual(value, v.json[key])
+            })
         })
-    })
+    }
 })

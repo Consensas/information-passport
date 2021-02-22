@@ -33,7 +33,7 @@ const make = async (paramd) => {
     paramd = Object.assign({}, paramd || {})
     const vc = {
         "@context": ip.context,
-        "@type": _util.coerce.list(paramd.type, [ "vc:VerifiableCredential" ]),
+        "@type": _util.coerce.list(paramd.credentialTypes, [ "vc:VerifiableCredential" ]),
         "vc:issuer": paramd.issuer ?? "https://passport.consensas.com",
         "vc:issuanceDate": paramd.issuanceDate ?? new Date().toISOString(),
         "vc:credentialSubject": await jsonld.compact(paramd.credentialSubject, ip.context),

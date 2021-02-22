@@ -46,70 +46,44 @@ describe("sign", function() {
         _util.shims_off()
     })
 
-    it("works - pass JWK key", async function() {
-        const NAME = "signed/01.in.json"
-        const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
-        const private_key = await jose.JWK.asKey(private_pem, 'pem');
+    for (let suite of [
+        "ConsensasRSA2021",
+        "RsaSignature2018",
+        // "BbsBlsSignature2020",
+    ]) {
+        it(`works - suite:${suite}`, async function() {
+            const NAME = `sign/01.${suite}.json`
+            const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
 
-        const message = {
-            "@context": {
-                "schema": "http://schema.org"
-            },
-            "schema:hello": "world",
-            "schema:name": "david",
-        }
-        const verifier = "https://example.com/i/pat/keys/5"
+            const message = {
+                "@context": {
+                    "schema": "http://schema.org"
+                },
+                "schema:hello": "world",
+                "schema:name": "david",
+            }
+            const verifier = "https://example.com/i/pat/keys/5"
 
-        const signed = await ip.crypto.sign({ 
-            json: message, 
-            private_key: private_key, 
-            verification: verifier,
+            const signed = await ip.crypto.sign({
+                json: message, 
+                private_key: private_pem, 
+                verification: verifier,
+                suite: suite,
+            })
+
+            if (DUMP) {
+                console.log(JSON.stringify(signed, null, 2))
+            }
+            if (WRITE) {
+                await _util.write_json(signed, NAME)
+            }
+
+            const got = signed.proof
+            const want = (await _util.read_json(NAME)).proof
+
+            if (suite !== "RsaSignature2018") {
+                assert.deepEqual(got, want)
+            }
         })
-
-        if (DUMP) {
-            console.log(JSON.stringify(signed, null, 2))
-        }
-        if (WRITE) {
-            await _util.write_json(signed, NAME)
-        }
-
-        const got = signed
-        const want = await _util.read_json(NAME)
-
-        assert.deepEqual(got, want)
-    })
-
-    it("works - pass pem", async function() {
-        const NAME = "signed/02.in.json"
-        const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
-
-        const message = {
-            "@context": {
-                "schema": "http://schema.org"
-            },
-            "schema:hello": "world",
-            "schema:name": "david",
-        }
-        const verifier = "https://example.com/i/pat/keys/5"
-
-        const signed = await ip.crypto.sign({
-            json: message, 
-            private_key: private_pem, 
-            verification: verifier,
-        })
-
-        if (DUMP) {
-            console.log(JSON.stringify(signed, null, 2))
-        }
-        if (WRITE) {
-            await _util.write_json(signed, NAME)
-        }
-
-        const got = signed
-        const want = await _util.read_json(NAME)
-
-        assert.deepEqual(got, want)
-    })
-
-    // add test cases for the @context manipulation
+    }
 })

@@ -66,12 +66,13 @@ const _RsaSignature2018 = async paramd => {
     });
     const suite_with_private = new jlds.suites.RsaSignature2018({
         key: keypair_with_private,
+        date: _util.make_timestamp(),
     })
 
     // sign the document as a simple assertion
     const signed = await jlds.sign(json, {
         suite: suite_with_private,
-        purpose: new jlds.purposes.AssertionProofPurpose()
+        purpose: new jlds.purposes.AssertionProofPurpose(),
     });
 
     return signed
