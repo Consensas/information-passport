@@ -83,7 +83,7 @@ const _RsaSignature2018 = async (message, paramd, proof) => {
     const jlds = require("jsonld-signatures")
     const cryptold = require("crypto-ld")
 
-    const pk = await paramd.fetch_chain(proof)
+    const pk = await paramd.fetchProof(proof)
 
     const publicKey = {
         "@context": jlds.SECURITY_CONTEXT_URL,
@@ -190,7 +190,7 @@ const _CanonicalRSA2021 = async (message, paramd, proof) => {
     jws = jws.replace("..", `.${payload}.`)
 
     // get the cert chain - the top is the leaf, the bottom the CA
-    const chain_pem = await paramd.fetch_chain(proof)
+    const chain_pem = await paramd.fetchProof(proof)
 
     const key = await jose.JWK.asKey(chain_pem, "pem")
     const result = await jose.JWS.createVerify(key).verify(jws)
@@ -201,50 +201,6 @@ const _CanonicalRSA2021 = async (message, paramd, proof) => {
     return {
         chain: await _chain(chain_pem, key),
     }
-
-/*
-    const pems = chain_pem
-        .split(/(-----BEGIN [A-Z0-9]+-----.*?-----END [A-Z0-9]+-----\n)/s)
-        .filter(part => part.startsWith("-----BEGIN CERTIFICATE"))
-
-    const keys = []
-    const certs = []
-    for (let pem of pems) {
-        certs.push(await forge.pki.certificateFromPem(pem, "pem"))
-        keys.push(await jose.JWK.asKey(pem, "pem"))
-    }
-
-    // validate the chain
-    try {
-        const store = forge.pki.createCaStore([ pems.join("\n") ]);
-    } catch (error) {
-        throw new errors.InvalidChain(error)
-    }
-
-    // validate JWS against public key
-    try {
-        const result = await jose.JWS.createVerify(keys[0]).verify(jws)
-        if (!result) {
-            throw new errors.InvalidSignature()
-        }
-
-        return {
-            chain: certs.map(cert => {
-                const d = {}
-
-                cert.subject.attributes.forEach(attribute => {
-                    d[attribute.shortName] = attribute.value
-                })
-
-                d.fingerprint = ip.crypto.fingerprint(cert)
-
-                return d
-            }),
-        }
-    } catch (error) {
-        throw new errors.InvalidSignature(error)
-    }
-*/
 }
 
 /**
@@ -261,8 +217,8 @@ const _CanonicalRSA2021 = async (message, paramd, proof) => {
  *  The return value has:
  *  {
  *      json - the original message (may be slightly modified)
- *      claim - the claim in the message
- *      types - the types of VC
+ *      credentialSubject - the claim in the message
+ *      credentialTypes - the types of VC
  *      chain - the X.509 chain, leaf to root
  *      proof - the simplified (no security: proof)
  *  }
@@ -298,14 +254,14 @@ const verify = async (json, paramd) => {
     }
 
     const compacted = await jsonld.compact(json, ip.context)
-    const claim_types = _util.coerce.list(compacted["@type"], _util.coerce.list(compacted["vc:type"], []))
-    const claim = _util.coerce.first(compacted["vc:credentialSubject"], null)
+    const credentialTypes = _util.coerce.list(compacted["@type"], _util.coerce.list(compacted["vc:type"], []))
+    const credentialSubject = _util.coerce.first(compacted["vc:credentialSubject"], null)
 
     return Object.assign({
         proof: json?.proof || null,
         json: json,
-        claim_types: claim_types,
-        claim: claim,
+        credentialTypes: credentialTypes,
+        credentialSubject: credentialSubject,
         chain: [],
     }, result)
 }

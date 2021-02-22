@@ -72,7 +72,7 @@ describe("roundtrip", function() {
 
         // verify
         const v = await ip.crypto.verify(signed, {
-            fetch_chain: async proof => {
+            fetchProof: async proof => {
                 return fs.promises.readFile(path.join(FOLDER, "public.cer.pem"), "utf8")
             },
         })
