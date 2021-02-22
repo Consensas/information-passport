@@ -30,9 +30,9 @@ module.exports = {
 
 module.exports.context = {
     "schema": "http://schema.org/",
-    "security": "https://w3id.org/security#",
     "vc": "https://www.w3.org/2018/credentials/v1/",
     /*
+    "security": "https://w3id.org/security#",
     "security:created": {
         "@id": "http://purl.org/dc/terms/created",
         "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
