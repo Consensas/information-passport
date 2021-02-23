@@ -152,29 +152,29 @@ const _CanonicalRSA2021 = async (message, paramd, proof) => {
     const jose = require("node-jose")
 
     if (!_util.isString(proof.proofPurpose)) {
-        throw new errors.InvalidField('security:proofPurpose')
+        throw new errors.InvalidField(null, 'security:proofPurpose')
     } else if (proof.proofPurpose !== _util.SECURITY_PROOF_PURPOSE) {
-        throw new errors.InvalidField('security:type')
+        throw new errors.InvalidField(null, 'security:type')
     }
 
     if (!_util.isTimestamp(proof.created)) {
-        throw new errors.InvalidField('security:created')
+        throw new errors.InvalidField(null, 'security:created')
     }
 
     if (!_util.isString(proof.nonce)) {
-        throw new errors.InvalidField('security:nonce')
+        throw new errors.InvalidField(null, 'security:nonce')
     }
 
     let jws = proof.jws
     let match
     if (!_util.isString(jws)) {
-        throw new errors.InvalidField('security:nonce')
+        throw new errors.InvalidField(null, 'security:nonce')
     } else if (!(match = jws.match(/^(.*)[.][.](.*)$/))) {
-        throw new errors.InvalidField('security:nonce')
+        throw new errors.InvalidField(null, 'security:nonce')
     }
 
     if (!_util.isString(proof.verificationMethod)) {
-        throw new errors.InvalidField('security:verificationMethod')
+        throw new errors.InvalidField(null, 'security:verificationMethod')
     }
 
     // recreate the detatched payload
@@ -252,7 +252,7 @@ const verify = async (json, paramd) => {
         break
 
     default:
-        throw new errors.InvalidField(`security:type: ${json?.proof?.type}`)
+        throw new errors.InvalidField(null, `security:type: ${json?.proof?.type}`)
     }
 
     const compacted = await jsonld.compact(json, ip.context)

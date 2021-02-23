@@ -11,10 +11,11 @@
 /**
  */
 class InvalidField extends Error {
-    constructor(field) {
-        super(`Invalid field: ${field}`)
+    constructor(error, message) {
+        super(`InvalidField: ${message || error?.message || ""}`)
 
-        this.field = field
+        this.error = error || null
+        this.field = message
         this.statusCode = 400
     }
 }
@@ -22,8 +23,8 @@ class InvalidField extends Error {
 /**
  */
 class InvalidSignature extends Error {
-    constructor(error) {
-        super(`Invalid Signature: ${error?.message || ""}`)
+    constructor(error, message) {
+        super(`InvalidSignature: ${message || error?.message || ""}`)
 
         this.error = error || null
         this.statusCode = 400
@@ -33,8 +34,8 @@ class InvalidSignature extends Error {
 /**
  */
 class InvalidChain extends Error {
-    constructor(error) {
-        super(`Invalid Chain: ${error?.message || ""}`)
+    constructor(error, message) {
+        super(`InvalidChain: ${message || error?.message || ""}`)
 
         this.error = error || null
         this.statusCode = 400
@@ -45,7 +46,7 @@ class InvalidChain extends Error {
  */
 class NotImplemented extends Error {
     constructor(error, message) {
-        super(`NotImplemented: ${error?.message || message || ""}`)
+        super(`NotImplemented: ${message || error?.message || ""}`)
 
         this.error = error || null
         this.statusCode = 500
@@ -56,7 +57,7 @@ class NotImplemented extends Error {
  */
 class UnknownSuite extends Error {
     constructor(error, message) {
-        super(`UnknownSuite: ${error?.message || message || ""}`)
+        super(`UnknownSuite: ${message || error?.message || ""}`)
 
         this.error = error || null
         this.statusCode = 500
