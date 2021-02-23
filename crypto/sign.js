@@ -32,6 +32,8 @@ const _RsaSignature2018 = async paramd => {
     const jsonld = require("jsonld")
     const cryptold = require("crypto-ld")
 
+    paramd.verification = paramd.verification || "urn:noop:"
+
     /**
      *  The PEM file is wrapped up in some JSON-LD
      *  and put into "documents" so it can be

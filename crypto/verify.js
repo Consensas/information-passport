@@ -131,7 +131,7 @@ const _RsaSignature2018 = async (message, paramd, proof) => {
     });
 
     if (!result.verified) {
-        throw new errors.InvalidSignature(error)
+        throw new errors.InvalidSignature()
     }
 
     return {
