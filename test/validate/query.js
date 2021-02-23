@@ -50,7 +50,8 @@ describe("validate/query", function() {
 
     it("works", async function() {
         const NAME = "validate/01-outs.json"
-        const ins = await _util.read_json("validate/01-ins.json")
+        const ins = (await _util.read_json("validate/01-ins.json"))
+            .map(ind => ind["vc:credentialSubject"])
         const query = await _util.read_json("validate/01-query.json")
 
         const paramd = {
@@ -59,9 +60,9 @@ describe("validate/query", function() {
 
         const outs = ins.filter(sift(query, paramd))
         if (DUMP) {
-            console.log("query", query)
-            console.log("ins", ins)
-            console.log("outs", outs)
+            console.log("query", JSON.stringify(query, null, 2))
+            console.log("ins", JSON.stringify(ins, null, 2))
+            console.log("outs", JSON.stringify(outs, null, 2))
         }
         if (WRITE) {
             await _util.write_json(outs, NAME)
