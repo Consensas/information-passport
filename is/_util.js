@@ -29,16 +29,65 @@ const errors = require("../errors")
 /**
  */
 const is = (o, test, name) => {
+    if (test(o)) {
+        return
+    }
+
+    throw new errors.DataError(null, name, o)
+}
+
+/**
+ */
+const isAtomic = o => {
+    if (_.isNull(o)) {
+        return true
+    } else if (_.isString(o)) {
+        return true
+    } else if (_.isNumber(o)) {
+        return true
+    } else if (_.isBoolean(o)) {
+        return true
+    } else {
+        return false
+    }
 }
 
 /**
  */
 const isJSON = o => {
+    if (_.isPlainObject(o)) {
+        _.forEach(o, (so, key) => {
+            return isJSON(so)
+        })
+    } else if (_.is.Array(o)) {
+        for (let so of o) {
+            if (!isJSON(so)) {
+                return false
+            }
+        }
+
+        return true
+    } else if (isAtomic(o)) {
+        return true
+    } else {
+        return false
+    }
 }
 
 /**
  */
 const isArrayOf = test => o => {
+    if (!_.is.Array(o)) {
+        return false
+    }
+
+    for (let so of o) {
+        if (!test(so)) {
+            return false
+        }
+    }
+
+    return true
 }
 
 /**
