@@ -1,0 +1,34 @@
+{
+  "proof": {
+    "type": "RsaSignature2018",
+    "created": "2021-01-18T10:10:26Z",
+    "jws": "eyJhbGciOiJQUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..eqNPo0JEA1Pb3SO1BXs2qop2H8BFAzSPD-r9DbGbmFuegx_QwJQhur5D8SaAjldcfAR_HRYaedUTw88VSkFl36lx24JPc2uvxekOa2dKJGzk8bUfETBd8Oow8H6uBp2ofnmCKJdAUHH04Izrw1VJy7GhFfb1QXMIwzQB2oDxjaoCmmRtBV1SGzHzNyT1Cj_TFFDt_6DBlbTNvvTtfFif6vaUVyrFEikIWUdZUfwR7G7cDGxaCREYr23BgTp1xKWl2u4_UnNyn2hVyyiHG2SRVCF4wC70u9Q2kWp-fqv9bn4SvEJlTcRI1WNIB0QhChIpDwRs0lJ9Wc-Pbjfbv9rHhQ",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "https://example.com/i/pat/keys/5"
+  },
+  "json": {
+    "@context": [
+      {
+        "schema": "http://schema.org/"
+      },
+      "https://w3id.org/security/v2"
+    ],
+    "schema:hello": "world",
+    "proof": {
+      "type": "RsaSignature2018",
+      "created": "2021-01-18T10:10:26Z",
+      "jws": "eyJhbGciOiJQUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..eqNPo0JEA1Pb3SO1BXs2qop2H8BFAzSPD-r9DbGbmFuegx_QwJQhur5D8SaAjldcfAR_HRYaedUTw88VSkFl36lx24JPc2uvxekOa2dKJGzk8bUfETBd8Oow8H6uBp2ofnmCKJdAUHH04Izrw1VJy7GhFfb1QXMIwzQB2oDxjaoCmmRtBV1SGzHzNyT1Cj_TFFDt_6DBlbTNvvTtfFif6vaUVyrFEikIWUdZUfwR7G7cDGxaCREYr23BgTp1xKWl2u4_UnNyn2hVyyiHG2SRVCF4wC70u9Q2kWp-fqv9bn4SvEJlTcRI1WNIB0QhChIpDwRs0lJ9Wc-Pbjfbv9rHhQ",
+      "proofPurpose": "assertionMethod",
+      "verificationMethod": "https://example.com/i/pat/keys/5"
+    }
+  },
+  "credentialTypes": [],
+  "credentialSubject": null,
+  "chain": [
+    {
+      "C": "CA",
+      "CN": "davidjanes.com",
+      "fingerprint": "78:EA:E2:A5:19:FD:A8:35:56:2D:59:B7:B7:20:32:6C:F6:EC:53:E0"
+    }
+  ]
+}

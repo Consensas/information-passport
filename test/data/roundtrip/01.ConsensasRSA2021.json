@@ -1,0 +1,36 @@
+{
+  "proof": {
+    "type": "https://cccc4.ca/vc#CanonicalRSA2021",
+    "proofPurpose": "assertionMethod",
+    "created": "2021-01-18T10:10:26.179Z",
+    "nonce": "123456789",
+    "verificationMethod": "https://example.com/i/pat/keys/5",
+    "jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..LtnRvDzXaWFpC-nv7c5j2ytZqFeacO_AyKfzeVgzbXMgRFCeiGfIQK4yNc7x3Nf9IEh9FkRyvyXqAYK8xzgsn8zpxXYU5D31NoSngRrNy_0n-NtUjN-ue5jl8hkr2Igi9hrfQlYTgY4YC_S41IZ9k08xtDdMfp5XjsH7uJwwsoza39Rs97I1r8vlP9tB8Deq6XqINADcAxpUFhyWaM5hPC1Pb-ARJp4MH29wynOw-2Yd72L9AeyL4_REjHQldvpJvvZNYsuDcUH0WA35tosiZrIPEcS4JCUltjpOssqUj76Yt4UhilIfNlRsjD3ZgiaTg4tmWr7sQ76i9bBsEIEnrQ"
+  },
+  "json": {
+    "@context": [
+      {
+        "schema": "http://schema.org/"
+      },
+      "https://w3id.org/security/v2"
+    ],
+    "schema:hello": "world",
+    "proof": {
+      "type": "https://cccc4.ca/vc#CanonicalRSA2021",
+      "proofPurpose": "assertionMethod",
+      "created": "2021-01-18T10:10:26.179Z",
+      "nonce": "123456789",
+      "verificationMethod": "https://example.com/i/pat/keys/5",
+      "jws": "eyJhbGciOiJSUzI1NiIsImtpZCI6Im5nc1FzdFVmMDlmTDhwTnRxZHk5V1ctX3BUM0R4TGpLYlF5ZGItR0xPN2cifQ..LtnRvDzXaWFpC-nv7c5j2ytZqFeacO_AyKfzeVgzbXMgRFCeiGfIQK4yNc7x3Nf9IEh9FkRyvyXqAYK8xzgsn8zpxXYU5D31NoSngRrNy_0n-NtUjN-ue5jl8hkr2Igi9hrfQlYTgY4YC_S41IZ9k08xtDdMfp5XjsH7uJwwsoza39Rs97I1r8vlP9tB8Deq6XqINADcAxpUFhyWaM5hPC1Pb-ARJp4MH29wynOw-2Yd72L9AeyL4_REjHQldvpJvvZNYsuDcUH0WA35tosiZrIPEcS4JCUltjpOssqUj76Yt4UhilIfNlRsjD3ZgiaTg4tmWr7sQ76i9bBsEIEnrQ"
+    }
+  },
+  "credentialTypes": [],
+  "credentialSubject": null,
+  "chain": [
+    {
+      "C": "CA",
+      "CN": "davidjanes.com",
+      "fingerprint": "78:EA:E2:A5:19:FD:A8:35:56:2D:59:B7:B7:20:32:6C:F6:EC:53:E0"
+    }
+  ]
+}
