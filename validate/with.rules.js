@@ -35,7 +35,6 @@ const _coerce_list = v => {
         return [ v ]
     }
 }
-
 /**
  *  This will return a new verified, with
  *  "rule_accepts" (rules that accept this payload)
