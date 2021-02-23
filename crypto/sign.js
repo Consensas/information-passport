@@ -48,7 +48,9 @@ const _RsaSignature2018 = async paramd => {
     /**
      *  The message needs to have "https://w3id.org/security/v2"
      *  or the JSON-LD signing algorithm gets upset and
-     *  pushes out an @graph
+     *  pushes out an @graph.
+     *  
+     *  Note the jsonld-signatures library may handle this, investigate
      */
     const json = Object.assign({}, paramd.json)
     const contexts = _util.coerce.list(json["@context"], [])
@@ -62,7 +64,7 @@ const _RsaSignature2018 = async paramd => {
      */
     const keypair_with_private = new cryptold.RSAKeyPair({
         ...publicKey,
-        privateKeyPem: paramd.private_key,
+        privateKeyPem: paramd.privateKeyPem,
     });
     const suite_with_private = new jlds.suites.RsaSignature2018({
         key: keypair_with_private,
@@ -89,8 +91,8 @@ const _BbsBlsSignature2020 = async paramd => {
 const _ConsensasRSA2021 = async paramd => {
     const jose = require("node-jose")
 
-    if (_util.isString(paramd.private_key) || _util.isBuffer(paramd.private_key)) {
-        paramd.private_key = await jose.JWK.asKey(paramd.private_key, "pem")
+    if (_util.isString(paramd.privateKeyPem) || _util.isBuffer(paramd.privateKeyPem)) {
+        paramd.privateKeyPem = await jose.JWK.asKey(paramd.privateKeyPem, "pem")
     }
 
     // build @context
@@ -116,7 +118,7 @@ const _ConsensasRSA2021 = async paramd => {
     const signed = await jose.JWS.createSign({
         format: "compact",
         alg: 'RS256',
-    }, paramd.private_key)
+    }, paramd.privateKeyPem)
         .update(plaintext, "utf8")
         .final()
 

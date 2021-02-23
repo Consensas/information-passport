@@ -66,7 +66,7 @@ describe("sign", function() {
 
             const signed = await ip.crypto.sign({
                 json: message, 
-                private_key: private_pem, 
+                privateKeyPem: private_pem, 
                 verification: verifier,
                 suite: suite,
             })

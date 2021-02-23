@@ -119,7 +119,6 @@ const _RsaSignature2018 = async (message, paramd, proof) => {
     });
     const suite_without_private = new jlds.suites.RsaSignature2018({
         key: keypair_without_private,
-        date: proof.created,
     })
 
     // verify the signed document

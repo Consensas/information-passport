@@ -67,7 +67,7 @@ const run = async (ad) => {
 
     const signed = await ip.crypto.sign({
         json: message, 
-        private_key: private_pem, 
+        privateKeyPem: private_pem, 
         // public_key: public_pem,
         verification: ad.verification,
         suite: ad.suite,
