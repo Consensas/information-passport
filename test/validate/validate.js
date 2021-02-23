@@ -59,9 +59,14 @@ describe("validate/query", function() {
 
         const outs = []
         for (let json of ins) {
-            const wrapped = await ip.validate.with.rules({
-                json: json,
-            }, ruled.rules)
+            if (!json["@context"]) {
+                json["@context"] = ip.context
+            }
+
+            const verified = await ip.crypto.verify(json, {
+                verify: false,
+            })
+            const wrapped = await ip.validate.with.rules(verified, ruled.rules)
 
             outs.push(wrapped)
 

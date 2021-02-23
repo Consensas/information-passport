@@ -38,6 +38,19 @@ const is = (o, test, name) => {
 
 /**
  */
+const or = (...tests) => o => {
+    for (let test of tests) {
+        if (test(o)) {
+            return true
+        }
+    }
+
+    return false
+}
+
+
+/**
+ */
 const isAtomic = o => {
     if (_.isNull(o)) {
         return true
@@ -56,10 +69,8 @@ const isAtomic = o => {
  */
 const isJSON = o => {
     if (_.isPlainObject(o)) {
-        _.forEach(o, (so, key) => {
-            return isJSON(so)
-        })
-    } else if (_.is.Array(o)) {
+        return !_.findKey(o, so => !isJSON(so))
+    } else if (_.isArray(o)) {
         for (let so of o) {
             if (!isJSON(so)) {
                 return false
@@ -77,7 +88,7 @@ const isJSON = o => {
 /**
  */
 const isArrayOf = test => o => {
-    if (!_.is.Array(o)) {
+    if (!_.isArray(o)) {
         return false
     }
 
@@ -93,5 +104,6 @@ const isArrayOf = test => o => {
 /**
  */
 exports.is = is
+exports.or = or
 exports.isJSON = isJSON
 exports.isArrayOf = isArrayOf

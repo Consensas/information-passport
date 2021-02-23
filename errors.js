@@ -65,6 +65,19 @@ class UnknownSuite extends Error {
 }
 
 /**
+ */
+class DataError extends Error {
+    constructor(error, field, value) {
+        super(`DataError: ${field || error?.field || ""}`)
+
+        this.error = error || null
+        this.statusCode = 500
+        this.field = field
+        this.value = value
+    }
+}
+
+/**
  *  API
  */
 exports.InvalidField = InvalidField
@@ -72,3 +85,4 @@ exports.InvalidSignature = InvalidSignature
 exports.InvalidChain = InvalidChain
 exports.NotImplemented = NotImplemented
 exports.UnknownSuite = UnknownSuite
+exports.DataError = DataError

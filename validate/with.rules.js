@@ -49,6 +49,8 @@ const with_rules = async (verified, rules) => {
     const ip = require("..")
     const sift = require("sift")
 
+    ip.is.Verified(verified)
+
     verified = Object.assign({}, verified)
     verified.rule_accepts = []
     verified.rule_rejects = []

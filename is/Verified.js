@@ -29,8 +29,8 @@ const _util = require("./_util")
  */
 exports.Verified = verified => {
     _util.is(verified, _.isPlainObject, "Verified")
-    _util.is(verified.proof, _.isPlainObject, "Verified.proof")
+    _util.is(verified.proof, _util.or(_.isPlainObject, _.isNull), "Verified.proof")
     _util.is(verified.json, _util.isJSON, "Verified.json")
-    _util.is(verified.credentialTypes, _util.isArray(_.isString), "Verified.credentialTypes")
+    _util.is(verified.credentialTypes, _util.isArrayOf(_.isString), "Verified.credentialTypes")
     _util.is(verified.chain, _util.isArrayOf(_.isPlainObject), "Verified.json")
 }
