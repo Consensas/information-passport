@@ -38,10 +38,28 @@ const WRITE = process.env.WRITE === "1"
 const DUMP = process.env.DUMP === "1"
 
 describe("sign", function() {
+    const VERIFIER = "https://example.com/i/pat/keys/5"
+    const MESSAGE = {
+        "@context": {
+            "schema": "http://schema.org"
+        },
+        "schema:hello": "world",
+        "schema:name": "david",
+    }
+    const MESSAGE_FULL_CONTEXT = {
+        "@context": [
+            {
+                "schema": "http://schema.org"
+            },
+            "https://w3id.org/security/v2"
+        ],
+        "schema:hello": "world",
+        "schema:name": "david",
+    }
+
     before(function() {
         _util.shims_on()
     })
-
     after(function() {
         _util.shims_off()
     })
@@ -55,19 +73,10 @@ describe("sign", function() {
             const NAME = `sign/01.${suite}.json`
             const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
 
-            const message = {
-                "@context": {
-                    "schema": "http://schema.org"
-                },
-                "schema:hello": "world",
-                "schema:name": "david",
-            }
-            const verifier = "https://example.com/i/pat/keys/5"
-
             const signed = await ip.crypto.sign({
-                json: message, 
+                json: MESSAGE, 
                 privateKeyPem: private_pem, 
-                verification: verifier,
+                verification: VERIFIER,
                 suite: suite,
             })
 
@@ -86,4 +95,70 @@ describe("sign", function() {
             }
         })
     }
+
+    it("default suite", async function() {
+        const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
+        const signed = await ip.crypto.sign({
+            json: MESSAGE, 
+            privateKeyPem: private_pem, 
+            verification: VERIFIER,
+        })
+
+        if (DUMP) {
+            console.log(JSON.stringify(signed, null, 2))
+        }
+
+        const got = signed.proof.type
+        const want = "RsaSignature2018"
+        assert.deepEqual(got, want)
+    })
+
+    it("RsaSignature2018: vagaries in @context expansion (coverage)", async function() {
+        const private_pem = await fs.promises.readFile(path.join(FOLDER, "private.key.pem"))
+        const signed = await ip.crypto.sign({
+            json: MESSAGE_FULL_CONTEXT, 
+            privateKeyPem: private_pem, 
+            verification: VERIFIER,
+        })
+
+        if (DUMP) {
+            console.log(JSON.stringify(signed, null, 2))
+        }
+
+        const got = signed["@context"]
+        const want = MESSAGE_FULL_CONTEXT["@context"]
+        assert.deepEqual(got, want)
+    })
+
+    it("BbsBlsSignature2020: expected fail", async function() {
+        try {
+            const signed = await ip.crypto.sign({
+                json: MESSAGE, 
+                privateKeyPem: await fs.promises.readFile(path.join(FOLDER, "private.key.pem")),
+                verification: VERIFIER,
+                suite: "BbsBlsSignature2020",
+            })
+        } catch (error) {
+            assert.ok(error instanceof ip.errors.NotImplemented)
+            return
+        }
+
+        assert.ok(false, "should not get here")
+    })
+
+    it("weird signature: expected fail", async function() {
+        try {
+            const signed = await ip.crypto.sign({
+                json: MESSAGE, 
+                privateKeyPem: await fs.promises.readFile(path.join(FOLDER, "private.key.pem")),
+                verification: VERIFIER,
+                suite: "UNKNOWN",
+            })
+        } catch (error) {
+            assert.ok(error instanceof ip.errors.UnknownSuite)
+            return
+        }
+
+        assert.ok(false, "should not get here")
+    })
 })

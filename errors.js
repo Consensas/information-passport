@@ -42,8 +42,32 @@ class InvalidChain extends Error {
 }
 
 /**
+ */
+class NotImplemented extends Error {
+    constructor(error, message) {
+        super(`NotImplemented: ${error?.message || message || ""}`)
+
+        this.error = error || null
+        this.statusCode = 500
+    }
+}
+
+/**
+ */
+class UnknownSuite extends Error {
+    constructor(error, message) {
+        super(`UnknownSuite: ${error?.message || message || ""}`)
+
+        this.error = error || null
+        this.statusCode = 500
+    }
+}
+
+/**
  *  API
  */
 exports.InvalidField = InvalidField
 exports.InvalidSignature = InvalidSignature
 exports.InvalidChain = InvalidChain
+exports.NotImplemented = NotImplemented
+exports.UnknownSuite = UnknownSuite

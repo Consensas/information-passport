@@ -83,7 +83,8 @@ const _RsaSignature2018 = async paramd => {
 /**
  */
 const _BbsBlsSignature2020 = async paramd => {
-    throw new Error("BbsBlsSignature2020: not implemented yet")
+    const ip = require("..")
+    throw new ip.errors.NotImplemented(null, "BbsBlsSignature2020")
 }
 
 /**
@@ -136,8 +137,10 @@ const _ConsensasRSA2021 = async paramd => {
  *  paramd.suite: signing suite, by default "ConsensasRSA2021"
  */
 const sign = async paramd => {
+    const ip = require("..")
+
     paramd = Object.assign({}, paramd || {})
-    paramd.suite = paramd.suite || "ConsensasRSA2021"
+    paramd.suite = paramd.suite || "RsaSignature2018"
 
     switch (paramd.suite) {
     case "ConsensasRSA2021":
@@ -150,7 +153,7 @@ const sign = async paramd => {
         return _BbsBlsSignature2020(paramd)
 
     default:
-        throw new Error("unknown signing suite: " + paramd.suite)
+        throw new ip.errors.UnknownSuite(null, paramd.suite)
     }
 }
 
