@@ -1,0 +1,17 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "vc": "https://www.w3.org/2018/credentials/v1/"
+  },
+  "@type": [
+    "vc:VerifiableCredential"
+  ],
+  "vc:issuer": "https://passport.consensas.com",
+  "vc:issuanceDate": "2021-01-18T10:10:26.179Z",
+  "vc:credentialSubject": {
+    "@context": {
+      "schema": "http://schema.org/",
+      "vc": "https://www.w3.org/2018/credentials/v1/"
+    }
+  }
+}

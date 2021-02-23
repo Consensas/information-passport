@@ -33,6 +33,9 @@ const yaml = require("js-yaml")
 /**
  *  Shims
  */
+const TEST_NOW = "2021-01-18T10:10:26.179Z"
+const TEST_NONCE = "123456789"
+
 const _crypto_util = require("../crypto/_util")
 let make_timestamp = _crypto_util.make_timestamp
 let make_nonce = _crypto_util.make_nonce
@@ -41,10 +44,10 @@ const _validate_util = require("../validate/_util")
 let make_now = _validate_util.make_now
 
 const shims_on = () => {
-    _crypto_util.make_timestamp = () => "2021-01-18T10:10:26.179Z"
-    _crypto_util.make_nonce = () => "123456789"
+    _crypto_util.make_timestamp = () => TEST_NOW
+    _crypto_util.make_nonce = () => TEST_NONCE
 
-    _validate_util.make_now = () => new Date("2021-01-08T10:10:26.179Z")
+    _validate_util.make_now = () => new Date(TEST_NOW)
 }
 
 const shims_off = () => {
@@ -96,6 +99,9 @@ const read_yaml = async (filename) => {
 /**
  *  API
  */
+exports.TEST_NOW = TEST_NOW
+exports.TEST_NONCE = TEST_NONCE
+
 exports.shims_on = shims_on
 exports.shims_off = shims_off
 

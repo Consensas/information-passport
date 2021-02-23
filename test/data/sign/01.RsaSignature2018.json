@@ -10,7 +10,7 @@
   "proof": {
     "type": "RsaSignature2018",
     "created": "2021-01-18T10:10:26Z",
-    "jws": "eyJhbGciOiJQUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..YYnaQkyRo1fky-PC9u2z6KN-9pzmn96Eog-fas3NtRXbaYTzKiaLRCKGG9pki2sKmvFU_ZsKnZVH4ZnwLm9Cf7Rnus9hluDFKPnU01elmjytWsVh_2TQH4LPlXoNgZlzLMRQUuZHov_SA_OEpCw90eqOCyaArpU8lQQOlb45J6HWhhlAZVv6oHXa1segpXQpU05xrnYGO_dJxT-WyK1vbEgEZL2io0aL8xhvnoYtank0di0Cq2NUuS0y4aKCrELfd8PFh08NrkadkZvFymCDpWUrDNeX-ZVm2ak0oHTJqE55RToaNNRQzik14OsgQFPC9UK2vlYOVaBSA00sFhn-cg",
+    "jws": "eyJhbGciOiJQUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Qdyeudlc6HHKZVLqnibYa6mny5Oz7uCuDq2pAPjgHUrUZz8MyQvia9ZVhJtMY1aQhqOKAZwU_J_--HoMh7DER9ldjzHdao29YOAWct0eJmnMUbOeRzqCUn5W5y_2YAO_1gkvts682yfxepy_yJVG6QArqIRdo3mdPyRGG-kixB0NjGvPP-b3tmnTRA-I7GHhQnlZxcjh7oB2vCEnLarf96gd_LlPcDc6SufPx0Y25VVPKzGzLt3gesk0L5EqNuJs-pR4znMm8wvJOphz64gBVN5A-qHuGoFMOqD6nn99fQvGyDybFgULKb8_QlIun4Z_tGkNCSIfrOdZrN1julnidA",
     "proofPurpose": "assertionMethod",
     "verificationMethod": "https://example.com/i/pat/keys/5"
   }

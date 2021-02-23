@@ -31,12 +31,14 @@ const make = async (paramd) => {
     const ip = require("..")
 
     paramd = Object.assign({}, paramd || {})
+    paramd.context = paramd.context ?? ip.context
+
     const vc = {
-        "@context": ip.context,
+        "@context": paramd.context,
         "@type": _util.coerce.list(paramd.credentialTypes, [ "vc:VerifiableCredential" ]),
         "vc:issuer": paramd.issuer ?? "https://passport.consensas.com",
-        "vc:issuanceDate": paramd.issuanceDate ?? new Date().toISOString(),
-        "vc:credentialSubject": await jsonld.compact(paramd.credentialSubject, ip.context),
+        "vc:issuanceDate": paramd.issuanceDate ?? _util.make_timestamp(),
+        "vc:credentialSubject": await jsonld.compact(paramd.credentialSubject, paramd.context),
     }
 
     return vc

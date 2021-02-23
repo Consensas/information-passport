@@ -2,7 +2,7 @@
   "proof": {
     "type": "RsaSignature2018",
     "created": "2021-01-18T10:10:26Z",
-    "jws": "eyJhbGciOiJQUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..eqNPo0JEA1Pb3SO1BXs2qop2H8BFAzSPD-r9DbGbmFuegx_QwJQhur5D8SaAjldcfAR_HRYaedUTw88VSkFl36lx24JPc2uvxekOa2dKJGzk8bUfETBd8Oow8H6uBp2ofnmCKJdAUHH04Izrw1VJy7GhFfb1QXMIwzQB2oDxjaoCmmRtBV1SGzHzNyT1Cj_TFFDt_6DBlbTNvvTtfFif6vaUVyrFEikIWUdZUfwR7G7cDGxaCREYr23BgTp1xKWl2u4_UnNyn2hVyyiHG2SRVCF4wC70u9Q2kWp-fqv9bn4SvEJlTcRI1WNIB0QhChIpDwRs0lJ9Wc-Pbjfbv9rHhQ",
+    "jws": "eyJhbGciOiJQUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..FCCbxxt-nBv7fq10wxAZJOt6x-9tvq-kGCkP-_bN4HHzjFCXM2IEp1_ilXYbqKHy_ODzSUN7EdBveCtz_GJYpMg-eyhFBeZ4pnfxWgCEAt4_dp2RGR6t7AymVh9pqYF3vVFBPEQ5qyW6mE9q21UOFwaLaQTZcgQdnA6A_DRD3KdmBup0XIYOXo1hsDqIXNYrT9P2GMQZ7vC9-e8iAVwGCWB-3ASUDAtgzAJ0PXb52C19G2sI5FUDTTfS7K9MD9VkYsKK-SgC_oUiBMuJ1qD_xEVpRfusED1gfhd3LbERVnBz-QfjZXunUKixydVfE9HRT6IptZfz6pbIotSaXCx-OQ",
     "proofPurpose": "assertionMethod",
     "verificationMethod": "https://example.com/i/pat/keys/5"
   },
@@ -17,7 +17,7 @@
     "proof": {
       "type": "RsaSignature2018",
       "created": "2021-01-18T10:10:26Z",
-      "jws": "eyJhbGciOiJQUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..eqNPo0JEA1Pb3SO1BXs2qop2H8BFAzSPD-r9DbGbmFuegx_QwJQhur5D8SaAjldcfAR_HRYaedUTw88VSkFl36lx24JPc2uvxekOa2dKJGzk8bUfETBd8Oow8H6uBp2ofnmCKJdAUHH04Izrw1VJy7GhFfb1QXMIwzQB2oDxjaoCmmRtBV1SGzHzNyT1Cj_TFFDt_6DBlbTNvvTtfFif6vaUVyrFEikIWUdZUfwR7G7cDGxaCREYr23BgTp1xKWl2u4_UnNyn2hVyyiHG2SRVCF4wC70u9Q2kWp-fqv9bn4SvEJlTcRI1WNIB0QhChIpDwRs0lJ9Wc-Pbjfbv9rHhQ",
+      "jws": "eyJhbGciOiJQUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..FCCbxxt-nBv7fq10wxAZJOt6x-9tvq-kGCkP-_bN4HHzjFCXM2IEp1_ilXYbqKHy_ODzSUN7EdBveCtz_GJYpMg-eyhFBeZ4pnfxWgCEAt4_dp2RGR6t7AymVh9pqYF3vVFBPEQ5qyW6mE9q21UOFwaLaQTZcgQdnA6A_DRD3KdmBup0XIYOXo1hsDqIXNYrT9P2GMQZ7vC9-e8iAVwGCWB-3ASUDAtgzAJ0PXb52C19G2sI5FUDTTfS7K9MD9VkYsKK-SgC_oUiBMuJ1qD_xEVpRfusED1gfhd3LbERVnBz-QfjZXunUKixydVfE9HRT6IptZfz6pbIotSaXCx-OQ",
       "proofPurpose": "assertionMethod",
       "verificationMethod": "https://example.com/i/pat/keys/5"
     }
