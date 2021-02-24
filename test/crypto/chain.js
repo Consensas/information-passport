@@ -104,7 +104,18 @@ describe("chain", function() {
         assert.ok(false)
     })
 
+    // this chain doesn't validate all the way up
     it("public key + invalid chain (expected fail)", async function() {
+        const pem = await _util.read_file("chain/chain-invalid.pem")
+
+        try {
+            const chain = await ip.crypto.chain(pem)
+        } catch (error) {
+            assert.ok(error instanceof ip.errors.InvalidChain)
+            return
+        }
+
+        assert.ok(false)
     })
 
     it("bad data (expected fail)", async function() {

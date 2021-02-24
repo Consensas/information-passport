@@ -52,12 +52,16 @@ const chain = async (chain_pem) => {
 
     // validate the chain
     try {
-        const store = forge.pki.createCaStore([ cert_pems.join("\n") ]);
+        const store = forge.pki.createCaStore([ cert_pems[cert_pems.length - 1] ])
+
+        forge.pki.verifyCertificateChain(store, 
+            cert_pems.map(pem => forge.pki.certificateFromPem(pem))
+        )
     } catch (error) {
         throw new errors.InvalidChain(error)
     }
 
-    // build the chain
+    // build the chain result
     const chain = certs.map(cert => {
         const d = {}
 
