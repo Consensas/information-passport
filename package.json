@@ -10,8 +10,7 @@
         "lodash": "~4.17.21", 
         "node-forge": "~0.10.0", 
         "node-jose": "~2.0.0", 
-        "sift": "~13.5.0", 
-        "validatorjs": "~3.22.1"
+        "sift": "~13.5.0"
     }, 
     "description": "Information Passport Open Source Code", 
     "homepage": "https://consenas.com", 
