@@ -39,7 +39,15 @@ const chain = async (chain_pem) => {
 
     const certs = []
     for (let pem of cert_pems) {
-        certs.push(await forge.pki.certificateFromPem(pem, "pem"))
+        try {
+            certs.push(await forge.pki.certificateFromPem(pem, "pem"))
+        } catch (error) {
+            throw new errors.InvalidChain(error)
+        }
+    }
+
+    if (certs.length === 0) {
+        return []
     }
 
     // validate the chain
@@ -67,7 +75,7 @@ const chain = async (chain_pem) => {
     if (public_pem && certs[0]) {
         const public_key = await forge.pki.publicKeyFromPem(public_pem, "pem")
         if (!_.isEqual(public_key.n, certs[0].publicKey.n) || !_.isEqual(public_key.e, certs[0].publicKey.e)) {
-            throw new errors.InvalidChain(error)
+            throw new errors.InvalidChain(null, "public key does not match cert")
         }
     }
 
