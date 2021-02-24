@@ -1,0 +1,25 @@
+[
+  {
+    "CN": "urn:consensas:organization:0200",
+    "fingerprint": "A5:00:76:D6:5C:3C:3B:24:E3:CA:4F:5B:E1:A3:6D:0D:CB:28:4D:93"
+  },
+  {
+    "C": "CA",
+    "ST": "Ontario",
+    "O": "Consensas, Inc.",
+    "OU": "Consensas Certificate Authority",
+    "CN": "Consensas Intermediate CA",
+    "E": "ca@consensas.com",
+    "fingerprint": "29:C5:FE:B5:35:5D:14:28:A4:57:33:AA:D7:2E:9F:EC:7D:23:3F:93"
+  },
+  {
+    "C": "CA",
+    "ST": "Ontario",
+    "L": "Toronto",
+    "O": "Consensas, Inc.",
+    "OU": "Consensas Certificate Authority",
+    "CN": "Consensas Root CA",
+    "E": "ca@consensas.com",
+    "fingerprint": "96:60:70:7F:6B:35:14:E8:31:15:E8:FF:6F:A1:33:38:00:95:DE:B6"
+  }
+]
