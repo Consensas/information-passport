@@ -44,6 +44,17 @@ class InvalidChain extends Error {
 
 /**
  */
+class InvalidData extends Error {
+    constructor(error, message) {
+        super(`InvalidData: ${message || error?.message || ""}`)
+
+        this.error = error || null
+        this.statusCode = 400
+    }
+}
+
+/**
+ */
 class NotImplemented extends Error {
     constructor(error, message) {
         super(`NotImplemented: ${message || error?.message || ""}`)
@@ -65,6 +76,7 @@ class UnknownSuite extends Error {
 }
 
 /**
+ *  This is for coding errors
  */
 class DataError extends Error {
     constructor(error, field, value) {
@@ -83,6 +95,7 @@ class DataError extends Error {
 exports.InvalidField = InvalidField
 exports.InvalidSignature = InvalidSignature
 exports.InvalidChain = InvalidChain
+exports.InvalidData = InvalidData
 exports.NotImplemented = NotImplemented
 exports.UnknownSuite = UnknownSuite
 exports.DataError = DataError

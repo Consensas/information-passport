@@ -28,60 +28,11 @@ const errors = require("../errors")
 const jsonld = require("jsonld")
 
 /**
- *  public key fingerprint
- */
-const _chain = async (chain_pem) => {
-    const forge = require("node-forge")
-    const ip = require("..")
-
-    const pems = chain_pem
-        .split(/(-----BEGIN [A-Z0-9]+-----.*?-----END [A-Z0-9]+-----\n)/s)
-    const cert_pems = pems
-        .filter(part => part.startsWith("-----BEGIN CERTIFICATE"))
-
-    const certs = []
-    for (let pem of cert_pems) {
-        certs.push(await forge.pki.certificateFromPem(pem, "pem"))
-    }
-
-    // validate the chain
-    try {
-        const store = forge.pki.createCaStore([ cert_pems.join("\n") ]);
-    } catch (error) {
-        throw new errors.InvalidChain(error)
-    }
-
-    // build the chain
-    const chain = certs.map(cert => {
-        const d = {}
-
-        cert.subject.attributes.forEach(attribute => {
-            d[attribute.shortName] = attribute.value
-        })
-
-        d.fingerprint = ip.crypto.fingerprint(cert)
-
-        return d
-    })
-    
-    // if there was a public key, make sure it matches the chain leaf
-    const public_pem = pems.find(pem => pem.startsWith("-----BEGIN PUBLIC KEY"))
-    if (public_pem && certs[0]) {
-        const public_key = await forge.pki.publicKeyFromPem(public_pem, "pem")
-        if (!_.isEqual(public_key.n, certs[0].publicKey.n) || !_.isEqual(public_key.e, certs[0].publicKey.e)) {
-            throw new errors.InvalidChain(error)
-        }
-    }
-
-    // return the chain
-    return chain
-}
-
-/**
  */
 const _RsaSignature2018 = async (message, paramd, proof) => {
     const jlds = require("jsonld-signatures")
     const cryptold = require("crypto-ld")
+    const ip = require("..")
 
     const pk = await paramd.fetchVerification(proof)
 
@@ -114,12 +65,17 @@ const _RsaSignature2018 = async (message, paramd, proof) => {
         assertionMethod: [ publicKey.id ]
     };
 
-    const keypair_without_private = new cryptold.RSAKeyPair({
-        ...publicKey, 
-    });
-    const suite_without_private = new jlds.suites.RsaSignature2018({
-        key: keypair_without_private,
-    })
+    let suite_without_private 
+    try {
+        const keypair_without_private = new cryptold.RSAKeyPair({
+            ...publicKey, 
+        });
+        suite_without_private = new jlds.suites.RsaSignature2018({
+            key: keypair_without_private,
+        })
+    } catch (error) {
+        throw new errors.InvalidData(error)
+    }
 
     // verify the signed document
     const result = await jlds.verify(message, {
@@ -135,7 +91,7 @@ const _RsaSignature2018 = async (message, paramd, proof) => {
     }
 
     return {
-        chain: await _chain(pk, null),
+        chain: await ip.crypto.chain(pk, null),
     }
 }
 
@@ -194,14 +150,20 @@ const _CanonicalRSA2021 = async (message, paramd, proof) => {
     // get the cert chain - the top is the leaf, the bottom the CA
     const chain_pem = await paramd.fetchVerification(proof)
 
-    const key = await jose.JWK.asKey(chain_pem, "pem")
+    let key
+    try {
+        key = await jose.JWK.asKey(chain_pem, "pem")
+    } catch (error) {
+        throw new errors.InvalidData(error)
+    }
+
     const result = await jose.JWS.createVerify(key).verify(jws)
     if (!result) {
         throw new errors.InvalidSignature()
     }
 
     return {
-        chain: await _chain(chain_pem, key),
+        chain: await ip.crypto.chain(chain_pem),
     }
 }
 

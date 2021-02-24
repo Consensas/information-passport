@@ -1,9 +1,9 @@
 /*
- *  crypto/index.js
+ *  test/crypto/chain.js
  *
  *  David Janes
  *  Consenas.com
- *  2021-01-12
+ *  2021-02-24
  *
  *  Copyright (2013-2021) Consensas
  *
@@ -22,12 +22,25 @@
 
 "use strict"
 
-module.exports = Object.assign(
-    {},
-    require("./fingerprint"),
-    require("./sign"),
-    require("./verify"),
-    require("./make"),
-    require("./chain"),
-    {},
-)
+const _ = require("lodash")
+const ip = require("../..")
+
+const fs = require("fs")
+const path = require("path")
+const assert = require("assert")
+
+const _util = require("./../_util")
+
+const FOLDER = path.join(__dirname, "..", "..", "test", "data")
+const WRITE = process.env.WRITE === "1"
+const DUMP = process.env.DUMP === "1"
+
+describe("chain", function() {
+    it("chain - expected fail - bad data", async function() {
+        try {
+            await ip.crypto.chain("djkdjkdkd")
+        } catch (error) {
+            assert.ok(error instanceof ip.errors.InvalidChain)
+        }
+    })
+})
