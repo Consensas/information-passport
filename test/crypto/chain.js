@@ -36,7 +36,19 @@ const WRITE = process.env.WRITE === "1"
 const DUMP = process.env.DUMP === "1"
 
 describe("chain", function() {
-    it("chain - expected fail - bad data", async function() {
+    it("public key only", async function() {
+    })
+
+    it("public key + chain", async function() {
+    })
+
+    it("public key + non matching chain (expected fail)", async function() {
+    })
+
+    it("public key + invalid chain (expected fail)", async function() {
+    })
+
+    it("bad data (expected fail)", async function() {
         try {
             await ip.crypto.chain("djkdjkdkd")
         } catch (error) {
