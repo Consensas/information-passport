@@ -97,6 +97,25 @@ const read_yaml = async (filename) => {
 }
 
 /**
+ */
+const write_file = async (data, filename) => {
+    await fs.promises.writeFile(
+        path.join(__dirname, "data", filename), 
+        data
+    )
+}
+
+/**
+ */
+const read_file = async (filename) => {
+    return await fs.promises.readFile(
+        path.join(__dirname, "data", filename), 
+        "utf8"
+    )
+}
+
+
+/**
  *  API
  */
 exports.TEST_NOW = TEST_NOW
@@ -109,3 +128,5 @@ exports.write_json = write_json
 exports.read_json = read_json
 exports.write_yaml = write_yaml
 exports.read_yaml = read_yaml
+exports.write_file = write_file
+exports.read_file = read_file

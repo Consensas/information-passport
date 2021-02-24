@@ -40,6 +40,21 @@ describe("chain", function() {
     })
 
     it("public key + chain", async function() {
+        const NAME = "chain/pk-chain-good.json"
+        const pem = await _util.read_file("chain/pk-chain-good.pem")
+        const chain = await ip.crypto.chain(pem)
+        
+        if (DUMP) {
+            console.log(chain)
+        }
+        if (WRITE) {
+            await _util.write_json(chain, NAME)
+        }
+
+        const got = chain
+        const want = await _util.read_json(NAME)
+
+        assert.deepEqual(got, want)
     })
 
     it("public key + non matching chain (expected fail)", async function() {
